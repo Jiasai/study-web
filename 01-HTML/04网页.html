@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>ES6:let、const和 var</title>
+		<style type="text/css">
+			.main_body{text-align: center;padding: 100px 10px;}
+			.main_body button{
+				width:50px;height: 50px;
+				background: #eee;
+				margin: 0px 5px;
+				border: 1px solid #d6d6d6;
+				font-size: 24px;
+				font-weight: bold;
+				border-radius: 3px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="main_body">
+			<button class="buttn" type="button">01</button>
+			<button class="buttn" type="button">02</button>
+			<button class="buttn" type="button">03</button>
+		</div>
+		
+		
+		
+		<script type="text/javascript">
+			//使用var的形式
+			var btn=document.querySelectorAll(".buttn");			
+			for(var i = 0;i < btn.length;i++){				
+				(function (number){	
+		//通过自执行匿名函数，生成3个函数作用域中的3个变量number	
+					
+					btn[number].addEventListener("click",function(){
+						alert("数字：0"+ number);
+					},false);
+					if(number<=btn.length) number++;
+					
+				})(i)	
+			}
+			  
+			
+			
+			  
+			  
+		</script>
+	</body>
+</html>

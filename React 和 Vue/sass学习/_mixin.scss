@@ -1,0 +1,22 @@
+/*mixin语法：混入*/
+/*解决部分样式代码 抽离 复用*/
+/* 定义1个 mixin函数式语法 叫 ellipsis ，并接收变量参数 $width  */
+@mixin ellipsis($width) {
+    width:$width;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/*通过 @include singleLine-ellipsis去使用这部分被抽离复用的样式 */
+
+/*mixin 还可以接收参数 */
+
+/* 在别的的scss文件内 使用 这个 ellipsis,并传参  */
+.p_text{
+    @include ellipsis(600px);
+}
+
+.content-text{
+    @include ellipsis(1000px);
+}

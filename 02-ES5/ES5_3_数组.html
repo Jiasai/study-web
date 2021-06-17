@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>数组</title>
+	</head>
+	<body>
+
+
+		<script type="text/javascript">
+			// 	var arr1 = [44,55,66,77];
+			// 	var arr2 = new Array(44,55,66,7);
+			// 	var arr3 = new Array(4);
+
+
+			// 	console.log(arr1);
+			// 	console.log(arr2);
+			// 	console.log(arr3);
+
+			// var arr = ["A","B","C","D"];
+
+			// console.log(arr[0]);
+			// console.log(arr[1]);
+			// console.log(arr[2]);
+			// console.log(arr[3]);
+			// console.log(arr.length);
+			// console.log(arr[arr.length-1])
+			// arr[6] = "G";
+			// console.log(arr);
+
+			// var arr2 = [4,5,6,8];
+			// arr2[2]++;
+			// arr2[1] = 9;
+			// console.log(arr2);
+
+			//此处补充代码
+			// var Arr = new Array("《三国演义》", "《红楼梦》", "《西游记》", "《水浒传》");
+
+
+			// for (var i = 0; i < Arr.length; i++) {
+			// 	document.write(Arr[i] + "  ");
+			// }
+			// document.write("<br/>该数组的长度为：" + Arr.length);
+
+			// var TheArr = ["HTML","CSS","JavaScript","HTML5","CSS3"];
+			// for (var i = 0; i < TheArr.length; i++) {
+			// 	document.write(TheArr[i]+"<br/>");
+			// }
+
+			//不停的接收用户输入的员工的工资，直到用户输入“退出”便不再弹出“输入工资”的窗口			
+			//把用户输入的数据保存在一个数组中
+			// var i = 0;
+			// var Arr = new Array(1);
+			// while(true){
+			// 	Arr[i] = prompt("输入工资（数字）：");
+			// 	if(Arr[i] == "退出") break;
+			// 	i++;
+			// }
+			// for(var j = 0; j < Arr.length-1; j++){
+			// 	document.write(Arr[j]+"<br/>")
+			// }
+
+			// var a = "[1,2,3]";
+			// var b = 45;
+			// var c = [6, 7];
+			// var d = null;
+			// var e = undefined;
+			// console.log(Array.isArray(a));
+			// console.log(Array.isArray(b));
+			// console.log(Array.isArray(c));
+			// console.log(Array.isArray(d));
+			// console.log(Array.isArray(e));
+
+			// var Arr = [23,56,12,"ok","no"]
+
+			// Arr.push("中国","Good",12,23);
+			// var item = Arr.pop();
+
+			// Arr.unshift("No","我爱","你",021);
+			// //var item2 = Arr.shift();
+
+
+			//  console.log(Arr);
+			//  console.log(item);
+			// //console.log(item2);
+
+			//  var Arr = [1,2,3,4,5,6];
+			// // Arr.push(7);
+			// // Arr.pop();			
+			// // Arr.unshift("句子:")
+			// // Arr.shift();
+			//  Arr.splice(1,0,"中国","我","爱你");			 
+			//  Arr.splice(1,3,"我","是","河南人","很棒！");
+			// console.log(Arr.length);
+			// // Arr.splice(1,4);
+			//  console.log(Arr);
+
+			// var Arr2 = [1,2,3,4,5,6,7,8,9,10,11];
+			// var NewArr = Arr2.slice(1,5);
+			// var NewArr2 = Arr2.slice(-5,9);
+			// var NewArr3 = Arr2.splice(-5,3);
+			// //console.log(Arr2);
+			// console.log(NewArr);
+			// console.log(NewArr2);
+			// console.log(NewArr3);
+
+			// var Arr = [];
+			// var i = 0;
+			// var on = true;
+			// while (true) {
+			// 	var num = prompt("请输入：")
+			// 	if (num != -1) {
+			// 		Arr[i] = num;
+			// 		if (i >= 2 && on) {
+			// 			var dele = Arr.splice(0, 2, "Hello");
+			// 			i = i - 1;
+			// 			on = false;
+			// 		}
+			// 		i++;
+			// 	} else {
+			// 		break;
+			// 	}
+			// }
+			// document.write(Arr);
+			// document.write("<br/>" + dele);
+			// alert(Arr.length);
+			// Arr.length
+
+			// console.log('gfedcba'.split('').reverse().join(''))
+			// js语法： 连续打点"·"，调用方法；
+
+
+			// 数组反向排序算法：
+			// function arrReverse (Arr) {
+			// 	//return Arr.reverse(); 直接调用方法
+			// 	var Newarr = [];
+			// 	var j = Arr.length-1;
+			// 	for(var i = 0; i < Arr.length; i++){					
+			// 		Newarr[j] = Arr[i];
+			// 		j = j - 1;	
+			// 	}
+			// 	return Newarr;				
+			// }			
+			// var newArr2 = arrReverse(['e','d','c','b','a']);
+			// var newArr3 = arrReverse([5,4,3,2,1]);
+			// console.log(newArr2);
+			// console.log(newArr3);
+
+			//求数组的和、平均数
+			// var Arr = [5,3,2,1,2,3,4];			
+			// var sum = 0;
+			// for(var i = 0; i < Arr.length; i++){
+			// 	sum = sum + Arr[i];				
+			// }
+			// console.log((sum/Arr.length).toFixed(2));
+			//求数组的最大值、最小值
+			// var Arr = [78,65,88,98,65,48,100,41];
+			// var max = Arr[0];
+			// var min = Arr[0];
+			// for (var i = 1; i < Arr.length; i++) {
+			// 	if(Arr[i] > max ) max = Arr[i];
+			// 	if(Arr[i] < max ) min = Arr[i];
+			// }
+			// console.log(max,min);
+
+
+			// var Arr = [1,2,'炸弹',3,4,'炸弹',5];
+			// var sum = 0;
+			// for(var i = 0; i < Arr.length; i++){
+			// 	if(Arr[i] != '炸弹') sum += Arr[i];
+			// }
+			// console.log(sum);				
+
+			// var a = [1,2,3,4];
+			// var b = a;
+			// console.log(a == b);
+
+			// 去掉数组中的"无效"，在原数组中 操作；
+			// var arr=["有效","无效","有效","无效","无效","有效"];
+			// for(var i = 0 , j = 0; i < arr.length; i++){
+			// 	if(arr[i] != '无效'){
+			// 		arr[j] = arr[i];
+			// 		j++;
+			// 	}else{
+			// 		arr.splice(i,1);
+			// 		i--;
+			// 	}
+			// }
+			// console.log(arr);
+
+			// 			// 数组去重并按值的大小排序
+			// 			var arr=[5,4,2,9,2,5,6,1,3,7,9,8,8];
+			// 			var newArr = [];
+			// 			// 数组去重
+			// 			for(var i = 0, j = 0; i < arr.length; i++){				
+			// 				if(!newArr.includes(arr[i])){
+			// 					newArr[j] = arr[i];
+			// 					j++
+			// 				}
+			// 			}
+			// 			//数组值大小排序			
+			// 			var middle;
+			// 			for(var g = 0 ; g < newArr.length; g++){			
+			// 				if(newArr[g]>newArr[g+1]){
+			// 					// 通过中间值middle,交换 g 和 g-1 下标上的数值；
+			// 					middle = newArr[g];
+			// 					newArr[g] = newArr[g+1];
+			// 					newArr[g+1] = middle;
+			// 					// g-1 >= 0 ，保证 g为0 ，第一次不用判断
+			// 					if(g-1 >= 0 && newArr[g] < newArr[g-1]){
+			// //g < g-1,意味着，第2次循环，把第3个值，换第2个值后，第2个值却小于第1个值
+			// // 把 g = 0 , 归零，循环重新开始。
+			// //之所以，设置 g = -1 ,因为 后面 会 执行 g++ 后，才能重新进入循环，正好为 0，重新开始；						
+			// 						g = -1;
+			// 					}	
+			// 				}
+			// 			}
+			// 			console.log(newArr);
+
+
+
+			// var Arr=[5,4,2,9,2,5,6,1,3,7,9,8,8];
+			// //数组去重
+			// var newArr = [];
+			// for(var i = 0 , j = 0; i < Arr.length; i++){
+			// 	if(newArr.indexOf(Arr[i]) === -1){
+			// 		newArr[j] = Arr[i];
+			// 		j++;
+			// 	}
+			// };
+			// //数组按值大小排列
+			// var middle;
+			// for(var g = 0 ; g < newArr.length; g++){
+			// 	if(newArr[g] > newArr[g+1]){
+			// 		middle = newArr[g];
+			// 		newArr[g] = newArr[g+1];
+			// 		newArr[g+1] = middle;
+			// 		if(g-1 >= 0 && newArr[g] < newArr[g-1]){
+			// 			g = -1;
+			// 		}	
+			// 	}
+			// }
+			// console.log(newArr.reverse());
+
+
+
+			// var Arr = [1,2,4,5,6,7,8,9,10];
+			// //从原数组 随机取出三个 放入新数组；
+			// var Result = [];
+
+			// for(var i = 0; i < 3; i++){
+			// 	var n = parseInt(Math.random()*Arr.length);
+			// 	Result.push(Arr[n]);
+			// 	Arr.splice(n,1);
+			// };
+			// console.log(Result);
+
+
+			// var Arr = [5, 3, 6, 4, 2, 1, 8, 9,8,6,5];
+
+			// for (var i = 0; i < Arr.length; i++) {
+			// 	var middle;
+			// 	if (Arr[i] > Arr[i + 1]) {
+			// 		//通过中间的变量交换值
+			// 		middle = Arr[i];
+			// 		Arr[i] = Arr[i + 1];
+			// 		Arr[i + 1] = middle;
+			// 		//交换后的值，与前一个值比较，当前一个值大于它时，
+			// 		if (i - 1 >= 0 && Arr[i - 1] > Arr[i]) {
+			// 			//把 i = 0 ，重启for循环，重头比较
+			// 			i = -1;		
+			// 			// 因为for循环机制，后面 要执行 i++, 所以赋值 i = -1；
+			// 		}
+			// 	}
+			// }
+			// console.log(Arr);
+
+
+			// var a = {
+			// 	name:"张三",
+			// 	age:{
+			// 		boy:"13岁",
+			// 		midle:"26岁"
+			// 	}
+			// }
+			// console.log(a.name+",年龄是"+a.age.midle);  // 连续打点调用
+
+
+			// var Arr = [
+			// 	[1, 2, 3, [56, "中国"]],
+			// 	[6, 5, 4, 7, 8, 0, "河南"],
+			// 	[9, 7, 8, 5],
+			// 	[22, 33, 44, 77, 55, 13]
+			// ]
+			// console.log(Arr[0][3][1])  //嵌套数组
+			// //二维数组
+
+			// for (var i = 0; i < Arr.length; i++) {
+			// 	//console.log(Arr[i])
+			// 	for (var j = 0; j < Arr[i].length; j++) {
+			// 		console.log(Arr[i][j])
+			// 	}
+			// }
+
+
+			// var arr=[
+			// 			["小慕","男",23],
+			// 			["小欧","女",22],
+			// 			["小课","男",24],
+			// 			["小时","女",22],
+			// 			["小码","女",20]
+			// 	]
+
+			// var result = [];	
+			// for (var i = 0; i < arr.length; i++) {
+			// 	for (var j = 0; j < arr[i].length; j++) {
+			// 		if(arr[i][j] == "女"){							
+			// 			result.push(arr[i]);
+			// 		}
+
+			// 	}
+			// }
+
+			// console.log(result);
+
+
+
+			// var arr = [
+			// 	["慕", "课", "网"],
+			// 	["程", "序", "员"],
+			// 	["梦", "工", "厂"]
+			// ];
+
+			// var sum='';
+			// var on = true;
+			// for (var i = 0 ; i < arr.length; i++) {
+			// 	for (var j = 0 ; j < arr[i].length; j++) {
+			// 		sum += arr[i][j];
+			// 		if(j == 2 && on){
+			// 			sum += '，';
+			// 			on = false;
+			// 		};
+			// 	}
+			// }
+			// document.write(sum);
+
+			//数组中，可以放对象
+			// var arr = ['张三', {
+			// 	age: '13岁'
+			// }];
+			// console.log(arr[0] + arr[1].age);
+
+			// //对象中，可以放数组，但是放在“值”上
+			// var obj = {
+			// 	name: '李四',
+			// 	age: ['25岁', '18岁']
+			// }
+			// console.log(obj.name + obj.age[1]);
+
+
+			// var fun = [
+			// 	'张三',
+			// 	function() {
+			// 		alert(this[0] + "踢皮球");//通过this指向本数组
+			// 	}
+			// ]	
+			// fun[1](); //调用数组中的函数
+
+			// var a = {
+			// 		name: 'xm'
+			// 	},
+			// 	b = [4];
+			// b.push(a); //用push 加进去
+			// a = b.slice(0, 1); //用slice 截取子串；
+			// b = b[1];
+			// console.log(a);
+			// console.log(b);
+			
+			// var arr1 = [1,2,3,4,5];
+			// var arr2 = arr1;
+			// // 把arr1的引用地址，赋值给arr2,它们指向堆内存中同一个数组数据，不会产生克隆复制
+			// arr1.push(9);// 修改arr1，等于在修改 arr2
+			// // 数组浅克隆
+			
+			// //结果数组；
+			// var result = [];
+			// for (var i = 0 ; i < arr2.length; i++) {
+			// 	result.push(arr2[i]);
+			// }			
+			// arr1.push('a');
+			// console.log(arr2);
+			// console.log(result);
+			
+			// [1,2,3,4,5,9,"a"]
+			
+			// var arr1 = [1,[2,3]]
+			// var arr2 = [arr1[0],arr1[1]];
+			//  arr1[1].push(4);
+			//  //arr1[1].shift();
+			
+			// console.log(arr2);
+			
+			//浅克隆
+			// var arr=[4,3,[2,5],1,4];
+			// var result = [];
+			// for (var i = 0 ; i < arr.length; i++) {
+			// 	result.push(arr[i]);
+			// }
+			// console.log(result);
+
+			var arr = [];
+			console.log(typeof arr);
+			console.log(Array.isArray(arr));//检测是否是 数组；
+
+
+
+
+
+
+		</script>
+
+	</body>
+</html>
+
+</>

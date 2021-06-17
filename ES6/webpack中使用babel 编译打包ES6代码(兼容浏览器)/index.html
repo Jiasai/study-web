@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>webpack核心概念</title>
+		
+	</head>
+	<body>
+<script type="text/javascript">
+	
+	/* Webpack核心概念:
+	(entry/output等,在 webpack.config.js内设定)
+	entry:(入口)
+	(指定入口文件,总要有一个入口文件,让webpack知道从哪里可以开始打包)
+	（单入口）
+	entry: './src/index.js'
+	// 等价于(多入口写法):
+	entry:{
+		main: './src/index.js',
+		search:'./src/search.js',
+	}	
+	
+	output:(出口)
+
+	output: {
+	  path: path.resolve(__dirname, 'dist'),
+	  filename: 'bundle.js'
+	}
+	ouput(出口),path属性,调用path的resolve方法,__dirname指代当前所在目录,
+	'dist'代表要打包编译放置的dist文件目录,filename就是 输出文件的 名字; 
+
+	如果是指定了多入口,出口文件的名字使用[name]动态替换:
+	
+	output: {
+		path: path.resolve(__dirname, 'dist'),
+		filename: '[name].js'
+	}
+
+	什么是 loader (翻译成 加载器)
+	//webpack 本身就是用来处理js的，通过loader 让 webpack能够去处理那些
+	//非 JS文件的静态模块（css/图片等）  
+	
+	babel-loader: 联通 webpack 和 Babel ,实现在webpack中使用 babel
+	
+	webpack使用 babel-loader,借助 Babel的力量,来先将 js编译一下,然后将 
+	编译完成的js 再交给 webpack 打包;
+	
+	
+	步骤1.安装 babel-loader的包:
+	
+	npm install --save-dev babel-loader@8.1.0 @babel/core@7.11.0 @babel/preset-env@7.11.0
+	// babel-loader包: babel-loader@8.1.0  
+	// babel核心包: @babel/core@7.11.0
+	// babel/preset-env:告诉babel如何转化ES6语法
+	
+	步骤2.配置Babel
+	创建 .babelrc文件,文件填入如下命令:
+	{
+		"presets":["@babel/preset-env"]
+	}
+	
+	步骤3.配置babel-loader //在 webpack.config.js内设定
+	写一个 module对象,跟 entry和 output平级:
+	module:{
+		rules:[
+		  {
+			test:/\.js$/,
+			exclude:/node_moudules/,
+			loader:'babel-loader'
+		  }
+		]
+	}
+	
+	rules:规则,是数组,可以配置很多 loader;
+	每个loader 都是 []中的 一个对象 {};
+	// /\.js$/  正则：所有以.js结尾的文件
+	// /\.css$/  正则：所有以.css结尾的文件	
+	在 命令行工具中 执行 npm run webpack后,test:/\.js$/ ,寻找到以 .js结尾的文件,
+	exclude属性,排除 /node_moudules/ 文件目录的.js文件查找,找到后,
+	把他们交给'babel-loader'来处理
+
+	
+	步骤4.安装 core-js包: //处理 Object.assign()/Array.from()等语法没有被编译的问题
+	
+	npm install --save-dev core-js@3.6.5
+	
+	然后,在入口 index.js文件中,import引入 core-js
+	
+	import "core-js/stable";
+	//引入 core-js处理 ES6 一些API不被编译的问题
+	 
+	
+	步骤5. 命令行工具内,运行命令:  npm run webpack
+	 */
+	
+	// 什么是 plugins?(plugin 翻译为 插件的意思)
+	
+	// loader被用于帮助webpack转换处理各种模块,而插件则可以用于执行范围更广的任务.
+		
+	// 插件目的在于解决 loader 无法实现的其他事。
+	 
+	
+	// 如何在webpack中 配置使用 插件？
+	//html-webpack-plugin 插件为例:
+	//自动嵌入webpack打包好的.js文件到html中，并且把嵌入好的html文件也在 /dist 目录中生成一份；
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</script>
+		
+	</body>
+</html>

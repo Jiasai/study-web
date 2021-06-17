@@ -1,0 +1,13 @@
+<div class="bottomBar">
+    <div class="bottomBar-left">
+        <div class="bottomBar-btn-service">
+            <i class="iconfont icon-service"></i><span>咨询</span>
+        </div>
+        <div class="bottomBar-btn-like">
+            <i class="iconfont icon-collect"></i><span>收藏</span>
+        </div>
+    </div>
+    <div class="bottomBar-right">
+        <div class="bottomBar-btn-addBuy">立即预定</div>
+    </div>
+</div>

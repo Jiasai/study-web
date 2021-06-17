@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "微软雅黑";
+    box-sizing: border-box;
+}
+/* layout */
+.wrap {
+    width:1200px;
+    margin: 0 auto;
+}
+.demo {
+    margin-bottom: 20px;
+}
+.demo {
+    background: #f2f2f2;
+}
+.slider-layout {
+    width: 1200px;
+    height: 300px;
+    margin: 0 auto;
+ 
+
+}
+
+
+h3 {
+    font-size: 32px;
+    color: #696868;
+    font-weight: normal;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* 第二种样式 */
+.tab .slider-layout {
+    height: 360px;
+}
+.tab-slider {
+    padding-top: 60px;
+}
+.tab-slider  .pagination {
+    position: absolute;
+    top:0;
+    width: 100%;
+}
+.tab-slider  .pagination span{
+    float:left;
+    width: 33.33%;
+    line-height: 60px;
+    text-align:center;
+    border-radius:8px;
+    -webkit-border-radius:8px;
+    -moz-border-radius:8px;
+    -ms-border-radius:8px;
+    -o-border-radius:8px;
+}
+.tab-slider .slider-item{
+    top: 60px;
+}
+.tab-slider  .pagination span.active {
+    color: #fff;
+    background: #0058AA;
+}
+
+/* 第三种方式 */
+.pagination-arrow  .arrow div{
+    opacity: 1;
+}
+
+
+
+/* 卡片切换*/
+.kaPian {margin-bottom: 150px;}
+.kaPian .slider-item{
+	   
+}

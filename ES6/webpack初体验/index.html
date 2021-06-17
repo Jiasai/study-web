@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Webpack初体验</title>
+	</head>
+	<!-----原本的ES6文件写的module js代码----->
+	<!-- <script src="src/index.js" type="module"></script> --> <!--在IE浏览器，ES6 module 代码,不被运行-->
+	<!-----使用webpack 打包编译后的js文件运行----->
+	<script src="dist/bundle.js"></script>
+	 <!--在IE浏览器，ES6 module 代码 通过webpack 打包编译为 可以运行的代码被成功执行-->
+	<body>
+		
+	<script type="text/javascript">
+	
+		
+		/* 
+		Webpack 是什么: 
+		
+		Webpack是静态模块打包器, 当 Webpack处理应用程序时,会将所有这些模块打包成一个或多个文件;
+			
+		// (比如js文件,我们写了多个 module模块, 通过 improt'./module.js'等使用,webpack就会自动找到这些模块,帮我们打包起来,放到一快,不至于那么分散。而使用 webpack,配合 Babel 可以将 ES6编译为 兼容各个浏览器版本的 js代码，解决ES6兼容性问题。)
+		
+		比如，用 Babel 配合 webpack 来编译 moudule模块语法，解决兼容性。
+			
+		//Webpack模块：可以处理的最小单位——可以处理的 js / css / 图片 、图标字体等 单位；
+		
+		//静态：
+		// 在开发过程中,存在于本地的 js/css/图片/图标字体等文件,就是静态的.
+		// 动态的内容（比如img的src 是网址URL指向一张网上图片）webpack没办法处理，只能处理静态的。
+		 */
+	/* 	
+	Webpack 中使用 Babel 编译打包 module模块:
+		
+	步骤1: 初始化项目
+	// npm init
+	
+	步骤2: 安装webpack需要的包,
+	npm install --save-dev webpack-cli@3.3.12 webpack@4.44.1
+	
+	步骤3:配置 webpack
+	//在文件目录下，创建文件 webpack.config.js
+	// (webpack要在 Node平台上运行,使用Node模块,不使用 ES6模块. Node.js模块，导入是 require(),导出是 module.exports)	
+	
+	// 把下面的代码 放到 webpack.config.js配置文件内（不带注释文字， webpack官网可复制此段代码）
+	
+	const path = require('path');
+	//导入Node内置的一个模块对象 叫 path
+	
+	module.exports = {
+	  mode:'development', //指定开发模式，不加这条代码，默认生成发布模式（混合打乱）
+	  entry: './src/index.js', //入口文件，把src目录下的index.js文件 ，转化到 dist文件目录下的 bundle.js文件
+	  output: {
+	    path: path.resolve(__dirname, 'dist'), //使用path提供的方法
+	    filename: 'bundle.js'
+	  }
+	};
+	
+		
+	步骤4.编译命令
+	在package.json,文件中的 scripts 中,修改添加: "webpack": "webpack --config webpack.config.js" ,并保存
+	
+	(cmd中运行下面的命令)
+	npm run webpack
+		
+	步骤5.测试
+	将 被编译生成的 bundle.js 文件 引入 html文档 ,查看js代码运行效果;
+		
+	<!-----原本的ES6文件写的module js代码， 在某些IE浏览器内，不被运行，不兼容-->
+	// <script src="src/index.js" type="module"><script> 
+	<!-----使用webpack 打包编译后的js文件----->
+	//<script src="dist/bundle.js"><script>
+	<!--在IE浏览器，ES6 module 代码 通过webpack 打包编译为可以运行的代码被成功执行，可以兼容-->
+		 
+	 */
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	</script>
+		
+	</body>
+</html>

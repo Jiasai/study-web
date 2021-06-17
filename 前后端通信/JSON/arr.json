@@ -1,0 +1,17 @@
+[
+	{
+		"id":"01",
+		"username":"张三",
+		"comment":"很棒！"
+	},
+	{
+		"id":"02",
+		"username":"李四",
+		"comment":"666！"
+	},	
+	{
+		"id":"03",
+		"username":"小明",
+		"comment":"写的真不错！"
+	}
+]

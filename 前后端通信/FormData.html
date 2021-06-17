@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>通过FormData提交表单</title>
+	</head>
+	<body>
+<form id='login' action="https://www.imooc.com/api/http/search/suggest?words=js" method="post" enctype="application/x-www-form-urlencoded">
+	<input type="text" name="username" placeholder="用户名"/>
+	<input type="password" name="password"  placeholder="密码"/>
+	<input id='submit' type="submit" value="登录"/>
+</form>
+<script type="text/javascript">
+	// 使用 Ajax提交表单
+	// 为什么需要 Ajax提交表单？
+	// 因为用form表单直接提交，会发生跳转，
+	// 如果你不希望页面发生跳转,就使用 Ajax提交form表单数据;
+	
+	//获取form表单
+	const login = document.getElementById('login');
+	//直接从login中解构赋值，通过 name名 解构
+	const {username,password} = login;
+	//登录按钮
+	const btn = document.getElementById('submit');
+	
+	//发送请求url
+	const RequestURL = login.action;
+	
+	
+	
+	//绑定按钮事件
+	btn.addEventListener('click',e=>{
+		//阻止表单自动提交
+		e.preventDefault();
+		
+		//表单数据验证...
+		
+		//发送 Ajax请求
+		const xhr = new XMLHttpRequest();
+		xhr.addEventListener('load', () => {
+			if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+			//响应的状态码（请求已经成功）
+			console.log(`%cload事件触发通过addEventListener添加：\n`, "color:green;font-size:18px", `${xhr.response}`); //%c表示css样式
+			}
+		}, false);
+		
+		xhr.open('POST', RequestURL, true);
+		
+		//组装数据
+		//（原始方法，模板字符串手动组装）
+		const data = `username=${username.value}&password=${password.value}`;		
+		//设置Content-Type
+		// xhr.setRequestHeader(
+		// 'Content-Type',
+		// 'application/x-www-form-urlencoded'
+		// );
+		
+		
+		//FormData 用来轻松获得form表单中的大量数据，用于发送
+		//连Content-Type都不需要设置
+		const form_data = new FormData(login);
+		form_data.append('age',18);
+		form_data.append('sex','male');
+		// FormData基本用法
+		// 通过HTML表单元素创建 FormData对象；
+		// const data = new FormData(表单元素);
+		// send(data);
+		
+		// 通过它自己的 append()方法添加数据
+		// form_data.append('age',18);
+		
+		// IE10及以上支持 FormData
+		
+		
+		//发送
+		xhr.send(form_data);
+		
+		
+	},false);
+	
+	
+</script>
+</body>
+</html>

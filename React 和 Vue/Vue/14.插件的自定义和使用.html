@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>插件的自定义和使用</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      //plugin 插件 :也是为了把通用性的功能封装起来
+      //对数据做校验的插件
+      //定义插件，也可以直接用函数的形式
+      const validatorPlugin = (app, options) => {
+        app.mixin({
+          created() {
+            for (const key in this.$options.rules) {
+              const item = this.$options.rules[key];
+              this.$watch(key, (newValue, old) => {
+                //$watch方法，默认接收2个参数，新的改变的值和原有的值
+                //console.log('旧的值：'+old);
+                const result = item.validate(newValue);
+                if (!result) alert(item.message);
+              });
+            }
+          },
+        });
+      };
+
+      const app = Vue.createApp({
+        data() {
+          return {
+            name: "Dell",
+            age: 28,
+            sex: "女",
+          };
+        },
+        rules: {
+          age: {
+            validate: (age) => age > 18,
+            message: "年龄小于标准",
+          },
+          name: {
+            validate: (name) => name.length <= 4,
+            message: "name长度多场",
+          },
+          sex: {
+            validate: (sex) => sex == "男" || sex == "女",
+            message: "性别错误",
+          },
+        },
+        template: `
+        <div>name:{{name}},age:{{age}},性别:{{sex}}</div>
+        `,
+      });
+
+      app.use(validatorPlugin); //使用插件
+
+      const vm = app.mount("#root");
+
+    </script>
+  </body>
+</html>

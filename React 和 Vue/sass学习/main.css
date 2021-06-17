@@ -1,0 +1,129 @@
+@charset "UTF-8";
+.header {
+  font-size: 12px;
+}
+
+.content span {
+  color: red;
+}
+
+.content span:active {
+  color: green;
+}
+
+.content span:hover {
+  color: blue;
+}
+
+.content div {
+  color: red;
+}
+
+.content div:active {
+  color: green;
+}
+
+.content div:hover {
+  color: blue;
+}
+
+/*sass知识点 ：变量*/
+/*通过定义变量 $text-color，解决重复的公共样式设置问题,变量一定要定义在上面，因为从上往下编译执行*/
+/*变量可以做 加减乘除 运算*/
+/*使用 sass变量时，还有 公共的函数我们可以使用:lighten()/darken()等*/
+/* 定义变量 */
+/* 使用变量 */
+.title {
+  color: #777777;
+  font-size: 17px;
+  font-family: "microsoft yahei";
+}
+
+.subtitle {
+  color: #111111;
+  font-size: 17px;
+  font-family: "microsoft yahei";
+}
+
+.text {
+  color: #444;
+  font-size: 17px;
+  font-family: "microsoft yahei";
+}
+
+/*嵌套 和 引入*/
+/*嵌套语法*/
+div span {
+  color: red;
+}
+
+div span a {
+  color: blue;
+}
+
+/*引入scss文件,可以对 scss代码拆分，提升维护性*/
+/* 在别的文件 引入 viribles.scss文件，使用变量 */
+/*viribles文件,不需要被编译生成css样式文件，可以在命名时 前面 加 '_',定义私有的.scss文件,就不会被生成了*/
+/* 定义变量 */
+.footer {
+  color: red;
+  background-color: orange;
+}
+
+.main {
+  color: orange;
+}
+
+/*mixin语法：混入*/
+/*解决部分样式代码 抽离 复用*/
+/* 定义1个 mixin函数式语法 叫 ellipsis ，并接收变量参数 $width  */
+/*通过 @include singleLine-ellipsis去使用这部分被抽离复用的样式 */
+/*mixin 还可以接收参数 */
+/* 在别的的scss文件内 使用 这个 ellipsis,并传参  */
+.p_text {
+  width: 600px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.content-text {
+  width: 1000px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media screen and (min-width: 768px) {
+  .footer {
+    width: 500px;
+  }
+  .main {
+    color: #000;
+  }
+}
+
+/*定义一个 mixin语法,配合 @content*/
+/* 使用这个mixin语法 */
+.footer {
+  width: 1000px;
+}
+
+@media screen and (min-width: 768px) {
+  .footer {
+    height: 100px;
+    width: 500px;
+  }
+}
+
+.main {
+  color: red;
+}
+
+@media screen and (min-width: 768px) {
+  .main {
+    height: 200px;
+    color: #000;
+  }
+}
+/*# sourceMappingURL=main.css.map */

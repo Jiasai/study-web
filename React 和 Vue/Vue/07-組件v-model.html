@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue組件</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+    const Counter={
+    props:{   
+       message:null,
+       app:Number,
+    },
+
+    methods:{
+        handleItemClick(){        
+        this.$emit('update:app',this.app + 3);
+        }
+    },
+    template:`
+    <div @click='handleItemClick'>{{app}}<br/>{{message}}</div>
+    `
+}
+
+const app = Vue.createApp({
+    data(){
+        return{
+          params:{
+            message:'Hello,world',
+            count:1
+          }
+        }
+    },
+    components:{
+        Counter
+    },
+
+    template:`
+    <Counter 
+    v-bind='params'
+    v-model:app='params.count'
+    />
+    `
+});
+
+const vm =app.mount('#root');
+    </script>
+  </body>
+</html>

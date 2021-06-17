@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>webpack应用</title>
+	
+	</head>
+	<body>
+	<div class="header"><img src="src/images/meau.png" ></div>
+	<div class="ban"></div>
+	<p>webpack应用：处理css模块、js文件、图片</p>
+	<div class='KClist' id='kechengList'></div>
+<script type="text/javascript"> 
+/* webpack的应用:打包处理 css文件模块、
+
+步骤1: .js文件引入.css文件
+在 index.js中(其他文件也可以),通过import引入css文件:import './index.css';
+
+步骤2:安装webpack处理css文件的 loader:
+
+npm install --save-dev css-loader@4.1.1
+	//(上面的loader,识别css文件模块)
+npm install --save-dev style-loader@1.2.1
+	//(上面的style-loader,把css放到html文档中,内联<style>标签的形式引进来)
+	//(很多时候,我们需要通过 link标签引进css文件,需要使用下面的插件:)
+npm install --save-dev mini-css-extract-plugin@0.9.0
+	
+步骤3:配置 webpack.config.js文件:
+	
+步骤4: 当前目录下, CLI 命令行工具中,执行命令: npm run webpack */
+	
+	// 使用file-loader处理处理css中引用的本地图片
+	
+	// //如果是外部的资源，是不需要考虑 webpack的，只有本地的图片才需要被 webpack处理
+	
+	// //安装 file-loader 处理css中引用的本地图片	
+	// npm install --save-dev file-loader@6.0.0
+	
+	// //安装 html-withimg-loader处理HTML中的图片
+	// npm install --save-dev html-withimg-loader@0.1.16
+	
+	// //使用file-loader处理js中的图片
+	
+	// //使用 url-loader处理图片（统一使用url-loader处理图片，前提也要先安装 file-loader）
+	
+	// npm install --save-dev url-loader@4.1.0
+		
+		
+		
+		
+		
+			
+</script>
+		
+
+	</body>
+</html>

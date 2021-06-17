@@ -1,0 +1,7 @@
+AppID(小程序ID)	wxc1ac8ebafb26424e
+
+服务器域名
+request合法域名	https://www.fastmock.site
+
+
+

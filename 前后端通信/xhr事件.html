@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>XHR事件</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			const url1 = 'https://www.imooc.com/api/http/json/search/suggest?words=js'; //后端提供支持发送JSON的接口
+			const ErrorURL = 'https://www.iimooc.com/api/http/json/search/suggest?words=js'; //后端提供支持发送JSON的接口
+			const xhr = new XMLHttpRequest();
+
+			xhr.onreadystatechange = () => {
+				if (xhr.readyState !== 4) return;
+				if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+					console.log(`%conreadystatechange事件触发：\n`, "color:green;font-size:18px", `${xhr.response}`);
+				}
+			}
+
+			//load事件
+			//响应数据可用时触发，可以代替onreadystatechange
+			//IE6~8不支持 load事件，IE9开始支持
+			xhr.addEventListener('load', () => {
+				if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+					//响应的状态码（请求已经成功）
+					console.log(`%cload事件触发通过addEventListener添加：\n`, "color:green;font-size:18px", `${xhr.response}`); //%c表示css样式
+				}
+			}, false);
+
+			//error事件
+			//请求发生错误时触发
+			//IE10开始支持
+			xhr.addEventListener('error', () => {
+				console.log(`%cerror事件：\n`, "color:red;font-size:18px", `请求发生错误`);
+			}, false);
+
+			//abort事件
+			//当在send()后面调用abort()终止请求时，触发abort事件
+			//IE10开始支持
+			xhr.addEventListener('abort', () => {
+				console.log(`%cabort事件：\n`, "color:red;font-size:18px", `在send()后，调用了xhr.abort()方法，终止请求，触发了abort事件；`);
+			}, false);
+
+			//timeout事件
+			//请求超时后触发
+			//IE8开始支持
+			xhr.addEventListener('timeout', () => {
+				console.log(`%ctimeout事件：\n`, "color:red;font-size:18px",
+					`在open()之后，send()之前，设置了xhr.timeout属性，单位毫秒，请求超过了设置时间，\n 触发了timeout事件，取消请求；同时，load事件和onreadystatechange事件，不会被触发；`
+				);
+			}, false);
+
+			xhr.open('POST', url1, true);
+
+			//请求错误地址
+			//xhr.open('POST', ErrorURL, true);
+
+			//设置timeout
+			xhr.timeout = 10;
+
+			xhr.send(JSON.stringify({
+				username: 'alex',
+				age: 18
+			}))
+
+			//xhr.abort();
+			
+		</script>
+	</body>
+</html>

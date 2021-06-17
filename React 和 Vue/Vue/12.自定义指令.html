@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义指令</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .header{
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+//判断类型
+const isObject=(data)=>{
+    //判断对象
+    return (typeof data=='object') && data.constructor==Object;
+    //判断数组
+    // return (typeof data=='object') && data.constructor==Array;
+    //判断函数
+    // return (typeof data=='object') && data.constructor==Function;
+    //判断字符串
+    // return (typeof data=='string') && data.constructor==String;
+    //判断数值
+    // return (typeof data=='number') && data.constructor==Number;
+    //判断日期
+    // return (typeof data=='object') && data.constructor==Date;
+
+}
+const isString=(data)=>{
+    return (typeof data=='string') && data.constructor==String;
+}
+const app = Vue.createApp({
+    data(){
+        return{
+            styles:{
+                top:'500px',
+                height:'120px',
+                left:'100px',
+                background:'blue',
+                fontSize:'24px',
+                color:'#fff',
+                transform:'translateX(-90px)'
+            }
+        }
+    },
+    template:`
+    <div 
+    v-style:style='styles'
+    class='header'>
+      <input />  
+      v-style指令
+    </div>      
+    `
+});
+//定义v-style 全局指令
+app.directive('style',(el,binding)=>{   
+    //判断binding.value如果不是对象或字符串，就报错
+    if(!isObject(binding.value)&&!isString(binding.value)){        
+        throw new Error('数据类型错误');
+        return;
+    }
+    if(binding.arg==='style'&&isObject(binding.value)){
+        for (const item of Object.entries(binding.value)) {
+           const [property,value]=item;
+           el.style[property]=value;
+        }
+    }else{
+        el.style[binding.arg]=binding.value;
+    }
+});
+const vm = app.mount('#root');
+
+
+//定义全局指令：pos
+//可以给指令传参数，进行设置
+//el是你指令挂载使用的 dom节点
+//指令传来的参数，在生命周期函数中，由第二个参数bingding来接收，binding.value就是你指令传来的参数
+/* app.directive('pos',{
+   mounted(el,binding){//组件内容被挂载渲染到页面
+     el.style.top=binding.value+'px';
+   },
+   updated(el,binding){//数据更新完毕，重新渲染时
+     el.style.top=binding.value+'px';
+   }
+}); */
+
+//当你指令中只有 mounted、updated两个生命周期函数，而且这两个生命周期函数基本一致的话，可以用简写的写法：(简写方式，效果是一样的)
+
+
+
+
+</script>
+</body>
+</html>

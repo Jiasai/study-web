@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>事件传播</title>
+	</head>
+	<body>
+		<style type="text/css">
+			* {
+				margin: 0px;
+				padding: 0px;
+				box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				/* Firefox */
+				-webkit-box-sizing: border-box;
+				/* Safari */
+			}
+
+			#box1 {
+				width: 300px;
+				height: 300px;
+				background: #266ee1;
+				color: #fff;
+				margin: 50px auto 0px;
+			}
+
+			#box2 {
+				width: 200px;
+				height: 200px;
+				background: #5792ff;
+				color: #fff;
+				margin: 35px auto;
+			}
+
+			#box3 {
+				width: 100px;
+				height: 100px;
+				background: #fff;
+				color: #000;
+				margin: 30px auto;
+			}
+			#show{font-size: 12px;}
+			#movebox{
+				position: absolute;
+				width: 150px;
+				height: 150px;
+				background: #5c72ff;
+				top:150px;
+				left: 150px;
+				-webkit-transition: all 0.6s;
+				transition: all 0.6s;   
+				display: none;
+			}
+			#btns{margin:15px;}
+		</style>
+		<!-- <div id="box1">我是box1
+			<div id="box2">我是box2
+				<div id="box3">我是box3</div>
+			</div>
+		</div>
+		<div id="show"></div> -->
+		
+		<input type="text" name="" id="fileds" value="" />
+		<div >您输入的字符的字符码是：<span class="info"></span></div>
+		
+		<input type="text" name="" id="fileds2" value="" />
+		<div>您按下的按键的键码是：<span class="info2"></span></div>
+		
+		<div id="movebox"></div>
+		
+		<input type="button" name="" id="btns" value="点我弹出层" />
+		
+		<script type="text/javascript">
+			var oFiled= document.getElementById('fileds');
+			var oInfo =  document.querySelectorAll('.info')[0];
+			
+			var oFiled2= document.getElementById('fileds2');
+			var oInfo2=  document.querySelectorAll('.info2')[0];
+			
+			oFiled.onkeypress = function (e) {
+				
+				oInfo.innerHTML = e.charCode;
+				//用户输入的字符吗 e.charCode不是数字0-9或者不是 a-z小写字母，数字字符码：48-57； 小写字母字符码：97-122
+				if(!(e.charCode>=48 && e.charCode <= 57 || e.charCode>=97 && e.charCode<=122)){
+					//preventDefault()方法 阻止默认事件发生；
+					e.preventDefault();
+				}
+			}
+			oFiled2.onkeydown = function (e) {
+				oInfo2.innerHTML = e.keyCode;
+			}
+			
+			//通过上下左右按键，移动box
+			
+			var moverbox = document.getElementById('movebox');
+			var t = 150;
+			var l = 150;
+			var juli = 30;
+			document.onkeydown = function (e) {
+				switch(e.keyCode){
+					case 37:
+					case 65:
+						l = l-juli;	
+						break;
+					case 38:
+					case 87:
+						t = t-juli;	
+						break;
+					case 39:
+					case 68:
+						l = l+juli;	
+						break;
+					case 40:
+					case 83:
+						t = t+juli;	
+						break;
+				}
+				moverbox.style.left = l + 'px';
+				moverbox.style.top = t + 'px';
+			}
+		
+			//监听document对象按下按键的事件监听
+			
+			
+			//点我弹出层
+			var btns = document.getElementById('btns')
+			
+			btns.addEventListener('click',function (e) {
+				moverbox.style.display = 'block';
+				e.stopPropagation();
+				//阻止事件传播，点击事件不会传播到document，也就不会触发函数
+			},false)
+			
+			document.addEventListener('click',function () {
+				moverbox.style.display = 'none';
+			},false)
+			
+			moverbox.addEventListener('click',function (e) {
+				e.stopPropagation();
+				//阻止事件冒泡传播，点击事件不会传播到document，不触发函数
+			},false)
+			
+			
+			// 鼠标滚动 ，movebox 跟着动
+			
+			document.onmousewheel = function (e) {
+				t = t - e.deltaY / 10;
+				moverbox.style.top = t + 'px';				
+			}
+			moverbox.onmousewheel =function (e) {
+				e.stopPropagation();
+	//阻止事件冒泡传播，不会传播到外层document，不触发document的滚动移动函数
+			}
+			
+			
+		</script>
+		<script type="text/javascript">
+			// var box1 = document.getElementById('box1');
+			// var box2 = document.getElementById('box2');
+			// var box3 = document.getElementById('box3');
+			
+			
+			//var box1 = document.getElementById('box1');
+			// var box2 = document.getElementById('box2');
+			// var box3 = document.getElementById('box3');
+
+			// box1.addEventListener('click',function () {
+			// 	console.log('我是box1的捕获阶段');
+			// },true)
+			
+			// box2.addEventListener('click',function () {
+			// 	console.log('我是box2的捕获阶段');
+			// },true)
+			
+			// box3.addEventListener('click',function () {
+			// 	console.log('我是box3的捕获阶段');
+			// },true)
+			
+			// box3.onclick = function() {
+			// 	console.log("我是box3的onclick");
+			// }
+			// box1.onclick = function() {
+			// 	console.log("我是box1的onclick");
+			// }
+			// box1.addEventListener('click',function () {
+			// 	console.log('我是box1的冒泡阶段');
+			// },false)
+			
+			// box2.addEventListener('click',function () {
+			// 	console.log('我是box2的冒泡阶段');
+			// },false)
+			
+			// box3.addEventListener('click',function () {
+			// 	console.log('我是box3的冒泡阶段');
+			// },false)						
+			
+			// box2.onclick = function() {
+			// 	console.log("我是box2的onclick");
+			// }
+			
+			// var showInfo = document.getElementById('show');
+			
+			// box1.onmousemove = function (e) {
+			// 	showInfo.innerHTML = '鼠标距离距离X/y:<br/>'+
+			// 			'offsetX/Y:'+e.offsetX+'，'+e.offsetY+'<br>'+
+			// 			'pageX/Y:'+e.pageX+'，'+e.pageY+'<br>'+
+			// 			'clientX/Y:'+e.clientX+'，'+e.clientY+'<br>'
+			// }
+			
+			
+		</script>
+
+
+
+
+
+	</body>
+</html>

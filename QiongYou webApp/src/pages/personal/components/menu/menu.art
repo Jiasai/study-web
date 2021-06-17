@@ -1,0 +1,32 @@
+<ul class="personal-menu-container">
+    <li class="personal-menu-items">
+        <a href="" class='menu-items-link'>
+            <p class='menu-items-text'>我的行程计划</p>
+            <i class="iconfont icon-right"></i>
+        </a>
+    </li>
+    <li class="personal-menu-items">
+        <a href="" class='menu-items-link'>
+            <p class='menu-items-text'>我的收藏</p>
+            <i class="iconfont icon-right"></i>
+        </a>
+    </li>
+    <li class="personal-menu-items">
+        <a href="" class='menu-items-link'>
+            <p class='menu-items-text'>售后客服</p>
+            <i class="iconfont icon-right"></i>
+        </a>
+    </li>
+    <li class="personal-menu-items">
+        <a href="" class='menu-items-link'>
+            <p class='menu-items-text'>我的优惠券</p>
+            <i class="iconfont icon-right"></i>
+        </a>
+    </li>
+    <li class="personal-menu-items">
+        <a href="" class='menu-items-link'>
+            <p class='menu-items-text'>常用旅客管理</p>
+            <i class="iconfont icon-right"></i>
+        </a>
+    </li>
+</ul>

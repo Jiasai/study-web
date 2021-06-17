@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teleport、render函数</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+  //Vue的 render函数
+  const myTitle={
+    props:['leave'],   
+    render(){
+        //console.log(Vue); //打印Vue
+        const {h} = Vue; //从Vue中解构出 h函数
+        //调用h()方法，返回1个虚拟DOM
+        const h_title = h(
+            'h'+this.leave,
+            {class:'title',id:'h1'},
+            this.$slots.default()
+            );
+
+        const div_header=h(
+            'div',
+            {class:'header'},
+            '我是第2个h()返回的dom'
+        );  
+        const div_content=h(
+            'div',
+            {class:'content'},
+            [h_title,div_header]
+        );         
+        return div_content;
+    }
+  }
+  const app= Vue.createApp({
+      data(){
+          return{
+              show:false,
+              count:1
+          }
+      },
+      components:{myTitle},
+      template:`
+        <myTitle :leave='count'>
+            Hello,world1
+        </myTitle>
+      `
+  });
+const vm = app.mount('#root');
+// 当我们 使用 template:`<div></div>`模板时，底层是这样运行的：
+// template模板 -> render函数 -> h函数 -> 虚拟DOM（JS对象）->真实DOM -> 展示到页面上
+
+
+    //多次调用 h()方法,并且嵌套，返回嵌套且多层的dom节点
+
+    //<div class='title'>Hello</div>
+    //可以被映射成这样的对象形式的虚拟DOM
+    /* {
+        tagName:'div',
+        text:'hello',
+        attributes:{class:'title'}
+    } */
+    //虚拟DOM就是一个 js对象，它是对一个真实DOM节点的映射描述
+    //虚拟DOM首先，性能高，然后可以 跨平台(对象数据做不同的标签渲染)
+
+
+    /*  template:`
+    <h1 v-if='leave===1'><slot /></h1>
+    <h2 v-if='leave===2'><slot /></h2>
+    <h3 v-if='leave===3'><slot /></h3>
+    <h4 v-if='leave===4'><slot /></h4>
+    <h5 v-if='leave===5'><slot /></h5>
+    ` */
+</script>
+</body>
+</html>

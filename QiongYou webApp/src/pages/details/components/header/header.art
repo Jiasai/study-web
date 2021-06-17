@@ -1,0 +1,7 @@
+<div class="header details-header">
+    <div id="goback" class="details-header-back"><i class="iconfont icon-back"></i></div>
+    <div class="details-header-right">
+        <div id="details-like" class="details-header-like"><i class="iconfont icon-collect"></i></div>
+        <div id="details-share" class="details-header-share"><img src="./Combined Shape@3x.png" alt=""></div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+.main-warp{
+    max-width: 1200px;
+    margin: 50px auto;
+    text-align: center;
+}
+.main-warp h3{
+    font-size: 32px;
+    font-weight: bolder;
+    margin: 0px 0px 100px;
+}

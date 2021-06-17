@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue組件</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      //定义全局组件，通过 component()方法
+      //1.组件是页面上的一部分
+      //2.组件是具备 复用性 和 独立性的（局部作用域）
+      //3.全局组件，只要定义了，处处可以使用，性能不高，但是使用起来简单。名字建议 小写字母单词，中间用横线连接
+      //4.局部组件：定义了，要注册之后才能使用，性能比较高，使用起来有些麻烦。名字建议 大写字母开头，驼峰命名
+      //5.局部组件使用时，要做一个 名字和组件间的映射对象，不写映射，Vue底层也会自动尝试帮你做映射
+      //定义局部组件
+      //定义 1个 对象 counter,对象中有 data属性方法，和teplate属性,实际上这个 counter对象就是一个局部组件
+
+      const counter = {
+        data() {
+          return {
+            count: 1,
+            params: {
+              message: {
+                title: "Hello,world! dell",
+                num: 123,
+              },
+              num: 163,
+              clickfunc(options) {
+                console.log("我是局部组件，且引用了全局组件，且全局" + options);
+              },
+            },
+          };
+        },
+        template: `
+        <div @click='count += 1'>{{count}}</div>
+        <test 
+        :count-abc='count'
+        v-bind='params'
+        />
+    `,
+      };
+      //通过 v-bind='params'传递一个 参数对象params,其中定义了各种数据
+      const app = Vue.createApp({
+        data(){
+            return{
+                params:{
+                    count:2
+                }
+            }
+        },
+        components: {
+          counter,
+        },
+        template: `
+        <div>    
+        <counter />
+        <mess v-bind='params'/>      
+        </div>  
+        <mess v-bind='params'/>      
+        </div>     
+     `,
+      });
+      //动态数据传参
+      //Vue中提供了对传参数数据类型的校验：
+      //type:String、Number、Boolean、Object、Function、Array、Symbol
+      //required:true (必填)
+      //default：默认值
+      //validator(){} 设置对值的校验方法
+      app.component("test", {
+        //接收到params参数对象后通过解构赋值的原理,解构出message,num,clickfunc，且进行参数数据的校验
+        props: {
+          message: Object,
+          num: {
+            type: Number,
+            required: true,
+            validator(value) {
+              return value < 1000;
+            },
+          },
+          clickfunc: {
+            type: Function,
+            default: () => {},
+          },
+          countAbc: null,
+        },
+        methods: {
+          handleClick(options) {
+            this.clickfunc(options);
+          },
+        },
+        mounted() {
+          console.log(this.countAbc);
+        },
+        template: `
+     <div 
+     @click="handleClick('组件传递了参数')"
+     >
+        {{message.title}}-{{message.num}}-{{num}}--{{countAbc}}
+    </div>
+     `,
+      });
+
+    //vue中是 单向数据流：子组件可以使用父组件传递过来的数据，但是绝对不能修改传递来的数据 （避免出现数据耦合）
+    app.component('mess',{
+        data(){
+            return{
+                myCount:this.count
+            }
+        },
+          props:{
+              count:null
+          },
+          template:`
+          <div @click='myCount += 1'>{{myCount}}</div>
+          `
+      });
+
+      //使用局部组件：
+      //在 app根组件中，定义 compoents属性，在对象的值中，把局部组件的变量做进去
+
+      const vm = app.mount("#root");
+    </script>
+  </body>
+</html>

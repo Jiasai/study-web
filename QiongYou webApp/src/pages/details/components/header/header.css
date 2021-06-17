@@ -1,0 +1,37 @@
+
+.header.details-header{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.details-header-back{
+    width: 54px;
+    height: 100%;
+    font-size: 24px;
+    color: #fff;
+    padding-left: 20px;
+    line-height: 50px;
+}
+
+.details-header-right{
+    padding-right: 10px;
+    color: #fff;
+    font-size: 24px;
+   
+}
+
+.details-header-like,.details-header-share{
+    padding: 0px 7px;
+    line-height: 50px;
+}
+.details-header-share{
+    display: flex;
+    align-items: center;
+}
+.details-header-share img{
+    height: 24px;
+}
+.details-header-right{
+    display: flex;
+}

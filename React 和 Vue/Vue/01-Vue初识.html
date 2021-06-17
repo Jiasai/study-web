@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue：初识</title>
+    <!-- 引入CDN的 Vue -->
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="root1"></div>
+    <div id="root2"></div>
+    <div id="root3"></div>
+    <div id="root4"></div>
+    <p>通过子组件形式：</p>
+    <div id="root5"></div>
+    <script>
+      //基础使用
+      Vue.createApp({
+        template: "<div>Hello,world</div>",
+      }).mount("#root");
+      //结合数据和变量
+      Vue.createApp({
+        data() {
+          return {
+            content: 1,
+          };
+        },
+        mounted() {
+          //生命周期函数，挂在后自动执行
+          setInterval(() => {
+            //this.$data.content
+            this.content += 1;
+          }, 500);
+        },
+        template: "<div style='color:red'>{{content}}</div>",
+      }).mount("#root1");
+
+      //Vue是 面向数据编程，数据驱动
+
+      //Vue绑定事件，通过 v-on指令
+      //通过 methods对象定义函数方法
+      Vue.createApp({
+        data() {
+          return {
+            content: "hello,world",
+          };
+        },
+        methods: {
+          handleButtonClick() {
+            //反转字符串
+            this.content = this.content.split("").reverse().join("");
+          },
+        },
+        template: `
+        <div>
+            {{content}}
+            <button v-on:click='handleButtonClick'>反转字符</button>
+        </div>
+        `,
+      }).mount("#root2");
+
+      //v-if指令，值为 bool值,显示、隐藏,值为false,直接从 dom节点上 删除了
+      Vue.createApp({
+        data() {
+          return {
+            show: true,
+            content: "点按钮试试",
+          };
+        },
+        methods: {
+          handleButtonClick() {
+            this.show = !this.show;
+          },
+        },
+        template: `
+        <div>
+            <span v-if='show'>{{content}}</span>
+            <button v-on:click='handleButtonClick'>显示/隐藏</button>
+        </div>
+        `,
+      }).mount("#root3");
+
+      //Vue 循环展示数据,通过 v-for指令，例如 循环li标签，使用 list数据：v-for='item of list' ,循环值是 item,index,是下标。 item和index是可以自定义名称，比如 v-for='(value,id) of list'
+
+      //v-model='inputValue'的意思是input框的value值会和 data里面的一个叫做 inputValue 的变量双向绑定，input输入的内容变化，inputValue也会变化,inputValue变化，input框也会变化
+
+      //{{}} , 学名 mastache语法，只可以放在标签内，不可以直接放在属性里
+
+      //   如果希望数据和 标签属性绑定，需要使用 v-bind指令，例如 v-bind:title='inputValue'
+
+      Vue.createApp({
+        data() {
+          return {
+            inputValue: "",
+            list: [
+              "React Learn",
+              "sass Learn",
+              "Vue3.0 Learn",
+              "node.js Learn",
+            ],
+          };
+        },
+        methods: {
+          handleAddItem() {
+            this.list.push(this.inputValue);
+            this.inputValue = "";
+          },
+          ChangeInput(e) {
+            console.log(e.keyCode);
+          },
+        },
+        template: `
+        <div>          
+        <ul>
+           <li v-for='(item,index) of list'>
+            <span>{{index}}</span>
+            <span>—</span>
+            <span>{{item}}</span>
+            </li>
+        </ul>
+        <input v-model='inputValue' v-on:change='ChangeInput'/>
+        <button v-on:click='handleAddItem' v-bind:title='inputValue'>增加 {{inputValue}}</button>
+        </div>
+        `,
+      }).mount("#root4");
+
+      //创建 Vue的 createApp实例
+      //通过实例的 component方法 注册子组件
+      //通过v-bind属性传递数据,子组件 通过 props 接收数据
+      let app = Vue.createApp({
+        data() {
+          return {
+            inputValue: "",
+            list: [
+              "React Learn",
+              "sass Learn",
+              "Vue3.0 Learn",
+              "node.js Learn",
+            ],
+          };
+        },
+        methods: {
+          handleAddItem() {
+            this.list.push(this.inputValue);
+            this.inputValue = "";
+          },
+          ChangeInput(e) {
+            console.log(e.keyCode);
+          },
+        },
+        template: `
+        <div>          
+        <ul>
+          <toDoItem 
+          v-for='(item,index) of list' v-bind:content='item' 
+          v-bind:index='index'
+          />
+        </ul>
+        <input v-model='inputValue' v-on:change='ChangeInput'/>
+        <button v-on:click='handleAddItem' v-bind:title='inputValue'>增加 {{inputValue}}</button>
+        </div>
+        `,
+      });
+
+      //注册子组件
+      app.component("toDoItem", {
+        data() {
+          return {
+            item: "Hello,world",
+          };
+        },
+        props: ["content", "index"],
+        template: `
+        <li style='color:blue'>{{index}}—{{content}}</li>
+        `,
+      });
+
+      //把实例挂载Dom
+      app.mount("#root5");
+    </script>
+  </body>
+</html>

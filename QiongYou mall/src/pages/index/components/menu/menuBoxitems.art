@@ -1,0 +1,10 @@
+{{each items}}
+<dl>
+    <dt>{{$value.title}}</dt>
+    <dd>
+        {{each $value['cities']}}
+        <a href="{{$value.link}}">{{$value.text}}</a>
+        {{/each}}         
+    </dd>
+</dl>
+{{/each}}

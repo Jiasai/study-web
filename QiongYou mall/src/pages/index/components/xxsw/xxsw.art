@@ -1,0 +1,11 @@
+<section class="xxsw content-part">
+        <div class="center-wrap">
+            <div class="hd clearfix">
+                <h2>新鲜甩尾</h2>
+                <em>每日不可不看的好货</em>
+            </div>
+            <div class="layout-wrap">
+                <% include('../../../../components/loading/loading.art',{inline:false,text:'正在拼命加载'}) %>
+            </div>
+        </div>
+    </section>

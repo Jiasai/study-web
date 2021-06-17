@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>provide 、inject、模板Ref的用法</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+<div id="root"></div>
+<div id="root1"></div>
+<script>
+//composition 中 使用 provide() 和 inject()
+const app = Vue.createApp({
+    setup(){
+        const {ref,provide,readonly}= Vue;
+        const name = ref('Dell')
+        provide('name',readonly(name));
+        provide('changName',(value)=>{
+            name.value = value;
+        })
+        return {}
+    },
+    template:`
+    <div><child /></div>
+    `
+});
+app.component('child',{
+    setup(props,context){
+        const {inject}=Vue;
+        const {emit}=context;
+        const name = inject('name','Hello');   
+        const changName = inject('changName');
+        const handleClick=()=>{
+           //name.value='改成Lee';
+            changName('改成Lee');
+        }
+        return {name,handleClick}
+    },
+    template:`
+    <div @click='handleClick'>{{name}}</div>
+    `
+});
+
+app.mount('#root');
+
+const app1 = Vue.createApp({
+    mounted(){
+        console.log(this.$refs.hello);
+    },
+    setup(){
+        const {ref,provide,readonly,onMounted}= Vue;       
+        const hello=ref(null);
+        onMounted(()=>{           
+            console.log(hello.value)
+        });
+        return {hello}
+    },
+    template:`
+    <div ref='hello'>Hello,world</div>
+    `
+});
+app1.mount('#root1');
+
+
+</script>
+</body>
+</html>

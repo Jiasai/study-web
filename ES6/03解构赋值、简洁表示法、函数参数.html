@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>解构赋值</title>
+	</head
+>	<body>
+		<!-- <p>是个节点</p>
+		<p>是个节点</p>
+		<p>是个节点</p> -->
+		<script type="text/javascript">
+	// 		数组的结构赋值
+	// 		1. 认识数组的解构赋值
+	// 		 const [a,b,c] = [1,2,3];
+	// 		 console.log(a,b,c);   // 1 2 3
+			
+	// 		2.什么事解构赋值
+	// 		解析某一数据的结构,将我们想要的数据提取出来,赋值给变量或常量
+	// 		特点:
+	// 		 1.模式（结构）匹配;
+	// 		 2.索引值相同完全匹配;
+	// 		 const [n,,q] = [2,'中国','河南'];
+	// 		 console.log(n,q);   // 2 河南
+	// 		console.log([2,,,,3].length);  // 5
+			
+	// 		const [a,[,b,],c]= [2,[2,3,4],5];
+	// 		console.log(a,b,c); // 2  3  5		
+	
+	// 		解构赋值默认值:
+	// 		const [a,b] = [];
+	// 		console.log(a,b);  // undefinde  undefinde
+	// 		//取不到值，不想要undefined, 给设置默认值
+	// 		const [c=1,d=2] = ['中国'];
+	// 		console.log(c,d);  // 中国  2
+			
+	// 		默认值生效条件：
+	// 	只有当一个数组成员严格等于（===）undefined时，对应的默认值才会生效
+	// 		const [e=1,f=2] = ['不生效',null];
+	// 		console.log(e,f);  // 不生效  null
+	// 		const [h=1,i=2] = ['生效']; // ['生效',undefined]
+	// 		console.log(h,i); // 生效  2    (对应的默认值生效)
+			
+	// 		3.默认值是表达
+	// 		如果默认值是表达式，默认值是惰性求值的
+	// 		(惰性求值：需要用到才会执行，用不到不执行)
+	// 		const func = () =>{
+	// 			console.log('func被执行了');
+	// 			return 2;
+	// 		}
+	// 	const [x=func()] = ['取到值']; // 默认值是表达式:函数调用，不会执行
+	// 		console.log(x);
+	// 		const [y=func()] = []; // 取不到值，默认值函数被调用执行，返回2
+	// 		console.log(y);
+			
+			
+			//   const arr = ["a",["b","c",["d"],[undefined,"g",["x"],["y"]]],"h",["l"]];
+			// /*补充代码*/
+			//     const [a,[b,c,[d],[j=1,g,[h],[i]]],e,[f]] = arr;
+			//     document.write(`${a}<br>${b}<br>${c}<br>${d}<br>${j}<br>${g}<br>${h}<br>${i}<br>${e}<br>${f}<br>`)
+			
+		// 	1. 常见类数组对象(arguments)的结构赋值
+		// 	function func() {
+		// 		//console.log(arguments);
+		// 	const [a,b,c] = arguments; // arguments是类数组，可以被解构赋值
+		// 		console.log(a,b,c)
+		// 	}
+		// 	func(1,3,'中国');  // 1 3 "中国"
+						
+		// 	//NodeList  节点数组，也可以被解构赋值
+			
+		// 	const nodelist = document.querySelectorAll('p');
+		// 	const [p1,p2,p3] = nodelist;
+		// console.log(p1,p2,p3); //<p>是个节点</>p <p>是个节点</p> <p>是个节点</p>
+			
+			// 2.函数参数的解构赋值
+			//  const Arry= [1,2];
+			//  const add = arr => arr[0] + arr[1]; //箭头函数简写形式
+			//  console.log(add(Arry));	// 将数组作为参数传入			
+			// // 使用函数参数的解构赋值形式：
+			// const add2 = ([x,y]) => x + y; // 参数使用解构赋值形式
+			// console.log(add2(Arry));	
+			
+			
+			// 3.交换变量的值
+			// let h = 1,i = 2;
+			
+			// //引入中间变量，交换值
+			// // let tmp = h; h = i; i = tmp; console.log(h,i);	
+			
+			// [h,i]=[i,h] // 相当于 [h,i] = [2,1]; 等号左边是 放置常量或变量；
+			// console.log(h,i);
+					
+			// const s = '河南';
+			// const aRRy = ['中国',s,'周口']; //变量可以作为一项数据放在数组中
+			// console.log(aRRy);  //["中国", "河南", "周口"]
+			
+			
+			// 对象解构赋值:
+			// 1. 模式(结构)匹配
+			// {} = {}
+			
+			// 2.属性名相同的完成赋值
+			// const {age,name} ={name:'张三',age:18}
+			// console.log(age,name)  // 18 '张三'
+			
+			// 取别名 （属性名先对上，值和值 完成赋值）
+			// const {name:uname,age:auge} ={name:'张三',age:18}
+			// // '张三'赋值给 常量uname, 18 赋值给 uage
+			// console.log(uname,uage, typeof uname);   //张三 18 string
+			
+			// /对象解构赋值的注意事项:
+			//  1.默认值的生效条件
+			//  对象的属性值严格等于undefined 时,对应的默认值才会生效;
+			
+			// const {userName = '张三',age = 0}={userName:'小明'}
+			// console.log(userName,age)  //小明 0
+			
+			// 2.默认值是表达式,默认值是惰性求值的，跟数组解构赋值情况一样;
+			
+			// 3.将一个已经声明的变量用于对象的解构赋值
+			//  整个赋值需要在()圆括号中进行			
+			// // let {x} = {x:1};
+			// // console.log(x);  //正常的
+			
+			// let x =2;
+			// ({x} = {x:1});
+			// console.log(x);  //正常的
+			
+			// // 4.对象的解构赋值 可以获取到 继承的属性
+			// function person(name,age) {
+			// 	this.name = name;
+			// 	this.age = age;
+			// }
+			// person.prototype.say= function () {
+			// 	alert(`${this.name},才${this.age}岁。`);
+			// }
+			// function student(name,age,school) {
+			// 	this.name = name;
+			// 	this.age = age;
+			// 	this.school = school;
+			// }
+			
+			// student.prototype = new person(); //实现继承 子类的原型 = new 实例；
+			
+			// student.prototype.play = function () {
+			// 	alert(`${this.name},${this.age}岁,正在上${this.school}。`);
+			// }
+						
+			// let stu1 = new student('韩梅梅',10,'三年级');
+			
+			// //stu1.say();
+		
+				// let {say} = stu1; // 解构赋值，获得 继承来的 say方法；
+			// console.log(say);
+			
+			// 作为函数参数使用解构赋值
+			
+			// const logInfo = user => console.log(user.name,user.age);
+			// logInfo({name:'张三',age:18});   //张三 18
+			
+			// 使用对象解构赋值的方法:
+			// const logInfo = ({name,age}) => console.log(name,age);
+			// logInfo({name:'张三',age:18});   //张三 18
+			
+			// 复杂的嵌套
+			// const obj = {
+			// 	x:1,
+			// 	y:[2,3,4],
+			// 	z:{
+			// 		a:5,
+			// 		b:6
+			// 	}
+			// }
+			// // const {x,y,z} = obj; 直接解构赋值
+			// // console.log(x,y,z);
+			
+			// // 复杂的获取
+			// const {
+			// 	y,
+			// 	y:[,nu],
+			// 	z,
+			// 	z:{
+			// 	  b
+			// 	}
+			// 	} = obj;
+			// console.log(y,nu,z,b);  // [2, 3, 4] 3 {a: 5, b: 6} 6
+			
+			// let node = {
+			// 	type:'Identifier',
+			// 	name:'ES',
+			// 	loc:{
+			// 		start:['line','column'],
+			// 		end:{
+			// 			line:1,
+			// 			column:4
+			// 		}
+			// 	}
+				
+			// }
+			
+			// const {
+			// 	loc:{start:[a],end:{line:b}}				
+			// } = node;
+			// console.log(a,b);
+			
+			
+		// //字符串的解构赋值
+		// 字符串即可以按照数组的形式来解构赋值, 也可以按照对象的形式来解构赋值
+			
+		// 	//用数组形式来解构( 字符串有索引)	
+		// 	const [a,b,,,c] = 'Hello';
+		// 	console.log(a,b,c);    // H e o
+			
+		// 	// 用对象形式来解构
+		// 	const {0:e,1:d,4:f} = 'Hello';
+		// 	console.log(e,d,f);	   // H e o
+			
+		// const a = new Number(123); // Number是包装类，new出123实例是对象
+		// 	console.log(a+10); // 基本类型new的实例对象，可以正常参与运算
+			
+		//1. 对象字面量是什么	
+		
+			//实例化构造函数生成对象
+			// const person = new Object();
+			// person.age = 18;
+			// person.speak = function () { }
+			
+			
+			//对象字面量
+			
+			// const person = {
+			// 	age:18,
+			// 	speak:function () { }
+			// }
+			
+			// 2. 属性的简洁表示法
+			// 对象键名和变量或常量名称一样,且变量或常量作为键值时,可以只写一个
+			// const age = 18;
+			// const name = '张三';
+			// const person = {
+			// 	name,
+			// 	age				
+			// }
+			// console.log(person);  //{name: "张三", age: 18}
+			
+			// 3.方法的简介表示法:
+			// 方法可以省略冒号 和 function 关键字
+			// const person = {
+			// 	//speak:function () { }
+			// 	speak(){console.log(this.speak)}
+			// }
+			// person.speak();
+			
+			
+			// 1.方括号语法的用法:			
+			// const prop = 'age';
+			// let person = {}
+			
+			// //用prop变量的值 作为 person的属性
+			// //person.prop = 18;  // ——>  {prop: 18} 无法实现
+			// person[prop] = 18;   // ——>  {age: 18} 方括号语法实现了			
+			// console.log(person);  
+			
+			// 方括号语法增强:
+			// 方括号语法可以写在对象字面量中
+			// person = {
+			// 	[prop]:18  // 直接在声明时，用方括号语法写在里面新增属性
+			// }
+			// console.log(person);
+			
+			// const propN = 'name';
+			// const propV = '李四';
+			// const objJ= {
+			// 	[propN]:propV
+			// }
+			// console.log(objJ);     // {name: "李四"}
+			
+			// 2.方括号中可以放什么
+			// //跟模板字符串一样，${}
+			// [值 或 通过计算可以得到值的(表达式)]
+			// const prop = 'name';
+			// const func = () => 'age';
+			// const person = {
+			// 	[prop]:'张三',  // 放常量/变量
+			// 	[func()]:18,    // 函数执行
+			// 	['s'+'ex']:'男' //字符拼接
+			// }
+			// console.log(person);    // ——> {name: "张三", age: 18, sex: "男"}
+			
+			// 3.方括号语法和点语法的区别:
+			// //点语法是方括号语法的特殊形式，没有方括号语法包含全面
+			// const person = {};
+			// person.age 等价于 person['age']
+			
+			// 属性名 由字母、下划线、$、数字构成（数字不能开头）的字符（合法标识符）             ，可以使用点语法 
+			// // 合法标识符 可以做变量/常量名
+			
+			// 当你的属性名或方法名是合法标识符的时候,可以使用点语法,其他情况下
+			// 请使用方括号语法;
+			
+			
+			// 1. 认识函数参数的默认值
+			// 调用函数的时候传参了，就用传递的参数；如果没传参，就用默认值；
+			
+			// const add = (x,y) => x+y;
+			// console.log(add(1,2));  // 3
+			// console.log(add(1));  // 少传1个参数 结果是 NaN 
+			
+			// 2. 函数参数默认值的基本用法:(跟解构赋值相同)
+			
+			// const add = (x,y=1) => x+y;
+			// console.log(add(1));  // 2   少传1个参数,使用默认值 
+// 1			
+// 			3.默认值生效条件:
+			
+// 			不传参数 或 明确的传递 undefined 作为参数,只有这两种情况,默认值生效
+			
+			
+// 			4. 默认值是表达式
+			
+// 			如果默认值是表达式, 默认值表达式 是 惰性求值的
+			
+// 			5.设置默认值的小技巧
+			
+// 			函数参数的默认值,最好从 参数列表的 右边 开始设置
+			
+// 			const add = (x=1,y) => x+y;
+// 			console.log(add(undefined,2));  // 要明确传递 undefined 默认值才生效
+			
+// 			//写在右边
+// 			const add = (x,y=1) => x+y;
+// 			console.log(add(2));   //3
+			
+			// 1. 当接收很多参数的时候
+			// const logUser = (userName='张三',age=0,sex='男') => console.log(userName,age,sex);
+			// logUser('韩梅梅',12,'女');
+			// logUser();
+			
+			// 但是当参数特别多的时候，实际开发不会使用上面的写法
+			
+			// 接收一个对象作为参数(解构赋值写法)
+			
+			// const logUser = ({userName,age,sex}) => console.log(userName,age,sex);
+			// logUser({
+			// 	userName:'韩梅梅',
+			// 	age:18,
+			// 	sex:'女'
+			// });
+			// // 设置默认值（解构赋值默认值）
+			// const logUser2 = ({userName='张三',age=0,sex='男'}) => console.log(userName,age,sex);
+			// logUser2({}); // 必须 传 {}
+			
+			// 设置函数参数默认值
+			// const logUser2 = ({userName='张三',age=0,sex='男'}={}) => console.log(userName,age,sex);
+			// logUser2(); // 可以什么都用传
+			
+			let str = "study hard and make and progress every day study";const strArr = str.split(' ');
+			console.log(strArr);
+			str = [...new Set(strArr)].join(' '); document.write(str);
+			
+		</script>
+		
+		
+		
+		
+		
+		
+	</body>
+</html>

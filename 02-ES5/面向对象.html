@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>面向对象</title>
+	</head>
+	<body>
+
+		<script type="text/javascript">
+			// var a = [];
+			// var b = {};
+			// var c = function () {				
+			// }
+			// console.log(Array.isArray(a));
+			// console.log(typeof b);
+			// console.log(typeof c);
+
+			// console.log(Array.isArray(a));
+
+			// var a = [44,55];
+			// var a = {
+			// 	m:44,
+			// 	n:55
+			// }
+			// var a = 6;
+
+
+
+			//对象的深克隆：			
+			// 	var obj = {
+			// 		a:6,
+			// 		b:8,
+			// 		c:[55,66,{
+			// 			m:16,
+			// 			n:89,
+			// 			p:[25,68,98]
+			// 		}]
+			// 	};
+
+			// 	function deepClone(o) {
+			// 		//判断参数对象的类型
+			// 		if(Array.isArray(o) === true){
+			// 			var result = [];
+			// 			for (var i = 0 ; i < o.length; i++) {
+			// 				result.push(deepClone(o[i]));
+			// 			}
+
+			// 		}else if(typeof o === 'object'){
+			// 			var result = {};
+			// 			for(var k in o){
+			// 				result[k] = deepClone(o[k]);
+			// 			}
+
+			// 		}else{
+			// 			var result = o ;
+			// 		}				
+			// 		return result;
+			// 	}
+
+			// var obj2 = deepClone(obj);			
+			// console.log(obj.c[2].p == obj2.c[2].p);//false,深克隆成功
+			// obj.c[2].p.push('hello');
+			// console.log(obj.c[2].p); //[25, 68, 98, "hello"]
+			// console.log(obj2.c[2].p);// [25, 68, 98]
+
+
+			// 	function sum(a,b) {
+			// 		return this.chinese + this.math + this.english + a + b;
+			// 	}			
+			// 	var xiaoming = {
+			// 		chinese: 88,
+			// 		math: 99,
+			// 		english:70
+			// 	}
+			// var arrCode = [33,16] //数组存储
+			// // 方法一：
+			// xiaoming.sum = sum;						
+			// alert('小明的分数和：'+xiaoming.sum(33,15));
+
+			// //方法二：
+			// alert('小明的分数和：' + sum.call(xiaoming,33,15));
+			// alert('小明的分数和：' + sum.apply(xiaoming,[33,16]));// 传入数组参数
+			// alert('小明的分数和：' + sum.apply(xiaoming,arrCode)); //传入存储数组的变量
+			// // 使用 call 和 apply 指定上下文；
+
+
+			// var obj1 = function (a,b) {
+			// 	document.write(this.a + this.b +'<br>');
+
+			// }
+
+			// var obj = {
+			// 	a:13,
+			// 	b:2,
+			// 	fn:function(){
+			// 		obj1(this.a,this.b);  // 缺点： 上下文没有传进去
+			// 		obj1.call(this,this.a,this.b);  //把上下文 也指定了 传进去
+			// 		obj1.apply(this,[this.a,this.b]);  //把上下文 也指定了 传进去
+			// 	}
+			// }
+			// obj.fn();
+
+
+			// console.log(fun);  //函数是第一等公民，优先变量提升，所以 打印出 fun函数体
+			// function fun () {
+			// 	a = 3;
+			// 	b = 5;
+			// 	console.log(a + b);
+			// }
+			// console.log(typeof fun);  //function
+			// var fun = new fun();  // 函数被执行，返回 8 
+			// //使用new操作符 调用函数，函数内部没有this, 同样会自动返回一个对象
+			// console.log(typeof fun); //object
+			// console.log(fun); // { } 空对象
+			// fun.a = 6; // 空对象被fun接收，并赋值6
+			// console.log(fun); // 输出 {a:6}
+
+			// function People(name,age,sex) {
+			// 	this.name = name;
+			// 	this.age = age;
+			// 	this.sex = sex;
+			// }
+			// // 往原型上添加 address 属性
+			// People.prototype.address = '中国';
+
+			// var xiaoming = new People('小明',12,'男'); //实例化 一个 xiaoming	
+			// console.log(xiaoming.address); //xiaoming 打点调用 address属性 ，输出 中国
+			// // xiaoming.address ===(等同于) xiaoming.__proto__.address
+			// // console.log(xiaoming.__proto__.address);  输出 中国
+			// console.log(xiaoming);
+		</script>
+
+		<script type="text/javascript">
+			// //改变图片尺寸大小和样式
+			// window.onload = function () {
+			// 	var imgList = document.querySelectorAll('.w-prd-imgbox img');				
+			// 	setTimeout(function () {
+			// 		for (var z = 0 ; z < imgList.length; z++) {
+			// 			imgList[z].dataset.name = 'produPic';
+			// 		}
+			// 		var imgEdit = document.querySelectorAll('img[data-name="produPic"]')
+			// 		for (var k = 0 ; k < imgEdit.length; k++) {
+			// 			console.log(imgEdit[k]);
+			// 			imgEdit[k].style.height = 'inherit';
+			// 			imgEdit[k].style.maxHeight = '100%';
+			// 			imgEdit[k].style.top = 'inherit';
+			// 		}
+			// 	},1000)
+
+			// }			 
+
+			//父类:人类
+			function People(name, age, sex) {
+				this.name = name;
+				this.age = age;
+				this.sex = sex;
+			}
+			//给原型添加方法，new出来的实例可以根据原型链查找，调用此方法
+			People.prototype.sayHello = function() {
+				console.log('你好，我是' + this.name + '，我今年' + this.age + '岁了。');
+			}
+			People.prototype.sleep = function() {
+				console.log(this.name + '开始睡觉Zzzzzzz');
+			}
+
+			//子类:学生
+			function Student(name, age, sex, school, studentName) {
+				this.name = name;
+				this.age = age;
+				this.sex = sex;
+				this.school = school;
+				this.studentName = studentName;
+			}
+
+
+			// 关键语句，实现继承；
+			Student.prototype = new People();
+			//子类的原型 = 父类的new的实例； ----> 继承：原型 = new实例 
+
+
+			Student.prototype.study = function() {
+				console.log(this.name + '正在学习。');
+			}
+			Student.prototype.exam = function() {
+				console.log(this.name + '正在考试，加油。');
+			}
+			//重写父类的sayHello()方法：
+			Student.prototype.sayHello = function() {
+				console.log('敬礼！您好，我是' + this.name + '，我今年' + this.age + '岁了。');
+			}
+
+			//实例化一个Student
+			var hanmeimei = new Student('韩梅梅', 9, '女', '慕课小学', 100556);
+
+			hanmeimei.study();
+			hanmeimei.exam();
+			hanmeimei.__proto__.__proto__.sayHello(); //从父类继承来的方法
+			hanmeimei.sayHello(); //修改父类继承来的方法
+			hanmeimei.sleep(); //从父类继承来的方法
+
+			//实例化一个 People
+			var zhangsan = new People('张三', 12, '男');
+			zhangsan.sayHello();
+			// zhangsan.study();  //报错
+
+			var body = document.getElementsByTagName('body')[0];
+			var Div = document.createElement('div'); //创建节点
+			var Div2 = document.createElement('div'); //创建节点
+			
+			body.appendChild(Div); //上树
+			body.appendChild(Div2); //上树
+			
+			Div2.style.fontSize = '22px';
+		
+			var ArrXq = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+
+			var date1 = new Date();
+			var date2 = new Date(2021, 0, 4); //不算时区，0点开始
+			var date3 = new Date('2021-01-04');
+
+			var day = date1.getDate();
+			var Xingqi = ArrXq[date1.getDay()];
+			//使用三元运算符，如果等于0，返回星期日
+			var month = (date1.getMonth() == 0) ? '01' : date1.getMonth() + 1;
+			//使用三元运算符，如果等于0，返回一月份
+			var year = date1.getFullYear();
+			var hour = date1.getHours();
+			var minutes = date1.getMinutes();
+			var seconds = date1.getSeconds();
+
+			var dateHtml = '北京时间：' + year + '年' + month + '月' + day + '日' + '  ' + Xingqi;
+			Div.innerHTML = date1 + "<br>" + date2 + "<br>" + date3 + '<hr>' + dateHtml;
+
+			//时钟
+			var shizhong = setInterval(function() {
+				var date = new Date();
+				var hour = date.getHours();
+				var minutes = date.getMinutes();
+				var seconds = date.getSeconds();
+				var dateHtml = hour + ':' + minutes + ':' + seconds;
+				Div2.innerHTML = dateHtml + '<hr>' + '距离2021年高考倒计时：';
+			}, 1000)
+
+
+			//高考倒计时
+			var DaoJS = document.createElement('div');
+			body.appendChild(DaoJS); //上树
+			DaoJS.style.color = 'red';
+			DaoJS.style.fontSize = '32px'
+			var Daojishi = setInterval(function() {
+				var nd = new Date();  // 现在此时此刻的时间对象
+				var td = new Date(2021, 5, 7); //高考时间对象
+				var diff = td - nd; // 时间戳的毫秒 差值
+
+				//倒计时天 ，除以天，取整
+				var tday = parseInt(diff / (1000 * 60 * 60 * 24));
+				//倒计时小时，取余天 / 小时，取整
+				var thour = parseInt(diff % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+				//倒计时分钟，取余小时 / 分钟，取整
+				var tminute = parseInt(diff % (1000 * 60 * 60) / (1000 * 60));
+				//倒计时秒，取余分钟 / 秒，取整
+				var tsecond = parseInt(diff % (1000 * 60) / 1000);
+
+				var DaoJSHtml = tday + '天' + thour + '小时' + tminute + '分钟' + tsecond + '秒';
+
+				DaoJS.innerHTML = DaoJSHtml;
+				
+	if(tday == 0 && thour == 0 && tminute == 0 && tsecond == 0){
+		clearInterval(Daojishi);//清除倒计时；
+		DaoJS.innerHTML = '倒计时结束，预祝高考金榜题名！';
+	}				
+			}, 1000)
+		
+		
+		
+		function resize(){
+		    var ht = $(window).height();
+		    var wh = $(window).width();
+		    if ($(".page_list .kuang").length>0)
+		    $(".page_list .kuang").css("left", ($(".page_list li.on").offset().left));
+		
+		    
+		    $(".page_list2 ul li .img").height(($(".page_list2 ul li").width()-20) / 450 * 450);
+		    $(".page_list2 ul li .img .img").height(($(".page_list2 ul li").width()) / 450 * 300 + 1);
+		    $(".page_list3 ul li .img").height(($(".page_list3 ul li").width()) / 553 * 333);
+		    $(".page_list3 ul li .img .img").height(($(".page_list3 ul li").width()) / 553 * 333 + 1);
+		    
+		    $(".news_list li .img").height($(".news_list li").width() / 587 * 200)
+		
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		</script>
+
+
+
+
+
+
+
+	</body>
+</html>

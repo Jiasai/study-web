@@ -1,0 +1,14 @@
+ <div class="hd clearfix">
+                <h2>跟团/半自助游</h2>
+                <em>旅游需要好的选择，踏实省心</em>
+                <nav>
+                    <ul>
+                        <li class="current"><a href="">半自助游</a></li>
+                        <li><a href="">城市CityWalk</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="bd">
+                <% include('../../../../components/loading/loading.art',{inline:false,text:'正在拼命加载'}) %>
+            </div>
+        

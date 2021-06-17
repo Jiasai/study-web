@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>多点触控手势事件：hammer.js</title>
+	<link rel="stylesheet" type="text/css" class='navCss' href="grid-flex布局/components/nav/BaseNav.css"/>
+	<script src="./移动端屏幕适配（源码）/js/flexible.js" type="text/javascript"></script>
+    <script src="./hammer.min.js" class="hammer"></script>
+    <style>
+        .box{width:150px;height: 150px; background: red;margin:20px auto;}
+    </style>
+</head>
+<body>
+    <div class="box" id="box"></div>
+<script>
+// 高级事件，原生没有支持，需要使用touch事件，封装得到；
+
+// 单击事件：tab           //(250毫秒内点一下，抬起)
+// 双击事件：doubletap     //(快速点两下)
+// 长按事件：press         //按住不松手，大于250毫秒
+// 快速左滑/右滑：swipe
+// 拖动事件：pan
+
+// 多指缩放：
+// 多指旋转：
+
+const script=document.querySelectorAll('script[type="text/javascript"]'); //获取script标签
+const scriptHammer=document.querySelector('script.hammer');
+const linkNav=document.querySelector('link.navCss');
+//console.log(script[0].src);//获取src属性
+console.log(script[0]);
+console.log(scriptHammer);
+console.log(linkNav);
+
+const boxEl= document.getElementById('box');
+
+//使用hammer
+const boxHammer= new Hammer(boxEl);
+
+boxHammer.on('swipe pan tap doubletap press pinch rotate',ev=>{
+   // console.log(ev.type);
+   // console.log(ev);
+})
+boxHammer.on('swipe pan',ev=>{
+    /////////console.log(ev.type);
+    console.log(ev);
+
+})
+
+
+
+//center:{x:194,y:113}  //手指接触中心点坐标
+//deltaTime:100   //事件触发经过多长时间
+//direction:4 //滑动方向，4，代表右
+//deltaX、deltaY
+//时间戳
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

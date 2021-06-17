@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="Zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>暮云游商城-首页</title>
+  <link href="css/index.css" rel="stylesheet"></head>
+  <body>
+    <div id="index-page" class="index-layout">
+      <!-- 头部 -->
+      <header class="header-layout">
+          <div class="header"><div class="searchbox">
+  <i class="iconfont icon-search"></i>
+  <form class="searchbox-form" action="">
+    <input 
+    type="text" class="searchbox-input" name="words" 
+    autocomplete="off" 
+    placeholder="搜索目的地/折扣/关键字"
+    />
+  </form>
+</div>
+</div>
+     </header>
+
+      <!-- 幻灯片 -->
+      <div id="index-slider" class="slider-layout">      
+        <!--引入loading-->       
+        <!-- 定制传参数 inline:true text:拼命加载 -->
+	    	<div id='loading' class='loading loadInline'>
+    <div class='loading-indocator'>
+        
+    </div>
+    <div class='loading-text'>正在拼命加载</div>
+</div>
+
+      </div>
+
+
+      <!-- 导航 -->
+      <nav id="index-nav" class="nav-layout"><div id='loading' class='loading '>
+    <div class='loading-indocator'>
+        
+    </div>
+    <div class='loading-text'>加载中...</div>
+</div>
+
+
+      </nav>
+
+      <!-- 精选折扣 -->
+      <div id="index-product" class="product-layout">
+      <div class="product">
+    <h2 class="product-title">精选折扣</h2>
+    <ul class="product-ul-list" id="product-list"> 
+        <div id='loading' class='loading '>
+    <div class='loading-indocator'>
+        
+    </div>
+    <div class='loading-text'>加载中...</div>
+</div>
+
+    </ul>
+</div>
+      </div>
+
+      <!-- 标签栏 -->
+      <div class="tabbar-layout">
+        <div class="tabbar">
+  <a href="./index.html" class="tabbar-item tabbar-item-active">
+    <i class="iconfont icon-home"></i>
+    <span>首页</span>
+</a>
+  <a href="./destination.html" class="tabbar-item  ">
+    <i class="iconfont icon-dest"></i>
+    <span>目的地</span>
+  </a>
+  <a href="./personal.html" class="tabbar-item  ">
+    <i class="iconfont icon-personal"></i>
+    <span>我的</span>
+  </a>
+
+</div>
+
+      </div>
+
+      <!-- 返回顶部 -->
+      <div class="backtop-layout">
+        <a href="javascript:;" class="backtop backtop-hidden">
+    <i class="iconfont icon-up"></i>
+</a>
+      </div>
+    </div>
+  <script src="js/index.js"></script></body>
+</html>

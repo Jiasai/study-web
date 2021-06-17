@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <div id="root1"></div>
+    <div id="root2"></div>
+    <div id="root3"></div>
+
+<script>
+
+const app = Vue.createApp({
+    data(){
+        return{
+          params:{
+            text:'提交',
+          }
+        }
+    },
+    //slot 插槽:如果想传递一些dom节点，元素标签，可以用 slot插槽
+    //slot插槽 也可以传输一些 字符串
+    //slot不仅可以传元素标签，字符串，也可以传子组件
+    template:`
+    <myfrom>
+        <test message ='Hello'/>
+        <test message ='World'/>        
+    </myfrom>
+    <myfrom>
+      <button>{{params.text}}</button>  
+    </myfrom>
+
+
+
+    `
+});
+//slot中使用的数据，是存在作用域的问题，父模板用父模板的数据，子模板用子模板的数据
+//使用了 <myfrom></myform>双标签，但插槽没有传任何内容
+
+app.component('test',{
+    props:['message'],
+    template: `<div>{{message}}</div>`
+});
+app.component('myfrom',{
+    methods:{
+        handleClick(){
+            console.log('123');
+        }
+    },
+    template:`
+    <input />
+    <span @click='handleClick'>
+        <slot><div>默认值</div></slot>
+    </span>
+    `
+    //<slot>>/slot>之间，可以写 默认值，你传了我用你传的，你没传，我用默认值
+
+    //使用 <slot></slot>插槽，但是slot要注意，不能直接在<slot>上绑定事件.解决方法：外面再包裹一个标签，添加事件绑定
+    
+});
+
+const vm =app.mount('#root');
+
+
+const app1 = Vue.createApp({
+    //具名插槽：可以把一个大的插槽,进行拆分几部分，通过v-slot:名字,进行命名（叫具名插槽），在子组件使用时，可以通过<slot name='名字'></slot>去使用 这个大插槽的 一部分。
+
+    //具名插槽可以简写，比如 把 v-slot:header ,简写为 #header 也是可以   
+    template:`
+    <hr/>
+    <layout>
+        <template #header>
+            <div>header</div>
+        </template>
+        <template  #footer>
+            <div>footer</div> 
+        </template>    
+    </layout>
+    <hr/>
+
+    <list v-slot='{item}'>
+        <li>
+        <h3>{{item.title}}</h3>
+        <p>{{item.subtitle}}</p>
+        </li>
+    </list>
+    `
+});
+//作用域插槽解决问题：
+//当子组件渲染的内容要由父组件决定，且数据是使用子组件的数据，要由子组件传递给父组件数据，就要使用 作用域插槽
+app1.component('list',{
+    data(){
+        return{
+            list:[
+                {title:'作用域插槽1',
+                subtitle:'当子组件渲染的内容要由父组件决定，且数据是使用子组件的数据，要由子组件传递给父组件，就要使用 作用域插槽'},
+                {title:'作用域插槽2',
+                subtitle:'当子组件渲染的内容要由父组件决定，且数据是使用子组件的数据，要由子组件传递给父组件，就要使用 作用域插槽'},
+                {title:'作用域插槽3',
+                subtitle:'当子组件渲染的内容要由父组件决定，且数据是使用子组件的数据，要由子组件传递给父组件，就要使用 作用域插槽'}
+            ]
+        }
+    },
+    template:`
+    <div>
+       <slot v-for='item of list' :item='item'/>
+    </div>
+    `
+});
+//具名插槽使用
+app1.component('layout',{
+    template:`
+    <div>
+        <slot name='header'></slot>
+        <div>content</div>
+        <slot name='footer'></slot>        
+    </div>
+    `
+});
+
+app1.mount("#root1");
+
+
+
+
+//动态组件
+const app2 = Vue.createApp({
+    data(){
+        return{
+            currentItem:'input-item'
+        }
+    },
+    methods:{
+        handleClick(){
+            this.currentItem= this.currentItem==='input-item'?'common-item':'input-item';
+        }
+    },
+    template:`
+    <hr/>
+        <common-item />
+        <async-common-item />
+    `
+});
+//<component />是一个动态组件的标签，通过数据切换组件
+//根据数据的变化，结合 component这个标签，来随时动态切换组件的实现
+//<keep-alive></keep-alive>标签，表示缓存数据标签
+app2.component('input-item',{
+    template:`
+    <input />
+    
+    `
+});
+app2.component('common-item',{
+    template:`
+   <div>Hello,world</div>
+    `
+});
+
+
+//使用 Vue.defineAsyncComponent()创建异步组件
+//1.调用 Vue.defineAsyncComponent()方法，它需要传函数参数
+//2.函数参数内，要 return 一个 Promise()
+//3.Promise需要一个函数参数，同时有resolve/reject参数
+//4.在Promise的参数函数内，setTimeout()异步，然后执行resolve方法，传入对象参数
+//5.在对象参数内, 构建组件设置
+const AsyncCommonItem = Vue.defineAsyncComponent(()=>{
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+          resolve({//执行resolve方法
+            template:`
+                <div>This is a Async Component</div>
+            `
+          });
+        },2000);
+    });
+});
+
+//异步执行的组件，有了异步组件，可以根据需求动态加载一些组件
+
+
+//在根组件注册异步组件
+app2.component('async-common-item',AsyncCommonItem);
+
+
+
+app2.mount('#root2');
+
+
+//v-once:让某个元素标签只被渲染1次，即使数据变化也不渲染
+//标签给个ref属性, 给个名字，可以在完成挂载后，获取真实的DOM节点，用来操作Dom
+//ref 事件上是 获取 dom节点 或 组件引用的 一个语法
+//一个属性值要在 很多层级的组件之间传递，可以使用provide 和 inject语法
+//provide / inject : 实现跨组件、多级组件之间，值的传递
+const app3= Vue.createApp({
+    data(){
+        return{
+            count:1
+        }
+    },
+    provide(){//定义provide方法，return 对象值
+       return{
+        count:this.count
+       }
+    },
+    template:`<hr/>
+    <child />
+    `
+})
+app3.component('child',{
+    template:`
+    <child-child />
+    `
+});
+app3.component('child-child',{
+    inject:['count'], //子组件使用inject接收值，使用
+    template:`
+   <div>{{count}}</div>
+    `
+});
+
+
+const vw=app3.mount('#root3')
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

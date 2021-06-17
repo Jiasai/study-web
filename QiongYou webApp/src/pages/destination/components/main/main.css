@@ -1,0 +1,16 @@
+
+.tab-layout{
+    width: 76px;
+    background:#fafafa;
+
+}
+
+.content-layout{
+    flex: 1;
+    overflow-y: auto;
+}
+.content-layout .loading{
+    padding: 120px 0px;
+}
+
+

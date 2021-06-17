@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>呼吸轮播</title>
+	
+	</head>
+	<body>
+
+
+
+
+		<div id="carousel">
+			<ul>
+				<li><img src="DOM_Case/images/beijing/0.jpg" alt=""></li>
+				<li><img src="DOM_Case/images/beijing/1.jpg" alt=""></li>
+				<li><img src="DOM_Case/images/beijing/2.jpg" alt=""></li>
+				<li><img src="DOM_Case/images/beijing/3.jpg" alt=""></li>
+				<li><img src="DOM_Case/images/beijing/4.jpg" alt=""></li>
+			</ul>	
+			
+			<a href="javaScript:void(0);" class="binleft carbtn" name="1"> < </a>
+			<a href="javaScript:void(0);" class="binright carbtn" name="0"> > </a>
+		</div>
+		
+		<style>
+			ul{list-style: none;}
+			#carousel{
+				  margin: 25px auto;
+				      width: 650px;
+				      height: 360px;
+				      position: relative;
+/* 					  overflow: hidden; */
+			}
+			#carousel ul{
+				    position: relative;
+					height: 100%;
+					left: 0px;
+					
+			}
+			#carousel ul li{
+				    width: 650px;
+				    height: 100%;
+					position: absolute;
+					top:0px;
+					left: 0px;
+					opacity: 0;
+					transition: 0.6s linear;
+			}
+			#carousel ul li:first-child{
+				opacity: 1;
+			}
+			#carousel ul li img{
+				width:100%;
+			}
+			.carbtn{
+				position: absolute;
+				width:40px;
+				height: 40px;
+				border-radius: 50%;
+				background: rgba(0, 2, 4, 0.65);
+				color: #fff;
+				top:50%;
+				margin-top: -20px;
+				z-index: 10;
+				text-decoration: none;
+				text-align: center;
+				line-height: 35px;
+			}
+			.binleft{
+				left:5px;
+			}
+			.binright{
+				right: 5px;
+			}
+		</style>
+
+
+
+		<script type="text/javascript">
+			
+			//轮播图特效			
+			var carousel = document.getElementById('carousel');
+			
+			var car_ul = carousel.querySelector('ul');			
+			var car_li = car_ul.getElementsByTagName('li');
+			
+			var btnleft = carousel.querySelector('a.binleft');
+			var btnright = carousel.querySelector('a.binright');
+			
+			
+
+			//设置函数节流：锁
+			var lock = true;
+			
+			// 第一张图片
+			var idx = 0;
+
+						
+			
+			function showleft() {
+				if(!lock) return; //函数节流：跳出
+				lock = false; // 函数节流：关锁，完成此次函数执行
+				
+				car_li[idx].style.opacity = 0;				
+				idx++;
+				if(idx > 4) idx = 0;
+				car_li[idx].style.opacity = 1;
+								
+				//函数节流，函数执行完毕，600毫秒后，解锁
+				setTimeout(function () {
+					lock = true;
+				},600)
+			}
+
+			function showright() {				
+				if(!lock) return; //函数节流：跳出
+				lock = false; // 函数节流：关锁，完成此次函数执行			
+				
+				car_li[idx].style.opacity = 0;
+				idx--;		
+				if(idx < 0) idx = 4;
+				car_li[idx].style.opacity = 1;	
+					
+						
+				//函数节流，函数执行完毕，600毫秒后，解锁
+				setTimeout(function () {
+					lock = true;
+				},600)
+			}
+
+			//点击事件
+			btnright.onclick = function () {
+				showleft();
+			}
+			btnleft.onclick = function () {
+				showright();
+			}
+			
+			
+			//拖拽事件
+			var pagex = 0;
+			var pagelef_r = 0;
+			// 监听ul被mousedown时，鼠标的距离窗体的x值；
+			car_ul.addEventListener('mousedown',function (ev) {				
+				pagex = ev.clientX;
+			},false)
+			// 监听ul被mouseup时，鼠标的距离窗体的x值的变化，确定是向左还是向右 拖拽；
+			car_ul.addEventListener('mouseup',function (ev) {
+				pagelef_r = ev.clientX;
+				//向左拖拽				
+				if(pagex > pagelef_r){						
+					showleft();				
+				//向又拖拽
+				}else if(pagex < pagelef_r){
+					showright();
+				}	
+				
+			},false)
+
+
+			// 禁止图片被鼠标拖拽
+	    	for (i in document.images) document.images[i].ondragstart = function (){
+		        return false;
+		    };	 
+		    
+			
+		</script>
+
+
+
+
+
+
+	</body>
+</html>

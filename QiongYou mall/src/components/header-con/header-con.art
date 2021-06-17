@@ -1,0 +1,13 @@
+<div class="header-con">
+            <div class="center-wrap">
+                <h1>慕云游商城</h1>
+                <div class="soso-box">
+                    <input type="text" placeholder="查询目的地/酒店/机票攻略">
+                    <a href="" class="btn iconfont">&#xe62d;</a>
+                </div>
+                <div class="listBtn">
+                    <a href="index.html" target="_self" class="{{page=='首页'?'active':''}}">首页</a>
+                    <a href="list.html" target="_self" class="{{page=='列表页'?'active':''}}">列表页</a>
+                </div>
+            </div>
+        </div>

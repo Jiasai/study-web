@@ -1,0 +1,77 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><title>webpack的插件plugins</title></head><body><p class=title>这是index</p><script type=text/javascript>什么是 plugins?  //(plugin 翻译为 插件的意思)
+			
+			loader被用于帮助webpack转换处理各种模块,而插件则可以用于执行范围更广的任务.
+				
+			插件目的在于解决 loader 无法实现的其他事。
+			
+			https://www.webpackjs.com/plugins/ （webpack官方网址 - 插件）
+			 
+			 
+			如何在webpack中 配置使用 plugin 插件？ 
+			 
+			前置条件: 已经完成 webpack 配置（包的安装）
+			//（复制之前的 package.json文件和webpack.config.js,到当前目录，cmd 执行 npm install）
+						
+			
+			步骤1:安装 html-webpack-plugin 插件,
+			//(cmd执行命令)			
+			npm install --save-dev html-webpack-plugin@4.3.0
+			
+			//html-webpack-plugin 插件:
+			//自动嵌入webpack打包好的.js文件到html中，并且把嵌入好的html文件也在 /dist 目录中生成一份；
+			
+			步骤2:配置 html-webpack-plugin 插件 (在 webpack.config.js文件中配置)
+			
+		a.将其 引入 :
+		const HtmlWebpackPlugin = require('html-webpack-plugin');
+		b.写一个 plugins数组,跟 entry和 output是平级的属性:(单入口)
+		plugins:[
+			new HtmlWebpackPlugin({
+				template:'./index.html'
+			})
+		]
+			
+		//template:'./index.html' 指定打包好的 .js文件，嵌入到当前目录下的 index.html文件中，并以此为模板，在 /dist目录中再克隆复制一份；	
+		
+		步骤3:执行 cmd命令: npm run webpack
+			 
+		(多页面时 html-webpack-plugin插件的配置)	 
+		
+		在webpack.config.js修改配置:
+			 
+		a.修改 entry,指定多入口	 
+		// entry: {
+		// 		  index:'./src/index.js',
+		// 		  search:'./src/search.js',
+		// 		  search:'./src/login.js'
+		// }	 
+			 
+		b. 修改 plugins
+	plugins:[
+	new HtmlWebpackPlugin({
+	 template:'./index.html',
+	 filename:'index.html',
+	 chunks:['index'],
+	 minify:{
+	 	//删除index.html中的注释
+	 	removeComments:true,
+	 	//删除index.html中的空格
+	 	collapseWhitespace:true,
+	 	//删除各种html标签属性值的双引号
+	 	removeAttributeQuotes:true
+	 }
+	}),
+	new HtmlWebpackPlugin({
+	 template:'./search.html',
+	 filename:'search.html',
+	 chunks:['search','login']
+	}),
+	new HtmlWebpackPlugin({
+	 template:'./login.html',
+	 filename:'login2.html',
+	 chunks:['login','search','index']
+	})
+]
+	//释义：以login.html为模板复刻，复刻出来的文件叫login2.html,在复刻的login2.html中，加载叫login,search,index的js文件（entry指定的）
+			 
+	(html-webpack-plugin插件的其他功能)</script><script src=index.js></script></body></html>

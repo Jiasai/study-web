@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="18px" viewBox="0 0 16 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55 (78076) - https://sketchapp.com -->
+    <title>我的</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="首页" transform="translate(-307.000000, -664.000000)" stroke="#333333" stroke-width="0.8">
+            <g id="编组" transform="translate(0.000000, 656.000000)">
+                <g id="编组-3" transform="translate(303.000000, 9.000000)">
+                    <path d="M12,8 C9.790861,8 8,6.209139 8,4 C8,1.790861 9.790861,0 12,0 C14.209139,0 16,1.790861 16,4 C16,6.209139 14.209139,8 12,8 Z M7.5,11 L16.5,11 C17.8807119,11 19,12.1192881 19,13.5 L19,15 C19,15.5522847 18.5522847,16 18,16 L6,16 C5.44771525,16 5,15.5522847 5,15 L5,13.5 C5,12.1192881 6.11928813,11 7.5,11 Z" id="我的"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

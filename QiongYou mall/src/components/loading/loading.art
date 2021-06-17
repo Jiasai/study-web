@@ -1,0 +1,6 @@
+<div id='sliderLoading' class='loading {{inline?'loadInline':''}}'>
+    <div class='loading-indocator'>
+        
+    </div>
+    <div class='loading-text'>{{text ? text:'加载中...'}}</div>
+</div>

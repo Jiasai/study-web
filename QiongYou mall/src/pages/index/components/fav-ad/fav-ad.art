@@ -1,0 +1,5 @@
+ <section class="hot-ads clearfix">
+        <div class="center-wrap">
+            <% include('../../../../components/loading/loading.art',{inline:false,text:'正在拼命加载'}) %>           
+        </div>
+    </section>

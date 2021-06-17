@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue组件的动画</title>
+    <link rel="stylesheet" href="./animate.min.css" />
+    <script src="./vue.global.js"></script>
+    <style>
+      html,
+      body,
+      #root {
+        height: 100%;
+        overflow: hidden;
+      }
+      #root {
+        width: 100%;
+        height: 50%;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 100px;
+      }
+      #root button {
+        position: absolute;
+        top: 400px;
+        width: 150px;
+        line-height: 36px;
+        border: 0px;
+        background: rgb(15, 177, 177);
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .animationList {
+        position: absolute;
+        top: 450px;
+        display: flex;
+      }
+      .animationList .item {
+        background: #f4f4f4;
+        color: #888;
+        padding: 6px 15px;
+        margin: 0px 10px;
+        font-size: 14px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .animationList .item:hover {
+        color: #222;
+      }
+      .animationList .item.active {
+        background: #444;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      //单元素、单组件的入场出场动画
+      const app = Vue.createApp({
+        data() {
+          return {
+            params: {
+              show: false,
+              styleObj: {
+                fontSize: "36px",
+                fontWeight: "bolder",
+              },
+            },
+            animations: {
+              enter: "animate__animated animate__backInDown",
+              leave: "animate__animated animate__backOutDown",
+            },
+            animateLists: [
+              {
+                title: "左右飞入",
+                enter: "animate__animated animate__backInLeft",
+                leave: "animate__animated animate__backOutRight",
+              },
+              {
+                title: "上下飞入",
+                enter: "animate__animated animate__backInDown",
+                leave: "animate__animated animate__backOutDown",
+              },
+              {
+                title: "上下飞入弹跳",
+                enter: "animate__animated animate__bounceInDown",
+                leave: "animate__animated animate__bounceOutDown",
+              },
+              {
+                title: "旋转落下",
+                enter: "animate__animated animate__rotateInDownLeft",
+                leave: "animate__animated animate__rotateOutDownLeft",
+              },
+              {
+                title: "旋转进入",
+                enter: "animate__animated animate__rotateIn",
+                leave: "animate__animated animate__rotateOut",
+              },
+              {
+                title: "远处弹入",
+                enter: "animate__animated animate__zoomInDown",
+                leave: "animate__animated animate__zoomOutDown",
+              },
+              {
+                title: "倾斜角度",
+                enter: "animate__animated animate__jackInTheBox",
+                leave: "animate__animated animate__hinge",
+              },
+            ],
+            itemClass: "item",
+            activeClass: "item active",
+            currentIndex: 1,
+          };
+        },
+        methods: {
+          handleClick() {
+            this.params.show = !this.params.show;
+          },
+          handleChange(index, enter, leave) {
+            //handleChange接收参数，做出处理
+            this.animations.enter = enter;
+            this.animations.leave = leave;
+            this.currentIndex = index;
+          },
+        },
+        template: `
+        <animate-css-div 
+        :enters='animations.enter' 
+        :leaves='animations.leave' 
+        v-bind='params' 
+        />
+        <button @click='handleClick'>切换</button>        
+        <animate-item 
+        :animateLists='animateLists' 
+        :activeClass='activeClass' 
+        :itemClass='itemClass' 
+        :currentIndex='currentIndex'
+        @changAnimate='handleChange'
+        />
+      
+        `,
+        //在父组件 通过@changAnimate"监听"到'事件信号'并接收参数，触发handleChange并传参
+      });
+
+      app.component("animate-css-div", {
+        props: {
+          enters: null,
+          leaves: null,
+          show: null,
+          styleObj: null,
+        },
+        //也可以直接重命名，全部自定义
+        //自定义的重命名好处：做复杂的动画，或者使用第三方库
+        //使用第三方 animate.css库
+        //使用:diration可以自定义控制动画时间
+        //transition属性 :css='false',不使用css动画
+        //钩子：某些时刻会被自动调用执行的函数
+        methods:{
+          handleBeforeEnter(el){
+            //出场开始之前
+            //会自动接收 vue传来的参数 el
+            el.style.color='red';
+          },
+          handleEnterActive(el,done){
+            //出场动画开始
+            //会自动接收2个参数，el元素和done
+            const changColor=setInterval(()=>{
+              const color=el.style.color;
+              el.style.color=color==='red'?'green':'red';             
+            },250);
+            setTimeout(() => {
+              clearInterval(changColor);
+              done();
+              //只有调用done函数，才能知道动画结束，通知after-enter事件，触发函数
+            }, 2000);
+
+          },
+          handleEnterEnd(){
+            alert('transition入场动画 执行 完毕')
+          }
+          // 入场时的"钩子函数"
+          // @before-enter=
+          // @enter=
+          // @after-enter=
+          // 出场时的"钩子函数"
+          // @before-leave=
+          // @leave=  也会接收 el 和 done参数
+          // @leave-after=
+        },
+        template: `
+      <transition 
+      :enter-active-class='enters'
+      :leave-active-class='leaves'
+      :css='false'
+      @before-enter='handleBeforeEnter'
+      @enter='handleEnterActive'
+      @after-enter='handleEnterEnd'    
+      >
+       <div v-if='show' :style='styleObj'>Hello,world</div>
+     </transition>
+        `,
+      });
+
+
+      app.component("animate-item", {
+        props: ["animateLists", "activeClass", "itemClass", "currentIndex"],
+        methods: {
+          handleClick(index, enter, leave) {
+            this.$emit("changAnimate", index, enter, leave);
+            //在这个组件内，通过$emit要向外部发送一个叫'changAnimate'的"事件信号",并携带参数index,enter,leave
+          },
+        },
+        template: `
+        <div class='animationList'>
+          <template v-for='(item,index) of animateLists' v-key='index'>
+            <div :class='currentIndex===index?activeClass:itemClass' 
+            @click.self='handleClick(index,item.enter,item.leave)' 
+            > {{item.title}}
+            </div>
+          </template>
+       
+        </div>
+        `,
+      });
+
+      const vw = app.mount("#root");
+    </script>
+  </body>
+</html>

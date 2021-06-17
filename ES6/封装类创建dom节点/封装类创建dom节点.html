@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>封装类创建dom节点</title>
+</head>
+<body>
+    <script type="module">
+    import createEL from './createElement.js';
+   
+    const domdata={
+        Class:'slider',
+        Id:'slider',
+        Title:'轮播图',
+        Alt:'轮播图',
+        Name:'username',
+        Href:'http://baidu.com',
+        Src:'./img/3.jpg',
+        Type:'text',
+        Value:'姓名',
+        PlaceHoder:'请输入姓名',       
+        Text:'轮播图',
+    }
+
+    const divDom = new createEL('div',domdata);
+
+    divDom.set('data-name','password');
+
+    console.log(divDom.get());
+    
+    
+        /* const domDiv=document.createElement('div');
+        domDiv.className ='slider';
+        domDiv.setAttribute('id','slider');
+        domDiv.setAttribute('data-name','slider');
+        domDiv.innerText='default';
+        console.log(domDiv);
+
+        const domA=document.createElement('a');
+        domA.setAttribute('href','http://baidu.com');
+        domA.setAttribute('title','链接');
+        console.log(domA);
+
+        const domImg=document.createElement('img');
+        domImg.setAttribute('src','http://baidu.com/images/logo.jpg');
+        domImg.setAttribute('title','百度Logo');
+        domImg.setAttribute('alt','百度Logo');
+        console.log(domImg);
+
+        console.log(document.createElement('from').nodeType);
+        console.log(typeof '')
+         */
+
+
+
+    </script>
+</body>
+</html>

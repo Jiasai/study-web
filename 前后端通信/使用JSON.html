@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>使用JSON</title>
+	</head>
+	<body>
+
+<script type="module">
+	/* 1.JSON是什么
+	Ajax发送和接收数据的一种格式;
+	常用的格式:
+	XML
+	username=ZhangSan&age=18
+	JSON
+	{"code":200,"data":[{"word":"jsp"},{"word":"js"},{"word":"json"},{"word":"js \u5165\u95e8"},{"word":"jstl"}]}
+	
+	JSON全称是 (JavaScript Object Notation)
+	为什么需要JSON?
+	JSON有3种形式,每种形式的写法都和JS中的数据类型很像,可以很轻松的和 JS 中的数据类型互相转换;
+	
+	JS -> JSON -> PHP/Java 
+	
+	JSON数据一般放在 后缀名 .JSON结尾的文件中
+	
+	JSON的 3种形式
+	1.简单值形式
+	JSON简单值形式就对应着JS中的基础数据类型:数字、字符串、布尔值、null	
+	//JSON语法注意事项:
+	a. JSON中没有 undefined值
+	b. JSON中的字符串必须使用双引号,不允许写单引号 "str"
+	c. JSON中是不能写注释的
+
+
+	2.对象形式
+	JSON对象形式就对应着 JS中的对象	
+	注意事项:
+	JSON中对象的属性名必须使用双引号,属性值如果是字符串也必须用双引号
+	JSON中只要涉及到字符串,就必须使用双引号
+	不支持 undefined 值;
+	(一般用作1个数据,比如1个用户信息,用对象形式)
+	
+	3.数组形式
+	JSON的数组形式就对应着 JS中的数组	
+	[1,"hi",null]
+	
+	注意事项:
+	数组中的字符串必须使用双引号
+	JSON中只要涉及到字符串,就必须使用双引号
+	不支持 undefined 值;
+	(一般用作1组数据,比如一篇文章有很多评论,可以用数组形式;)
+	 */
+	
+	
+	
+	// JSON的常用方法:
+	// 如果JSON数据不合法，就无法解析使用数据；
+	
+	// JSON.parse();
+	// JSON.parse()可以将JSON格式的字符串解析成 JS 中的对应值
+	// 一定是合法的JSON字符串，否则会报错
+	
+	// JSON.stringify();
+	// JSON.stringify()可以将JS的基本数据类型、对象或者数组转换成 JSON格式的字符串
+	// console.log(JSON.stringify({
+	// 	username:'alex',
+	// 	age:18
+	// }))
+//字符串化JSON格式{"username":"alex","age":18}
+	
+
+		//创建对象实例
+		const xhr = new XMLHttpRequest();
+		
+		//添加事件监听
+		xhr.onreadystatechange=()=>{
+			if(xhr.readyState !== 4) return;
+			if((xhr.status>=200 && xhr.status < 300)||xhr.status ===304){
+				
+			const value = JSON.parse(xhr.responseText);
+			console.log(value);
+			console.log(typeof value);
+		
+			}
+		}
+		
+		//准备
+		// xhr.open('POST','./JSON/obj.json',true);
+		xhr.open('POST','https://www.imooc.com/api/http/search/suggest?words=js',true);
+		
+		//发送
+		xhr.send(JSON.stringify({
+		username:'alex',
+		age:18
+	}));
+	
+// 使用JSON.parse()和JSON.stringify()封装 localStorage
+	
+	import {set as localSet,get as localGet,remove} from './JSON/localStorage.js';
+	
+	localSet('username','alex');
+	console.log(localGet('username'));
+	
+	localSet('Zhangsan',{
+		name:'张三',
+		age:18
+	});
+	console.log(localGet('Zhangsan'));
+	
+	remove('username');
+	
+	
+	// 使用JSON.stringify()将对象（或数组）转成字符串之后，就可以比较值了,可以实现判断数组或对象的值是否相等;
+	
+	let a = [1,2,4];
+	let b = [1,2,4];
+	console.log(a===b);  
+	// false 
+	console.log(JSON.stringify(a)===JSON.stringify(b));
+	// true 
+	
+	
+	
+	
+</script>
+	</body>
+</html>

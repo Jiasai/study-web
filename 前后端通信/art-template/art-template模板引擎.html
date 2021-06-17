@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>art-template</title>
+    <style>
+        .suoJin{    
+            margin-left: 20px;
+             font-style: italic;
+             color: #888;}
+    </style>
+</head>
+<body>
+   <p>学生信息表</p>
+   <ul id="list"></ul> 
+   <div id="content">
+
+   </div>
+   
+   <div id="content2">
+   </div>
+    <br>  
+    <br>  
+    <div id="otherContent"></div>
+    <br>  
+<script src="./template-web.js"></script>
+<!--准备输出模板--->
+<script id='tpl-1' type="text/html">
+    {{value}}<br/>
+    
+    {{data}} <br/>
+   
+    {{data.key}}<br>
+    
+    {{data['key']}}<br>
+    
+    {{a+b}}<br>
+
+    {{$data}}<br>
+
+    {{$data.data.key}}<br>
+
+    {{$data.a+$data.b}}<br>
+
+    {{$data.text}}<br>
+
+    {{@ $data.text}}<br><br>
+
+    {{@ text}}<br>
+
+</script>
+<!--条件模板-->
+<script id ='tpl-2' type="text/html">
+
+    {{sex}}<br/>
+
+    {{if sex === 'male'}}
+        <strong>性别：男</strong>
+    {{else if sex === 'famale'}}
+        性别：女
+    {{else}}
+        性别：暂无数据
+    {{/if}}
+
+</script>
+<!--循环模板--->
+<script id='tpl-students' type="text/html">
+    {{each students}}
+    <li>索引：{{$index}} {{$value.name}} {{$value.age}} {{$value.sex}}<br/>{{$data}}</li>
+    {{/each}}
+</script>
+
+<!--子模板--><!--向子模板传参-->
+<script id = 'tpl-child' type="text/html">
+    <!--引入子模板-->
+    <!--通过原始语法首页模板向子模板传参-->
+    <% include('tpl-child-header',{
+        page:'新闻中心'
+    }) %>
+
+    <p>首页祖模板</p>  
+    {{include 'tpl-child-footer'}}
+</script>
+<script id = 'tpl-child-header' type="text/html">
+    <header>我是{{page}}公共头部
+        <p class='suoJin'>{{productTitle}}</p>
+    </header>
+</script>
+<script id = 'tpl-child-footer' type="text/html"> 
+    <footer>我是{{page}}公共底部
+        <p class='suoJin'>{{contact}}<a href='tel:{{phoneNumber}}'>{{phoneNumber}}<a></p>
+    </footer>
+</script>
+
+<script>
+    const students=[{
+        name:'张三',
+        sex:'male',
+        age:13
+    },{
+        name:'李四',
+        sex:'male',
+        age:15
+    },{
+        name:'李梅',
+        sex:'famale',
+        age:18
+    }]
+
+  //使用模板引擎：art-template
+//   1.引入 art-template  
+//   https://unpkg.com/art-template@4.13.2/lib/template-web.js
+
+   // 2.准备好模板
+  /*  {{each students}}
+    <li>{{$value.name}}{{$value.age}}{{$value.sex}}</li>
+    {{/each}} */
+
+    //3.获取模板
+    const html = template('tpl-students',{students});
+
+   // 4.追加入 html
+    document.getElementById('list').innerHTML=html;
+
+    console.log('张三,李四,韩梅梅'.split(','));
+    console.log(["张三", "李四", "韩梅梅"].join(','));
+
+
+    //art-template的语法：
+    const el_content= document.getElementById('content');
+
+    //1.输出
+    //参数要放在对象中，即使没有参数，也要传空对象
+    el_content.innerHTML = template('tpl-1',{value:1,
+    data:{
+        key:2
+    },
+    a:3,
+    b:4,
+    text:'<strong>重点内容</strong>'
+    });
+
+    // {{$data}} 获得传递的所有数据
+    // 想要html标签尖括号不被转义，原文输出，加 @
+
+    //优先使用标准语法，标准语法不能解决的，在使用原始语法
+
+    //2.条件
+    const el_content2= document.getElementById('content2');
+
+    el_content2.innerHTML = template('tpl-2',{
+        sex:'male'
+    });
+
+    //3.循环 语法
+
+    //4.子模板
+    const other_content= document.getElementById('otherContent');
+    other_content.innerHTML = template('tpl-child',{
+        page:'产品中心',
+        productTitle:'art-template是高效模板引擎',
+        contact:'联系电话：',
+        phoneNumber:'13816431250'
+    });
+
+    //向子模板传参
+    //npm install --save-dev art-template@4.13.2
+</script>
+
+
+</body>
+</html>

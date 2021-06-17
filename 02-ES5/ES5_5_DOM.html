@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Document</title>
+
+	</head>
+	<body>
+
+
+
+
+		<!-- <div id="box1">我是盒子1</div>
+		<div id="box2">我是盒子2</div>
+		<div id="box3">我是盒子3</div>
+		<div id="box4">我是盒子4</div> -->
+		<!-- <div id="box1">
+			<p>我是文字段落1_1</p>
+			<p>我是文字段落1_2</p>
+			<p>我是文字段落1_3</p>
+			<p>我是文字段落1_4</p>
+			<p>我是文字段落1_5</p>
+		</div>
+		<div id="box2">
+			<p>我是文字段落2</p>
+			<p>我是文字段落2</p>
+			<p>我是文字段落2</p>
+			<p>我是文字段落2</p>
+			<p>我是文字段落2</p>
+		</div> -->
+
+		<!-- 	<div id="box">
+			<p>我是文字段落A</p>
+			<p class="spec" id='para'>我是文字段落B</p>
+			<p>我是文字段落C</p>
+		</div> -->
+
+
+		<!-- 	<ul id="lis1">
+			<li>我是li</li>
+			<li>我是li</li>
+			<li>我是li</li>
+			<li>我是li</li>
+			<li>我是li</li>
+		</ul>
+		<ul id="lis2">
+			<li>我是li_1</li>
+			<li>我是li_2</li>
+			<li>我是li_3</li>
+			<li>我是li_4</li>
+			<li>我是li_5</li>
+		</ul>
+		 -->
+
+		<!-- <div id="box">
+			好客网
+			<p>好的网校平台。</p>
+		</div> -->
+
+		<!-- <div id="ulList">
+			<div>前端技术</div>
+			<div>IOS技术</div>
+			<div>安卓技术</div>
+			<div>JAVA技术</div>
+		</div> -->
+
+
+		<img src="DOM_Case/images/1.jpg" alt="" id="pic">
+		<a href="www.baidu.com" id="Link" class='styles'>去百度</a>
+		<style>
+			.styles{
+				font-size: 22px;
+				color: #fff;
+				border-radius: 5px;
+				padding: 7px 20px;
+				background: #224aff;
+				text-decoration: none;
+				margin:30px auto;
+				display: block;
+				width:20%;
+				text-align: center;
+			}
+			.Linkstyle {
+				background: #f00;
+			}
+		</style>
+		<script type="text/javascript">
+			var olink = document.getElementById('Link');
+			//olink.className = 'Linkstyle'; // 直接替换原class属性值
+			//olink.className = 'styles Linkstyle'; // 把原本的类名也添加上
+			
+			//不知道原本类名是什么的情况下，自定义一个方法追加className
+
+			function addClass(Element,ClassN) {
+				if(!Element.className){
+					Element.className = ClassN;
+				}else{
+					var newClass = ClassN;
+					newClass += " ";
+					newClass += Element.className;
+					Element.className = newClass;
+				}
+			}
+			addClass(olink,'Linkstyle');
+			
+		</script>
+		
+		
+		<script type="text/javascript">
+			// var oPic = document.getElementById('pic');
+			// var oLink = document.querySelector('#Link');
+			
+			// oPic.src = 'DOM_Case/images/2.jpg';
+			// oLink.href = 'http://www.imooc.com';
+			// oLink.target = '_blank';
+			// oLink.style.backgroundColor = '#0075d2';
+			// oLink.style.fontSize = '36px';
+			// oLink.style.color = '#fff';
+			// oLink.style.textDecoration = 'none';
+			// oLink.innerText = '去慕课网';
+			
+			// oPic.setAttribute('data-n',10);
+			// oLink.setAttribute('data-n','name');//添加设置属性
+			// var n = oLink.getAttribute('data-n');//访问属性
+			// var dataN1 = document.querySelector("img[data-n]");
+			// //根据属性选择器，获取元素
+			// var dataN2 = document.querySelector("a[data-n='name']");
+			// //根据属性选择器，获取元素
+			// var dataN3 = document.querySelector("a[data-n *='na']");
+			// var dataN4 = document.querySelector("a[data-n *='m']");
+			// //属性选择器，匹配属性值中包含指定值的元素。
+			// alert(dataN1.id);
+			// alert(dataN2.innerHTML);
+			// alert(dataN3.href);
+			// alert(dataN4.style.fontSize);
+		</script>
+		
+		<!-- <script>
+			//var oDiv = document.querySelectorAll('#ulList div');
+			// 获取元素节点下的，所有子元素节点,兼容IE6;
+			function getChildren(node) {
+				var children = [];
+				for (var i = 0; i < node.childNodes.length; i++) {
+					if (node.childNodes[i].nodeType == 1) {
+						children.push(node.childNodes[i]);
+					}
+				}
+				return children;
+			}
+			// 获取要操作的元素节点	
+			var oDiv = getChildren(document.getElementById('ulList'));
+			for (var i = 0; i < oDiv.length; i++) {
+				oDiv[i].innerText = "来慕课网学习最新的" + oDiv[i].innerText;
+			}
+						
+		</script> -->
+
+
+
+		<script type="text/javascript">
+			//给 window对象添加事件监听，onload表示完全加载了
+			//window.onload() 通常用于 <body> 元素，在页面完全载入后(包括图片、css文件等等)执行脚本代码。
+
+			window.onload = function() {
+				// var box1 = document.getElementById('box1');
+				// var box2 = document.getElementById('box2');
+
+				// console.log(typeof box1)
+				// console.log(box1);
+				// console.log(box2);
+
+				// var p_Arr= document.getElementsByTagName('p');
+				// console.log(p_Arr);
+
+				//先找到 box1 节点
+				// var box1 = document.getElementById('box1');
+				// //在找到 box1中的 p标签 数组
+				// var box1_p_Arr = box1.getElementsByTagName('p');
+				// console.log(box1_p_Arr[0]); //通过数组方法选择某个元素节点
+				// console.log(box1_p_Arr[3]);
+				// var the_p = document.querySelector('#box p:nth-child(2)');
+				// console.log(the_p);
+
+				// var lis2_inlist = document.querySelectorAll('ul#lis2 li');
+				// console.log(lis2_inlist);
+				// console.log(lis2_inlist[0]); //用数组方式，获取对应元素节点
+				// console.log(lis2_inlist[2]);
+
+				// var box = document.getElementById('box');
+				// var p_spec = document.querySelector('#box .spec');
+
+				// console.log(p_spec.nextSibling);
+				// console.log(p_spec.nextElementSibling);
+				// //所有子节点
+				// console.log(box.childNodes);
+
+				// //所有元素子节点(IE9开始兼容)
+				// console.log(box.children);
+				// console.log(box.children.para);//children是类数组对象
+
+				// console.log(p_spec.parentNode);
+
+				// //第一个子节点
+				// console.log(box.firstChild)
+				// console.log(box.firstChild.nodeType)
+
+				// //第一个元素子节点(IE9开始兼容)
+				// console.log(box.firstElementChild);
+
+				// //最后一个子节点
+				// console.log(box.lastChild);
+				// //最后一个元素子节点
+				// console.log(box.lastElementChild);
+
+				// //父节点
+				// console.log(p_spec.parentNode);
+
+				// //前一个兄弟节点
+				// console.log(p_spec.previousSibling);
+				// //前一个元素兄弟节点
+				// console.log(p_spec.previousElementSibling);
+
+				// //后一个元素兄弟节点
+				// console.log(p_spec.nextElementSibling);
+
+				// var oBox = document.getElementById('box');
+				//oBox.innerHTML = '<ul><li>牛奶</li><li>咖啡</li></ul>';
+
+				// oBox.innerText = "慕课网";
+				// oBox.innerText = "<ul><li>牛奶</li><li>咖啡</li></ul>";
+
+			}
+		</script>
+
+
+	</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>节点的创建于移除</title>
+	</head>
+	<body>
+		
+		<div id="box1">
+			<p >我是文本段落A</p>
+			<p ip='para'>我是文本段落b</p>
+			<p >我是文本段落c</p>
+			<p >我是文本段落d</p>
+		</div>
+		<div id="box2">
+			<p >我是文本段落e</p>
+			<p >我是文本段落f</p>
+			<p >我是文本段落g</p>
+			<p >我是文本段落h</p>
+		</div>
+		
+		<style type="text/css">
+			td{
+				width: 40px;
+				height: 20px;
+				border: 1px solid #ddd;
+			}
+			.divLis{
+				line-height: 42px;
+				clear: both;		
+			}
+			.divLis>div{
+				float: left;
+				height: 100%;
+				min-width: 80px;
+				padding:0px 10px;
+				text-align: center;
+				margin:5px 5px;
+				background: #eee;
+			}
+			/* 属性[data-name='the_box']元素节点的第2个子元素的兄弟元素p */
+			div[data-name='the_box']>p:nth-child(2)+p{
+							color:red;
+			}
+			#box2{
+				background: #eee;
+				cursor: pointer;
+			}
+		</style>
+
+
+		
+		<script type="text/javascript">
+			
+			// // 动态创建表格
+			// var myTable = document.createElement('table');
+			// var bodyMain= document.querySelector('body');
+			// bodyMain.appendChild(myTable);
+			
+			// // 动态创建表格行和列
+			// for (var i = 1 ; i <= 5; i++) {
+			// 	var tr = document.createElement('tr');
+			// 	for (var j = 1; j <= 5; j++) {
+			// 		var td = document.createElement('td');
+			// 		tr.appendChild(td);
+			// 	}
+			// 	myTable.appendChild(tr);
+			// }
+			
+			//动态输出九九乘法表：
+			//获取文档body元素节点
+			// var bodyMain = document.querySelector('body');
+			
+			// for (var i = 1 ; i <= 9 ; i++) {
+			// 	// 创建 行div, 并设置 class 属性值
+			// 	var newDiv = document.createElement('div');	
+			// 	newDiv.className = 'divLis';
+				
+			// 	for (var j = 1; j <= i ; j++) {
+			// 		//创建 单个div
+			// 		var divLi = document.createElement('div');
+			// 		//这个div 填入 一个乘法项
+			// 		divLi.innerHTML = j+'*'+i+'='+(i*j);	
+			// 		// 把这个div 追加到 行div
+			// 		newDiv.appendChild(divLi);			
+					
+			// 	}
+			// 	// 把这个行div，追加到 body元素节点
+			// 	bodyMain.appendChild(newDiv);
+			// }
+			
+			
+			
+			
+			
+		</script>
+		
+		<script type="text/javascript">
+			// var newElement = document.createElement('p');
+			// newElement.innerHTML = '<span>@ 我是段落 K ,新来的</span>';
+			
+			// // var newElement2 = document.createElement('p');
+			// // newElement2.innerHTML = '<span>@ 我是段落 M ,新来的</span>';
+			
+			// var box1 = document.getElementById('box1');
+			// var box2 = document.getElementById('box2');
+			// //var p_para = document.querySelector('#box2 p:nth-child(3)');
+			// var p_para = box1.getElementsByTagName('p');
+			
+			// box1.appendChild(newElement);
+			
+			// box2.appendChild(newElement);
+			
+			// box1.insertBefore(newElement , p_para[0]);
+			
+			// box1.removeChild(p_para[4]);
+			
+			var body = document.getElementsByTagName('body')[0];
+			var box1 = document.getElementById('box1');			
+			var p_lis = box1.getElementsByTagName('p')[2];
+			
+			var new_plis = p_lis.cloneNode(true);
+			
+			console.log(new_plis);
+			
+			box1.insertBefore(new_plis,p_lis);
+			
+			body.appendChild(new_plis);
+			
+			// 通过 Js的 dataset 设置 属性和值						
+			box1.dataset.name = 'the_box';
+			box1.dataset.url = 'Node';
+			
+			// 访问自定义属性值：
+			console.log(box1.dataset.name);
+			console.log(box1.dataset.url);
+			
+			function aler() {
+				alert("Hello");
+			}
+			//box1.onclick = aler;
+			//box1.onmousedown = aler;
+			//box1.onmouseup = aler;
+			//box1.onmousemove = aler;
+			//box2.onmouseenter = aler;
+			//box2.onmouseleave = aler;
+			//box2.ondblclick = aler;
+			
+			
+		</script>
+		
+	</body>
+</html>

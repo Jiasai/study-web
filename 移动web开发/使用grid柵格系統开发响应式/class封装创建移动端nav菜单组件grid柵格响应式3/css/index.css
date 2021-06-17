@@ -1,0 +1,55 @@
+@charset "utf-8";
+
+/*-- 布局 start --*/
+
+
+
+.slider-container{
+    min-height: 4rem;
+    background: #1428a0;
+}
+
+.product{
+    min-height: 15rem;
+}
+
+
+/*-- 布局 end --*/
+/*-- 组件 start --*/
+
+
+/*-- 组件 end --*/
+/*-- 内容 start --*/
+
+/* header */
+.logo{
+    width:1.5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+	justify-content: center;
+}
+.nav,
+.nav-item,
+.nav-link{
+    height: 100%;
+} 
+.nav{
+    display: flex;
+    justify-content: flex-end;
+}
+.nav-item{
+    margin-left: 0.28rem;
+}
+.nav-item:first-child{
+    margin-left: 0;
+}
+.nav-link{
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+
+
+/*-- 内容 end --*/

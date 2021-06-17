@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rem作业</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin:0;
+            padding:0;
+        }
+        html{
+            font-size: 100px;
+            width: 100%;
+            min-height: 100%;
+            display: flex;
+        }
+        body{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box{
+            width:20%;
+            font-size:0.48rem;
+            font-weight: bold;            
+            background: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin:0.2rem;
+        }
+        .box1{
+            height:3.84rem;
+        }
+        .box2{
+            height: 8em;
+        }
+
+    </style>
+</head>
+<body>
+     <div class="box box1">正方形</div>
+     <div class="box box2">正方形</div>
+     <script>
+         window.addEventListener('load',()=>{
+            setRemValue();
+         },false);
+         window.addEventListener('resize',()=>{
+            setRemValue();
+         },false)
+         const setRemValue=()=>{
+             const viewWidth = window.innerWidth||document.documentElement.clientWidth;
+
+             const bizhi = viewWidth / 1920;
+             const htmlFontSize = 100 * bizhi;
+
+             document.documentElement.style.fontSize = `${htmlFontSize}px`;
+         }
+         
+     </script>
+</body>
+</html>

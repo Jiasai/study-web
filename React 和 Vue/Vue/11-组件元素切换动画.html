@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue组件的动画</title>
+    <link rel="stylesheet" href="./animate.min.css" />
+    <script src="./vue.global.js"></script>
+    <style>
+      html,
+      body,
+      #root {
+        height: 100%;
+        overflow: hidden;
+      }
+      #root {
+        width: 100%;
+        height: 50%;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 100px;
+      }
+      #root button {
+        position: absolute;
+        top: 400px;
+        width: 150px;
+        line-height: 36px;
+        border: 0px;
+        background: rgb(15, 177, 177);
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .titles{
+          position: absolute;
+          top:100px;
+      }
+      .animationList {
+        position: absolute;
+        top: 450px;
+        display: flex;
+      }
+      .animationList .item {
+        background: #f4f4f4;
+        color: #888;
+        padding: 6px 15px;
+        margin: 0px 10px;
+        font-size: 14px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .animationList .item:hover {
+        color: #222;
+      }
+      .animationList .item.active {
+        background: #444;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+
+        const ComponentA={
+            template:`
+            <div >执行入场动画</div>
+            `
+        };
+        const ComponentB={
+            template:`
+            <div >开始出场动画</div>
+            `
+        };
+      //单元素、单组件的入场出场动画
+      const app = Vue.createApp({
+        data() {
+          return {
+            params: {
+              show: false,
+              styleObj: {
+                fontSize: "36px",
+                fontWeight: "bolder",
+              },
+            },
+            animations: {
+              enter: "animate__animated animate__backInDown",
+              leave: "animate__animated animate__backOutDown",
+            },
+            animateLists: [
+              {
+                title: "左右飞入",
+                enter: "animate__animated animate__backInLeft",
+                leave: "animate__animated animate__backOutRight",
+              },
+              {
+                title: "上下飞入",
+                enter: "animate__animated animate__backInDown",
+                leave: "animate__animated animate__backOutDown",
+              },
+              {
+                title: "上下飞入弹跳",
+                enter: "animate__animated animate__bounceInDown",
+                leave: "animate__animated animate__bounceOutDown",
+              },
+              {
+                title: "旋转落下",
+                enter: "animate__animated animate__rotateInDownLeft",
+                leave: "animate__animated animate__rotateOutDownLeft",
+              },
+              {
+                title: "旋转进入",
+                enter: "animate__animated animate__rotateIn",
+                leave: "animate__animated animate__rotateOut",
+              },
+              {
+                title: "远处弹入",
+                enter: "animate__animated animate__zoomInDown",
+                leave: "animate__animated animate__zoomOutDown",
+              },
+              {
+                title: "倾斜角度",
+                enter: "animate__animated animate__jackInTheBox",
+                leave: "animate__animated animate__hinge",
+              },
+            ],
+            itemClass: "item",
+            activeClass: "item active",
+            currentIndex: 1,
+          };
+        },
+        methods: {
+          handleClick() {
+            this.params.show = !this.params.show;
+          },
+          handleChange(index, enter, leave) {
+            //handleChange接收参数，做出处理
+            this.animations.enter = enter;
+            this.animations.leave = leave;
+            this.currentIndex = index;
+          },
+        },
+        //多个单元素之间的切换
+        //多个单组件之间的切换,一样的可以用transition
+        //组件切换，也可以不使用v-if，
+        //而使用<component :is='ComponentA'>动态组件切换
+        components:{ComponentA,ComponentB},
+        template: `
+        <div class='titles'>
+            <transition
+            enter-active-class='animate__animated animate__flipInY'
+            leave-active-class='animate__animated animate__flipOutY'
+            mode='out-in'
+            appear
+            >
+            <ComponentA v-if='params.show' />
+            <ComponentB v-else='params.show' />
+
+            </transition>
+        </div>
+        <animate-css-div 
+        :enters='animations.enter' 
+        :leaves='animations.leave' 
+        v-bind='params' 
+        />
+        <button @click='handleClick'>切换</button>        
+        <animate-item 
+        :animateLists='animateLists' 
+        :activeClass='activeClass' 
+        :itemClass='itemClass' 
+        :currentIndex='currentIndex'
+        @changAnimate='handleChange'
+        />
+      
+        `,
+        //在父组件 通过@changAnimate"监听"到'事件信号'并接收参数，触发handleChange并传参
+      });
+
+      app.component("animate-css-div", {
+        props: {
+          enters: null,
+          leaves: null,
+          show: null,
+          styleObj: null,
+        },
+        
+        template: `
+      <transition 
+      :enter-active-class='enters'
+      :leave-active-class='leaves'
+      >
+       <div v-if='show' :style='styleObj'>Hello,world</div>
+     </transition>
+        `,
+      });
+
+
+      app.component("animate-item", {
+        props: ["animateLists", "activeClass", "itemClass", "currentIndex"],
+        methods: {
+          handleClick(index, enter, leave) {
+            this.$emit("changAnimate", index, enter, leave);
+            //在这个组件内，通过$emit要向外部发送一个叫'changAnimate'的"事件信号",并携带参数index,enter,leave
+          },
+        },
+        template: `
+        <div class='animationList'>
+          <template v-for='(item,index) of animateLists' v-key='index'>
+            <div :class='currentIndex===index?activeClass:itemClass' 
+            @click.self='handleClick(index,item.enter,item.leave)' 
+            > {{item.title}}
+            </div>
+          </template>
+       
+        </div>
+        `,
+      });
+
+      const vw = app.mount("#root");
+    </script>
+  </body>
+</html>

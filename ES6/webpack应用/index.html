@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>webpack应用</title>
+		<link rel="stylesheet" type="text/css" href="src/index.css"/>
+	</head>
+	<body>
+	<div class="header"><img src="src/images/loading.gif" ></div>
+	<div class="ban"><img src="src/images/Banner.png" alt=""></div>
+	<p>webpack应用：处理css模块</p>
+<script type="text/javascript"> 
+/* webpack的应用:打包处理 css文件模块、
+
+步骤1: .js文件引入.css文件
+在 index.js中(其他文件也可以),通过import引入css文件:import './index.css';
+
+步骤2:安装webpack处理css文件的 loader:
+
+npm install --save-dev css-loader@4.1.1
+	//(上面的loader,识别css文件模块)
+npm install --save-dev style-loader@1.2.1
+	//(上面的style-loader,把css放到html文档中,内联<style>标签的形式引进来)
+	//(很多时候,我们需要通过 link标签引进css文件,需要使用下面的插件:)
+npm install --save-dev mini-css-extract-plugin@0.9.0
+	
+步骤3:配置 webpack.config.js文件:
+	
+步骤4: 当前目录下, CLI 命令行工具中,执行命令: npm run webpack */
+	
+	使用file-loader处理css文件中的图片
+	
+	
+	
+	
+	
+	
+	
+	
+			
+</script>
+		
+	
+	</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件、双向绑定</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const app =Vue.createApp({
+   data(){
+     return{
+         message:"hello",
+     }
+   },
+   mounted(){
+       window.addEventListener('click',()=>{
+           console.log('window点击了')
+       },false);
+   },
+   methods:{
+    handleKeydown(){
+        window.click();
+    }
+       
+   },
+    template:`
+    {{message}}
+    <input v-model.trim='message' @keydown='handleKeydown' />
+    `
+    //form表单元素(v-model数据双向绑定) 修饰符
+    //.lazy 修饰符：输入状态失去焦点，在变化
+    //.number修饰符：数据变化 ，以 number类型存储
+    //.trim修饰符：数据变化，去除输入内容前后的空格
+
+      
+    //数据双向绑定，一般和表单里 input、textarea、checkbox等相关
+   //数据变了，input框的值会变，input框的值变了，数据也会跟着改变，这就是 双向绑定 v-model指令
+   //input框、textarea用了v-model之后，就不必用 value属性了
+   //多个checkbox,设置value属性值，勾选checkbox,会向数组中添加值，或删除数组值，改变checkbox状态
+   //radio单选按钮，使用 字符串存，是双向绑定
+});
+const vm = app.mount('#root');
+</script>
+</body>
+</html>

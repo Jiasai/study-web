@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Dom事件监听</title>
+		<script type="text/javascript">
+			window.onload = function () {
+				
+				// var btn = document.getElementsByTagName('input')[0];	
+				// btn.onmousedown = function () {
+				// 	this.style.color = 'red';
+				// }
+				// btn.onmouseup = function () {
+				// 	this.style.color = '#505050';
+				// }	
+					
+			}	
+		</script>
+	</head>
+	<body>
+		<style type="text/css">
+			.boxlis {
+				background-color: #ddd;
+				font-size: 24px;
+				width: 150px;
+				height: 150px;
+				float: left;
+				margin: 10px;
+				text-align: center;
+				line-height: 150px;
+				cursor: pointer;
+			}
+			 .red{
+			    border:1px solid red;
+			  }
+			  #showcolor{
+				  border:1px solid #999;
+				  width:150px;
+				  height: 150px;
+				  margin-top: 20px;
+				  background-color: inherit;
+			  }
+		</style>
+		<!-- <div class="boxlis" id="box1"><span>box1</span></div>
+		<div><span>姓名</span><input type="text" id="name" data-name='name'></div> -->
+
+
+	<!-- <input type="button" value="点我试试" id="btn"> -->
+
+		<!-- <form action="" id="myForm">
+			<p>姓名：<input type="text" data-name="Fullname"></p>
+			<p>年龄：<input type="text" name="age"></p>
+			<p>地址：<input type="text" name="address"></p>
+			<p><input type="submit" id="" name="" /></p>
+		</form>
+ -->
+		
+		<!-- <div id = 'Tishi'>字数限制在30个字内,<span>您还可以输入<strong>30</strong>字</span></div>
+		<textarea id="texArea" cols="50"  rows="7" value=""></textarea> -->
+		<script type="text/javascript">
+			// var tishi_p = document.querySelector('#Tishi span');
+			// var tishi_p_num = tishi_p.querySelector('strong');
+			// var textArea =  document.getElementById('texArea');
+			// tishi_p_num.style.color = 'green';
+			// textArea.onkeyup = function () {
+			// 	if(this.value.length <= 30){
+			// 		tishi_p_num.innerText = 30 - this.value.length;					
+			// 	}else{
+			// 		var chao = this.value.length - 30;
+			// 		tishi_p.innerHTML = '您已超出<strong style="color:red">'+chao+'</strong>字';
+			// 	}
+			// }
+			
+			
+		</script>
+		
+		<div class="select_color">
+			请选择你喜欢的颜色：
+			<select name="color">
+				<option value="0">请选择</option>
+				<option value="yellow">黄色</option>
+				<option value="orange">橘色</option>
+				<option value="pink">粉色</option>
+				<option value="purple">紫色</option>
+			</select>
+		</div>
+		
+		<div id="showcolor">我是div</div>
+		
+		<script type="text/javascript">
+	var select_color = document.querySelector('select[name = "color"]');
+	var showcolor = document.getElementById('showcolor');
+			select_color.onchange = function () {
+				if(this.value != 0){
+					var color = this.value;
+					showcolor.style.backgroundColor = color;
+				}else{
+					showcolor.style.backgroundColor = 'inherit';
+				}
+			}
+			
+			
+			
+			
+		</script>
+		
+		
+		
+		<!-- <div>
+			姓名：<input type="text" name="" id="name" value="" /><span></span>
+		</div> -->
+		<script type="text/javascript">
+			// var input_name = document.getElementsByTagName('input')[0];
+			// var name_span = input_name.nextElementSibling;
+			
+			// input_name.onfocus = function () {
+			// 	name_span.innerText = '  请输入您的姓名';
+			// }
+			// input_name.onblur = function () {
+			// 	if(this.value == 0){
+			// 		name_span.innerText = '  姓名不能为空';
+			// 		this.className = 'red';
+			// 	}
+			// }
+			
+		</script>
+ 
+		<script type="text/javascript">
+			// var box1 = document.getElementById('box1');
+			// var box2 = document.getElementById('box2');
+
+			// var input_name = document.querySelector('input[data-name="name"]');
+
+			//鼠标监听
+			// function aler() {
+			// 	alert("Hello");
+			// }
+			//box1.onclick = aler;
+			//box1.onmousedown = aler;
+			//box1.onmouseup = aler;
+			//box1.onmousemove = aler;
+			//box1.onmouseenter = aler;
+			//box1.onmouseleave = aler;
+			// box1.ondblclick = aler;
+
+			//键盘按键监听
+			// input_name.onkeydown = function () {
+			// 	console.log("按下键盘按键，被onkeydown监听到")
+			// }
+			// input_name.onkeypress = function () {
+			// 	console.log("按下键盘按键，被onkeypress监听到")
+			// }
+			// input_name.onkeyup = function () {
+			// 	console.log("松开键盘按键，被onkeyup监听到")
+			// }
+
+			// 表单事件监听
+			
+			// var myform = document.getElementById('myForm');
+			// var fullname = myform.querySelector('input[data-name="Fullname"]'); // 通过querySelector，属性选择器
+			// var age = myform.age; // 通过myform表单元素对象的 age 属性 ，获取元素对象
+			// var add = myform.address;
+			
+			// fullname.oninput = function () {
+			// 	console.log('你正在修改——姓名');
+			// }
+			// fullname.onchange = function () {
+			// 	console.log('你已经修改完了姓名');
+			// }
+			// age.onfocus = function () {
+			// 	console.log('年龄，即将输入');
+			// }
+			// add.onblur = function () {
+			// 	console.log('地址，结束输入离开');
+			// }
+			// myform.onsubmit = function () {
+			// 	alert("你正在提交表单");
+			// }
+			
+			// var btn= document.querySelector('#btn');
+			// btn.onclick = function () {
+			// 	//btn.style.backgroundColor = '#008000';
+			// 	this.style.backgroundColor = '#008000';
+			// }
+			
+			
+			
+		</script>
+
+	</body>
+</html>

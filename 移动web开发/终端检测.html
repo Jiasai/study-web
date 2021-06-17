@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>终端检测</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//浏览器用户代理字符串navigator.userAgent
+			console.log(navigator.userAgent);
+			//最好是 后端做终端检测，作出反应，比较快；
+			let isMobile=!!navigator.userAgent.match(/android|iphone|ipad|ipod/i); 
+			//通过字符串的match方法以正则表达式检测是否包含某些字符；
+			if(isMobile){
+				location.href='https://m.imooc.com';	
+			}else{
+				location.href='https://www.imooc.com';
+			}
+			
+			
+			
+		</script>
+	</body>
+</html>

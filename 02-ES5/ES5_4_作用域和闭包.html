@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+		<script type="text/javascript">
+			// var n = '中国';
+
+			// function aler (n) {
+			// 	alert(n);
+			// }
+
+			// window.aler(window.n);
+
+			// var a =1;
+			// function b() {
+			// 	var a = 2;
+			// }
+			// b();
+			// console.log(a);
+
+			// function a(bool) {				
+			// 	if(bool) return b;
+			// 	alert("Hello , a");
+			// 	function b () {
+			// 		alert("Hello , b");
+			// 	}
+
+			// }
+			// // var b = a(true);
+			// // b();
+			// a(true)();
+
+
+			// 			// 不使用闭包特性 ，A_qu变量被改变时（错误操作）
+
+			// 				var A_qu = 37.3 ;
+
+
+			// 				function check_(n,temp) {
+			// 					console.log(temp);
+			// 					if(n > temp){
+			// 						alert("您的体温高了");
+			// 					}else{
+			// 						alert("您的体温合格");
+			// 					}
+			// 				}
+
+
+			// 				check_(37.2,A_qu);
+
+			// 				 A_qu = 37;  //当变量 A_qu被修改
+
+			// 				check_(37.2,A_qu);
+
+
+
+
+			// 			// 使用闭包 ，存在记忆性，形成私有量，不会被改变值；
+			// 			var Aqu = 37.3 ;
+			// 			function checktemp(temp) {
+			// 				function check(n) {
+			// 					console.log(temp); //temp,通过闭包被记忆了
+			// 					if (n > temp) {
+			// 						alert("您的体温高了");
+			// 					} else {
+			// 						alert("您的体温合格");
+			// 					}
+			// 				}
+			// 				return check;
+			// 			}						
+			// 			var checkA = checktemp(Aqu);
+			// //checkA函数被定义了，闭包执行，temp被记忆住了
+			// //只要checkA 这个变量永远存在，没有改变赋值，temp 的值就一直存在，不会被改变；
+			// 			checkA(37.2);
+
+			// 			Aqu = 37;  //当变量 Aqu被修改
+
+			// 			checkA(37.2);
+
+			// (function () {
+			// 	alert("Hello");
+			// })()
+
+			// *function () {
+			// 	alert("Hello");
+			// }()	
+
+			// -function () {
+			// 	alert("Hello");
+			// }()	
+			// 使用 IIFE 进行判断赋值，使代码看起来可读
+			// var age = 22;
+			// var sex = '女';
+			// var title = (function() {
+			// 	if (age < 18) {
+			// 		return '小朋友';
+			// 	} else {
+			// 		if (sex == '男') {
+			// 			return '先生';
+			// 		} else {
+			// 			return '女士';
+			// 		}
+			// 	}
+			// })();
+
+			// alert(title);
+			
+			// var Arr = [];
+			// for (var i = 0 ; i < 5; i++) {
+			// 	Arr.push(function(){
+			// 		alert(i);
+			// 	});
+			// }
+			
+			// Arr[2]();
+			// 使用 IFEE ,形成闭包，记忆环境和私有化变量
+			var Arr = [];
+			for (var i = 0 ; i < 5; i++) {
+				(function (n) {		// 执行，产生闭包	
+					
+					Arr.push(function(){
+						alert(n);
+					});		
+								
+				})(i);
+			}
+			// for (var j = 0 ; j < Arr.length; j++) {
+			// 	document.write(Arr[j] +'<br />');
+			// }
+			
+			Arr[2]();
+			
+			
+		</script>
+
+	</body>
+</html>

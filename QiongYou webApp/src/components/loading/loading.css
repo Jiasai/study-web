@@ -1,0 +1,22 @@
+.loading{
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+    color: #888;
+}
+.loading-indocator{
+    background:url(./images/loading.gif) no-repeat left center;
+    width:20px;
+    height: 20px;
+    margin: 0 auto;
+}
+
+
+.loadInline .loading-indocator,.loadInline .loading-text{
+	display: inline-block;
+	vertical-align: top;
+}
+
+.none{
+    display: none !important;
+}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Module模块系统</title>
+	</head>
+	<body>
+
+		<script type="module">
+			//1.Module是什么（ES Module）
+	//a.什么是模块？
+	//模块:一个一个的局部作用域的代码块;
+	
+	//b.什么是模块系统？需要解决的主要问题：
+	//b1.模块化的问题；
+	//b2.消除全局变量；
+	//b3.管理加载顺序；
+	
+	//2.Module的基本用法:
+	//a1.使用Module模块化之前的例子
+	// a2.使用script标签加载模块;
+		
+	//ES Module把一个文件当作一个模块，每个模块有自己的独立作用域，避免命名冲突；结合import和export关键字实现模块的导入导出	
+		
+	// export default 导出和对应的 import
+	
+	// 认识导出和导入:
+//导出的东西可以被导入(import),并访问到
+	
+		
+	/* //基本用法	
+	import Bianliang from './module.js';
+	//变量接收
+	console.log(Bianliang);
+	
+	//一个模块儿只能有一个export default
+ */
+
+
+		
+	// export 导出和对应的 import	
+	//(export 可以导出多个)
+		
+	//基本用法		
+	// export 导出，后面跟的是声明或者语句	
+	
+	/* 导出:
+	export const age = 18;
+	或者:
+	const age = 18;
+	export {age}; */
+	
+	//导入，{age}不能随意命名	
+	// import {age} from './module.js';
+	
+	// console.log(age);	
+		
+	//2.多个导出	
+	
+	//导入函数
+	// import {fn} from './module.js';
+	// console.log(fn);
+	// fn();     //fn被导出了
+	
+	// 统一，一块儿接收
+/* 	import {age,className,fn,} from './module.js';
+	console.log(className);
+	console.log(age);
+	console.log(fn); */
+	
+	//3. 导出导入时,起别名
+	/* import {age,className,func,} from './module.js';
+	console.log(className);
+	console.log(age);
+	func();  // 导出时起别名，使用别名 */
+	
+	// 也可以，在导入时，更换别名
+	//export{fn as func,className,age};
+	
+	/* import {age,className as Person,func,} from './module.js';
+	console.log(Person);
+	console.log(age);
+	func(); */
+	
+	//4.整体导入	
+	// 会导入所有输出，包括通过 export default 导出的
+	/* import * as obj from './module.js';
+	console.log(obj); */
+	
+	
+	//5.同时导入
+	// export default 导出的 要放前面；
+	
+	/* 
+	import age2,{func,add,age,className} from './module.js';
+	
+	console.log(age2);
+	func();
+	
+	import * as obj from './data.js'	
+	const numMap = new Map();
+	//遍历 *as obj接收到的对象
+	for(let item of Object.entries(obj)){
+		const [key,value] = item;
+		numMap.set(key,value);
+	}
+	console.log(numMap);
+	add(numMap.get('a'),numMap.get('b'));
+		
+	 */
+	
+	// Module注意事项:
+	
+	// 1. 模块顶层的 this指向: 
+	//(顶层的this的意思是：不在块级作用域中，也不在函数作用域中，等)
+	//在模块中，顶层的this指向 undefined;
+	//不使用模块的方式加载，模块内顶层this指向 window;
+	
+	
+	
+	
+	
+	// 2. import关键字和 import()函数:
+	// import 关键字:import命令具有提升效果,会提升到整个模块的头部,率先执行;
+	console.log('沙发');
+	console.log('第二');
+
+	
+	// import执行的时候，其他代码还没执行；
+	// import 和 export 命令只能在模块的顶层，不能在代码块中执行；
+	
+	/* 
+	import() 可以按条件导入 (按需导入),import()执行完毕,返回 Promise对象
+	
+	if(PC){
+		import('pc.js').then(data=>{})
+		.catch(err=>{});
+	}else if(Mobile){
+		import('mobile.js').then(data=>{})
+		.catch(err=>{});
+	} 
+	
+	// import() 配合 webpack 可以解决兼容性；
+	
+	// 3.导入导出的复合写法:
+	
+	import {age} from './module.js';
+	
+	
+	console.log(age);
+	
+	
+	
+		
+	</script>
+
+		<!-- <script src="module.js" type='module'></script>		 -->
+
+
+
+
+	</body>
+</html>

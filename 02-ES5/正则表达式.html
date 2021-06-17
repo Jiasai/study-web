@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>正则表达式</title>
+		
+	</head>
+	<body>
+		
+		<style type="text/css">
+			.warning{color: red;}
+		</style>
+		<div class="From">
+			<p>中文姓名:<input type="text" data-name= 'name'>
+			<span class="warning"></span></p>
+			<p>手机:<input type="text" data-name= 'phone'>
+			<span class="warning"></span></p>
+			<p>邮箱:<input type="text" data-name= 'E-maile'>
+			<span class="warning"></span></p>
+		</div>	
+		<script type="text/javascript">		
+			var form = document.querySelector('div.From');
+			//var input = form.querySelectorAll('.From input');
+			
+			// for (let i = 0; i < input.length; i++) {
+			// 	input[i].onblur = function () {
+			// 		YanzhengEvent(this);
+			// 	}
+			// } // 通过for循环为input 添加失去焦点事件
+		
+					
+			//通过事件委托来监听子元素事件
+			form.onclick = function (ev) {
+				if(ev.target){
+					YanzhengEvent(ev.target);
+				}
+			}
+				
+			
+			function YanzhengEvent(obj) {							
+				//接收dom元素，添加监听blur事件
+				obj.addEventListener('blur',function () {
+					SwitchCase(this);
+				},false)
+				//接收dom元素，添加监听change事件
+				obj.addEventListener('change',function () {
+					SwitchCase(this);
+				},false)									
+			}
+			
+			function SwitchCase(obj) {
+				switch(obj.dataset.name){
+					case 'name':
+						if(obj.value == '') return;
+						Warning_name(obj,y_name(obj.value));
+						break;
+					case 'phone':
+						if(obj.value == '') return;
+						Warning_phone(obj,y_phone(obj.value));
+						break;
+					case 'E-maile':
+						if(obj.value == '') return;
+						Warning_maile(obj,y_Mail(obj.value));
+						break;
+				}
+			}
+			
+			
+			
+			function Warning_name(obj,bool) {				
+				if(!bool){
+					obj.nextElementSibling.innerText = '中文姓名输入不合法！';
+					obj.nextElementSibling.style.color = 'red';
+				}else{
+					obj.nextElementSibling.innerText = '合法 √';
+					obj.nextElementSibling.style.color = 'green';
+				}
+			}
+			function Warning_phone(obj,bool) {
+				if(!bool){
+					obj.nextElementSibling.innerText = '手机号码输入不合法！';
+					obj.nextElementSibling.style.color = 'red';
+				}else{
+					obj.nextElementSibling.innerText = '合法 √';
+					obj.nextElementSibling.style.color = 'green';
+				}
+			}
+			function Warning_maile(obj,bool) {
+				if(!bool){
+					obj.nextElementSibling.innerText = '邮箱输入不合法！';
+					obj.nextElementSibling.style.color = 'red';
+				}else{
+					obj.nextElementSibling.innerText = '合法 √';
+					obj.nextElementSibling.style.color = 'green';
+				}
+			}
+			
+			
+			function y_name(string) {					
+				var NameReg = /^[\u4e00-\u9fa5]{2,4}$/;
+				return NameReg.test(string);				
+			}
+			
+			function y_phone(string) {
+				var PhoneReg = /^1[358][0-9]{9}$/;
+				return PhoneReg.test(string);				
+			}
+			function y_Mail(string) {
+				var MailReg = /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/;
+				return MailReg.test(string);				
+			}
+			
+			//创建正则表达式方法1：（能用方法1，不用方法2）（字面量方法）
+			//正则表达式是引用数据类型，用typeof检测数据类型为 object
+			// var regexp1 = /^m\d{6}k$/;
+			// //创建正则表达式方法2：(构造方法)
+			// var regexp2 = new RegExp('^m\\d{6}k$');
+			
+			// var str1 = 'm123456k';
+			// var str2 = 'as1234';
+			// var str3 = '1234567';
+			// console.log(typeof regexp1);
+			// console.log(regexp1.test(str1));
+			// console.log(regexp2.test(str1));
+			// console.log(regexp1.test(str3));
+			
+			
+	//某网站注册账号需要使用qq邮箱注册，格式为"asd_45@qq.com"，它的正则：
+			
+			// var regexp4 = /^\w\w\w\w\w\w\@qq\.com$/;
+			
+			// var str4 = 'sd4488@qq.com';
+			// console.log(regexp4.test(str4));
+			
+			// // 学号字符串：
+			// var str5 = 'Y1234567';
+			// var str6 = 'S2345678';
+			// var str7 = 'y1234567';
+			
+			// console.log(/^[by]\d{7}$/.test(str5));
+			// console.log(/^[by]\d{7}$/.test(str6));
+			// console.log(/^[by]\d{7}$/.test(str7));
+			
+			
+			//题目一：请验证某字符串是否是5位字母，大小写均可：
+			
+			// var regexp5 = /^[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]$/;
+			// regexp5 = /^[a-zA-Z]{5}$/
+			// var str8 = 'Asdfs';
+			// console.log(regexp5.test(str8));
+			
+			//题目二：验证字符串是否是4位小写字母，且最后一位不能是 m;
+			
+			// var str9 ='abcd';
+			// var str10 = 'abcm';
+			// var str11 = '2ecd';
+			// console.log(/^[a-z]{3}[a-ln-z]$/.test(str9));
+			// console.log(/^[a-z]{3}[a-ln-z]$/.test(str10));
+			// console.log(/^[a-z]{3}[a-ln-z]$/.test(str11));
+			
+			
+			
+			// 验证字符串是否符合手机号码的规则：11位数字，13,15,18开头
+			
+			// var regexp_phone = /^1[358]\d{9}$/;
+			// var number1 = '16816431250';
+			// var number2 = '138164312501';
+			// var number3 = '15816431250';
+			// console.log(regexp_phone.test(number1));
+			// console.log(regexp_phone.test(number2));
+			// console.log(regexp_phone.test(number3));
+			
+			// //验证字符串是否符合网址规则：www开头，中间任意字符，最后以.com结尾
+			
+			// var regexpurl = /^www\.\w+\.com(\.cn)?$/;
+			// var url1 = 'www.baidu.com.cn';
+			// document.write(regexpurl.test(url1));
+			
+				
+				// var str = 'lar expreguression = regexp';
+				// var regexp1 = /[lar]{3}\s[exp]{3}/;
+				
+				// alert(regexp1.test(str));
+				// alert(regexp1.exec(str));
+			
+			
+			
+			//     var str = 'JavaScript_RegExp_5@gmail.com';
+			// 	/*此处写代码*/
+			// 	var regexp1 = /\w{9}\W\w{2}/; //正则表达式格式匹配
+			// 	var regexp2 = /_RegExp_5@gm/; // 字符直接匹配查找
+				
+			// 	//正则表达应用:查找指定字符
+			// 	var url = 'http://www.baidu.com/en/4567.html';
+			// 	var en = /\/en\//; //匹配查找 /en/ 
+			// 	var baidu = /baidu/; //匹配查找 baidu 
+			// 	console.log(en.exec(url));
+			// 	console.log(baidu.test(url)+'     '+baidu.exec(url));
+				
+			// 	document.write(regexp1.test(str)+' '+regexp1.exec(str)
+			// 	+'/'+regexp2.test(str)+'/'+regexp2.exec(str));
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			// var locationSrc = window.location.href;
+			// var imgsrc = document.querySelector('.logo img[align="Satons"]');
+			// if(locationSrc.indexOf('/en')>=0){
+			// 	imgsrc.src = 'http://www.sadunsi.com/images/logo_03en.jpg';
+			// }
+			
+		</script>
+		
+	</body>
+</html>

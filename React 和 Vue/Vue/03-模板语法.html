@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 模板语法</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+<script>
+// 数据(data)、
+// 方法(methods)、
+// 计算属性(computed)、
+// 侦听器(watcher)
+
+const app= Vue.createApp({
+    data(){
+        return{
+            message:"hello,world",
+            count:2,
+            price:5
+        }
+    },
+    watch:{
+        
+    }
+   //定义1个计算属性
+   computed:{
+    total(){
+        //return this.count * this.price;
+        let i=0;
+        i++;
+        console.log('total执行了'+i);
+        return Date.now() + this.count; //输出时间戳
+    }
+    //total的数据是 依赖 其他的this.count 和 this.price数据计算出来的，当其他的数据变化时，total也会跟着自动重新计算更新   
+   },
+   methods:{
+        getTotal(){
+            console.log(this.total);
+            //不断输出一个 不变的 时间戳值，计算属性最终还是代表1个值,不会再次执行其余代码逻辑
+        }
+    },
+   template:`
+    <div @click='getTotal'>
+      {{total}}
+    </div>
+    `
+    //计算属性方法使用时，直接用名称不用加()
+    //computed中定义的计算属性方法 和 methods属性中定义的方法的区别：
+    //当计算属性依赖的内容发生变更时，才会重新执行计算，执行方法
+    //计算属性内的方法，也不能被 事件调用触发
+    //只要页面重新渲染，符合触发机制（事件触发等），methods中的方法和代码逻辑就会执行
+
+});
+const vm = app.mount('#root');
+
+
+
+</script>
+</body>
+</html>

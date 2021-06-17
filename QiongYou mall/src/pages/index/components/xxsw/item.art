@@ -1,0 +1,14 @@
+<ul>
+    {{each items}}
+    <li class="animation shadow upMove">
+        <a href="">
+            <div class="picbox animation biggerImg coverBlack">
+                <img  src="{{$value.url}}" alt="">
+            </div>
+            <div class="wordbox">
+                {{$value.title}}
+            </div>
+        </a>
+    </li>
+   {{/each}}
+</ul>

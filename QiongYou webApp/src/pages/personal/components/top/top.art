@@ -1,0 +1,6 @@
+<div class="top-bg"></div>
+<div class="top-person-pic"><img src="./images/User_base@2x.png" alt="头像" class="top-person-img"></div>
+<div class="top-person-text">
+    <h2 class="top-person-name">王豆豆</h2>
+    <p class="top-person-number">18911023266</p>
+</div>

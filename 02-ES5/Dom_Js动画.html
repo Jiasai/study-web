@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Dom事件委托、定时器、延时器、动画</title>
+		<style type="text/css">
+			* {
+				box-sizing: border-box;
+				margin: 0px;
+				padding: 0px;
+				-moz-box-sizing: border-box;
+				/* Firefox */
+				-webkit-box-sizing: border-box;
+			}
+
+			ul li {
+				cursor: pointer;
+				padding: 4px 0px;
+				list-style: none;
+			}
+
+			#box1 {
+				background: orange;
+				width: 80px;
+				height: 80px;
+				color: #000;
+				position: absolute;
+				left: 20px;
+				top: 80px;
+				border-radius: 3px;
+			}
+
+			#box2 {
+				background: #0171FA;
+				width: 80px;
+				height: 80px;
+				color: #000;
+				position: absolute;
+				left: 20px;
+				top: 200px;
+				border-radius: 50%;
+			}
+
+			#gunDong {
+				width: 675px;
+				height: 180px;
+				margin: 200px 5% 0px;
+				padding: 15px 10px 0px;
+				overflow: hidden;
+				background: #eee;
+
+			}
+
+			#gunDong ul {
+				width: 2000px;
+				position: relative;
+			}
+
+			#gunDong ul li {
+				display: inline-block;
+				height: 150px;
+				width: 150px;
+				background: #4978dd;
+				text-align: center;
+				line-height: 120px;
+				font-size: 52px;
+				font-weight: bold;
+				color: #fff;
+				margin-right: 12px;
+			}
+		</style>
+	</head>
+	<body>
+
+
+		<div id="box1">
+		</div>
+		<!-- 	<div id="box2">
+	</div> -->
+		<input type="button" name="" id="start" value="开始" />
+		<input type="button" name="" id="stop" value="暂停" />
+
+
+		<div id="gunDong">
+			<ul>
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			//无缝滚动效果
+
+			var gunDong = document.getElementById('gunDong');
+			var ul = gunDong.querySelector('ul');
+
+			var timeGd; // 存储定时器
+			//表示滚动的 ul 的left值，通过left值变化实现滚动
+			var left = 0;
+			//复制多一遍所有li
+			ul.innerHTML += ul.innerHTML;
+
+			function move() {
+				// 最后一个li的 offsetLeft(元素的实际距离左边界的距离值)
+				var ulwidth = ul.lastElementChild.offsetLeft;
+				//减去 div#gunDong 的宽度，是滚动切换的距离
+				ulwidth = ulwidth - gunDong.offsetWidth;
+
+				//先清除定时器积累
+				clearInterval(timeGd);
+
+				timeGd = setInterval(function() {
+					if (left <= 0 - ulwidth) { // 判断ul向左滚动完所有的li,从头开始
+						left = 0;
+					}
+					left -= 2;
+					ul.style.left = left + 'px';
+				}, 20)
+
+			}
+			move(); //执行滚动函数
+
+			//设置鼠标事件
+			gunDong.onmouseenter = function() {
+				clearInterval(timeGd);
+			}
+			gunDong.onmouseleave = function() {
+				move();
+			}
+			
+		</script>
+
+		<script type="text/javascript">
+			//定时器
+			var box1 = document.getElementById('box1');
+			//var box2 = document.getElementById('box2');
+			var start = document.getElementById('start');
+			var stop = document.getElementById('stop');
+
+			var loop = 1; // 判断所处位置，决定来回运动轨迹
+			var lock = true; // 锁，用于函数节流，防止频繁点击一次函数未完成再次执行函数
+			var timer; // 存储定时器的变量
+
+
+
+
+			function Yundong(el, speed) {
+				if (!lock) return;
+				el.style.transition = speed + 's All'
+				if (loop == 1 && lock) {
+					el.style.left = '460px';
+					el.style.borderRadius = '50%';
+					el.style.backgroundColor = '#0171FA';
+					loop = 2;
+				} else if (loop == 2 && lock) {
+					el.style.left = '20px';
+					el.style.borderRadius = '15px';
+					el.style.backgroundColor = 'orange';
+					loop = 1;
+				}
+				lock = false;
+				//设置延时器，打开锁
+				setTimeout(function() {
+					lock = true;
+				}, 600);
+
+			}
+
+			start.onclick = function(e) {
+				clearInterval(timer);
+				//设置定时器，传递参数
+				timer = setInterval(function() {
+					Yundong(box1, 0.6);
+				}, 100);
+
+
+			}
+			stop.onclick = function(e) {
+				clearInterval(timer);
+			}
+		</script>
+
+
+
+
+
+		<div id="carousel">
+			<ul>
+				<li><img src="DOM_Case/images/beijing/0.jpg" alt=""></li>
+				<li><img src="DOM_Case/images/beijing/1.jpg" alt=""></li>
+				<li><img src="DOM_Case/images/beijing/2.jpg" alt=""></li>
+				<li><img src="DOM_Case/images/beijing/3.jpg" alt=""></li>
+				<li><img src="DOM_Case/images/beijing/4.jpg" alt=""></li>
+			</ul>	
+			
+			<a href="javaScript:void(0);" class="binleft carbtn" name="1"> < </a>
+			<a href="javaScript:void(0);" class="binright carbtn" name="0"> > </a>
+		</div>
+		
+		<style>
+			#carousel{
+				  margin: 25px auto;
+				      width: 650px;
+				      height: 360px;
+				      position: relative;
+					  overflow: hidden;
+			}
+			#carousel ul{
+				    position: relative;
+					height: 100%;
+					left: 0px;
+					transition: 0.6s all;
+			}
+			#carousel ul li{
+				    width: 650px;
+				    height: 100%;
+				    float: left;
+					
+			}
+			#carousel ul li img{
+				width:100%;
+			}
+			.carbtn{
+				position: absolute;
+				width:40px;
+				height: 40px;
+				border-radius: 50%;
+				background: rgba(0, 2, 4, 0.65);
+				color: #fff;
+				top:50%;
+				margin-top: -20px;
+				z-index: 10;
+				text-decoration: none;
+				text-align: center;
+				line-height: 35px;
+			}
+			.binleft{
+				left:5px;
+			}
+			.binright{
+				right: 5px;
+			}
+		</style>
+
+
+
+		<script type="text/javascript">
+			
+			//轮播图特效			
+			var carousel = document.getElementById('carousel');
+			
+			var car_ul = carousel.querySelector('ul');			
+			var car_li = carousel.querySelectorAll('ul li');
+			
+			var btnleft = carousel.querySelector('a.binleft');
+			var btnright = carousel.querySelector('a.binright');
+			
+			
+			//幻灯片宽度
+			var wid = carousel.offsetWidth;
+
+			//设置函数节流：锁
+			var lock = true;
+			
+			// 初始设置
+			var left = 0;
+			// 第一张图片下标
+			var idx = 0;
+			// 图片张数
+			var length = car_li.length;
+			
+			// 克隆第一张图片，追加到 ul 中；
+			var cloneLi = car_li[0].cloneNode(true);
+			car_ul.appendChild(cloneLi);
+			
+			//遍历所有的li,追加name序列编号
+			for (var j = 0; j < car_li.length; j++) {
+				car_li[j].dataset.name = j;
+			}
+			
+			//计算所有图片（包括克隆）的宽度，并设置 ul 的宽度
+			car_ul.style.width = (length+1+1)*wid + 'px';
+			
+			function moverRight() {
+				if(!lock) return; //函数节流：跳出
+				lock = false; // 函数节流：关锁，完成此次函数执行
+				
+				idx++;
+				if(idx > length-1){					
+					//设置一个延时器，延时器的功能就是让过渡动画完成后，再把 left 瞬间拉回 0 的位置,；
+					setTimeout(function(){ 		
+						car_ul.style.transition = 'none';
+						car_ul.style.left = 0;
+						idx = 0;						
+					},600)
+					
+				}
+				
+				car_ul.style.transition = '0.6s all';
+				car_ul.style.left = -idx * wid + 'px';				
+				
+				//函数节流，函数执行完毕，600毫秒后，解锁
+				setTimeout(function () {
+					lock = true;
+				},605)
+			}
+
+			function moveLeft() {				
+				if(!lock) return; //函数节流：跳出
+				lock = false; // 函数节流：关锁，完成此次函数执行			
+				
+				// 判断是不是 第1张图片，如果是，就要瞬间用 最后一张克隆图片位置替换 第一张图片的位置
+				if(idx == 0){					
+					car_ul.style.transition = 'none';
+					car_ul.style.left = -length * wid + 'px';
+				
+					//设置一个延时器，这个延时器5毫秒，可以让我们的过渡先是消失，left换到克隆那张，10毫秒后，再打开过渡
+					// 加上过度，从克隆那张切换到最后一张；
+					setTimeout(function(){ 													
+						car_ul.style.transition = '0.6s all';
+						idx = length-1;	
+						car_ul.style.left = -idx * wid + 'px';	
+					},10)
+					
+				}else{
+					idx--;
+					car_ul.style.left = -idx * wid + 'px';	
+				}
+				
+						
+						
+				//函数节流，函数执行完毕，600毫秒后，解锁
+				setTimeout(function () {
+					lock = true;
+				},605)
+			}
+
+			//点击事件
+			btnright.onclick = function () {
+				moverRight();
+			}
+			btnleft.onclick = function () {
+				moveLeft();
+			}
+			
+			//拖拽事件
+			var pagex = 0;
+			var pagelef_r = 0;
+			// 监听ul被mousedown时，鼠标的距离窗体的x值；
+			car_ul.addEventListener('mousedown',function (ev) {				
+				pagex = ev.clientX;
+			},false)
+			// 监听ul被mouseup时，鼠标的距离窗体的x值的变化，确定是向左还是向右 拖拽；
+			car_ul.addEventListener('mouseup',function (ev) {
+				pagelef_r = ev.clientX;
+						// 通过事件委托，监听到事件源元素<img>的父级元素li的 data-name 的值;
+						//ev.target.parentNode.dataset.name		
+				//向左拖拽				
+				if(pagex > pagelef_r){						
+					moverRight();					
+				//向又拖拽
+				}else if(pagex < pagelef_r){	
+					moveLeft();
+				}	
+				
+			},false)
+
+
+			// 禁止图片被鼠标拖拽
+	    	for (i in document.images) document.images[i].ondragstart = function (){
+		        return false;
+		    };	 
+		    
+			
+		</script>
+
+
+
+
+
+
+	</body>
+</html>

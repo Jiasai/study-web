@@ -1,0 +1,45 @@
+
+<ul>
+    <li class="big-grid animation shadow downMove">
+        <a href="">
+            <img class='animation smaller' src="{{one.url}}" alt="">
+        </a>
+        <span class="tag">{{one.type}}</span>
+        <div class="info">
+            <p>
+                {{one.title}}
+            </p>
+            <p>
+                {{one['extra-info']}}
+            </p>
+        </div>
+    </li>
+
+    {{each items}}
+    <li class="pro-grid animation shadow downMove">
+        <a href="">
+            <div class="picbox">
+                <span class="tag">{{$value.type}}</span>
+                <img class='animation smaller' src="{{$value.url}}" alt="">
+            </div>
+            <div class="wordbox">
+                {{$value.title}}
+            </div>
+        </a>
+    </li>
+    {{/each}}
+
+
+    <li class="more-grid animation shadow downMove">
+        <a href="">
+            <p>查看更多</p>
+            <p>{{more.title}}</p>
+            <span class="iconfont">&#xe619;</span>
+            <ul>
+                {{each more.items}}
+                <li>{{$value}}</li>
+                {{/each}}
+            </ul>
+        </a>
+    </li>
+    </ul>

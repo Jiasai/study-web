@@ -1,0 +1,16 @@
+*{padding:0px;margin:0px;}
+body{background:#fff;}
+p{
+    padding: 20px 0px;
+    color: #29865d;
+    font-size: 32px;
+    font-weight: bolder;
+    text-align: center;
+}
+.header{
+    background: #fff url(https://www.imooc.com/static/img/index/logo2020.png) no-repeat;
+    background-size: auto 100%;
+	background-position: 25px 0px;
+    height: 80px;
+	padding: 0px 190px;
+}

@@ -1,0 +1,48 @@
+footer .part2 {
+    height: 225px;
+    background-color: #1C1F21;
+}
+footer .part2 .r1 {
+    padding-top: 48px;
+    color: white;
+}
+footer .part2 .r1 h2 {
+    float: left;
+    font-size: 46px;
+}
+footer .part2 .r1 .slogan {
+    float: left;
+    width: 532px;
+    font-size: 14px;
+    margin-left: 21px;
+    position: relative;
+    top: 14px;
+}
+footer .part2 .links {
+    padding-top: 30px;
+}
+footer .part2 .links li {
+    float: left;
+    border-right: 1px solid white;
+    padding: 0 10px;
+    font-size: 14px;
+    line-height: 14px;
+    height: 14px;
+}
+footer .part2 .links li a{
+    color: white;
+}
+footer .part2 .links li:first-child {
+    padding-left: 0;
+}
+footer .part2 .links li:last-child {
+    border-right: none;
+}
+footer .copyrights {
+    color: white;
+    padding-top: 20px;
+    font-size: 14px;
+}
+footer .copyrights a {
+    color: white;
+}

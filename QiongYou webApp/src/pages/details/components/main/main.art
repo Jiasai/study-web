@@ -1,0 +1,35 @@
+<div class="main-product-pic">
+    <img src="{{img}}" alt="{{title}}" class="main-product-img">
+</div>
+<div class="main-product-text">
+    <div class="main-product-title">{{title}}</div>
+    <div class="main-product-tag">
+        {{each tags}}
+        <span class="main-product-tag-item">{{$value}}</span>
+        {{/each}}
+    </div>
+    <div class="main-product-number">
+        <p class="main-product-number-visit">浏览:<span>{{vistor_counts}}</span></p>  
+        <p class="main-product-number-buy">已售<span>{{sold_counts}}份</span></p>  
+    </div>
+</div>
+<div class="details-mian-info">
+    <div class="details-main-info-title"><span></span><h3>产品简介</h3></div>
+    <div class="details-main-info-block">
+        {{each intros}}
+        <p class="info-block-text-item">{{$value}}</p>
+        {{/each}}
+    </div>
+</div>
+<div class="details-mian-info">
+    <div class="details-main-info-title"><span></span><h3>预定流程</h3></div>
+    <div class="details-main-info-block">
+        <img class="info-block-img" src="./images/img_prebook@3x.png" alt="预定流程">
+    </div>
+</div>
+<div class="details-mian-info">
+    <div class="details-main-info-title"><span></span><h3>退款流程</h3></div>
+    <div class="details-main-info-block">
+        {{refund}}
+    </div>
+</div>

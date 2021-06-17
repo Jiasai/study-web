@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Set 和 Map</title>
+	</head>
+	<body>
+		<p>1</p>
+		<p>2</p>
+		<p>3</p>
+		<script>
+			// 		1.什么是Set
+			// 		Set 是类似数组的 数据集合；
+
+			// 		[1,2,3,4]
+			// 		数组是一系列 有序的 数据集合
+
+			// 		Set
+			// 		是一些列 无序的、没有重复值的数据集合
+
+			// 		//创建数组:
+			// 		console.log([1,2,3])  //字面量形式
+			// 		console.log(new Array(1,2,3))   // 构造函数形式
+
+			// 		//创建Set:
+			// 		const s = new Set(); //
+			// 		s.add(1);   // Set的 add()方法每次只能添加1个数据；
+			// 		s.add(2);	// {1, 2}
+			// 		s.add(1);	// Set中 不能有重复的数据成员
+			// 		console.log(s);
+			// 		alert(s);  // 弹出 [object Set],不能像数组一样 弹出 1,2,3
+			// // Set没有下标去表示每一个值，所以Set是无序的，也不能像数组那样通过下标去访问Set的成员
+
+			// 1.Set实例的属性和方法 (Set 只能通过 new Set()构造函数形式来创建)
+
+			// //Set实例的方法:(增加/查找/删除/访问获取)  
+
+			// add()方法: 向Set ，添加数据，每次只能添加1个；,
+
+			// const s = new Set();
+			// s.add(1).add(2).add(3).add(4).add('中国').add('baidu.com');
+			// console.log(s);    //Set(6) {1, 2, 3, 4, "中国", "baidu.com"}
+
+			//  has()方法：查找Set数据集合中，是否有 某个数据，返回布尔值；操作1个 数据
+			// console.log(s.has(2));    //true
+			// console.log(s.has(5));	  // false
+
+			// delete()方法:删除 Set中，某个数据；删除不存在的数据什么都不会发生，不报错；操作1个 数据
+			// s.delete(2);
+			// s.delete(5); 
+			// console.log(s);   // Set(5) {1, 3, 4, "中国", "baidu.com"}
+
+			// clear()方法: 一键清除/删除所有 Set数据；			
+			// s.clear();
+			// console.log(s);   // Set(0) {} 
+
+			// forEach()方法：遍历Set 数据
+			// s.forEach(function (value,key,set) {
+			// 	//set中,value 始终等于 key 
+			// 	//这个set参数等于 s 这个 set 本身，它们两个是相同的引用地址；
+			// 	console.log(value,key,set === s);
+			// 									//		1 1 true
+			// 									//		3 3 true
+			// 									//输出:	4 4 true
+			// 									//		中国 中国 true
+			// 									//		baidu.com baidu.com true
+			// },document)
+
+			// // forEach()遍历Set，是按照成员添加进集合的顺序遍历；
+
+			// Set的属性:
+			// size, 跟数组的 length 相似,就是表示 Set中 数据成员的个数;
+			// console.log(s.size); // 5
+
+			//1.数组作为构造函数Set的参数:
+			// const s = new Set([2,3,4]);		
+			// console.log(s); //Set(3) {2, 3, 4}
+
+			// //2.字符串、arguments、Nodelist、Set 等作为参数
+
+			// console.log(new Set('Hello')); // Set(4) {"H", "e", "l", "o"}
+			// function func() {
+			// 	console.log(new Set(arguments));
+			// }
+			// func(1,2,3); // Set(3) {1, 2, 3}
+			// const nodeLis = new Set(document.querySelectorAll('p'));
+			// nodeLis.forEach(function (value,key,set) {
+			// 	value.className ='title';
+			// 	value.innerText ='中';
+			// 	value.dataset.name ='标题'; 
+			// 	// <p class="title" data-name="标题">中</p>
+			// },document)
+
+			// console.log(new Set(s) === s); //false, 也相当于复制了一个 Set
+
+
+
+			//Set的注意事项:
+			// 		//1.判断重复的方式:
+			// 		const s = new Set([1,2,1,NaN,3,NaN]);  //数组转 Set
+			// 		console.log(s);
+			// 		// Set中对重复值的判断基本遵循严格相等(===)
+			// 		// 但是对于 NaN的判断与 === 不同，Set中的 NaN 等于 NaN.
+
+			// 		const setArr = [...s];    //使用展开运算符，展开set, 转数组
+			// 		console.log(Array.isArray(setArr));  // true 判断是否是数组
+			// 		console.log(setArr.includes(2)); //true 判断数组中是否有 某个值
+
+
+			// 		const people = {
+			// 			name:'张三',
+			// 			age:18
+			// 		}
+			// 		const play = ({name,age}={...people}) =>{  //函数默认值、展开运算符、解构赋值
+			// 			console.log(`我叫${name},今年${age}岁`)
+			// 		}
+			// 		const student = new Set();
+			// 		student.add(people).add(3).add(play);
+			// 		console.log(student,student.size);  // Set(3) {{…}, 3, ƒ} 3
+			// 		student.forEach(function (value,key,set) {//遍历 Set实例
+			// 			if(typeof value == 'function'){ // 如果类型是 function
+			// 				value();  // 执行调用
+			// 			}
+			// 		},window)
+
+
+
+			// 2.实际开发中,什么时候使用 Set
+
+			// a. 数组或字符串去重的时候 (最常用的)  ★★★★★
+
+			// b. 不需要通过下标访问,只需要遍历时 (也可以用数组)
+
+			// c. 为了使用Set提供的方法和属性时（add/delete/clear/has/forEach/size 等）
+
+
+			// 		// Set的应用:
+			// 		1.数组去重
+
+			// 		const Arr = [2,3,4,2,3,4,'中国',1,2,'中国']; //数组存在重复值
+
+			// 		const setArr = new Set(Arr); // 将数组作为参数，传入 Set，自动去重
+
+			// 		console.log([...setArr]); 
+			// 		// 使用展开运算符，展开Set,得到新的去重数组			
+
+			// 		console.log({...setArr}); //数组可以在对象中展开，Set不行,得到空数组
+
+
+			// 		2.字符串去重
+
+			// 		let theString = 'aba中bseda中bde中de';
+
+			// 	//	console.log(theString.split('中'));
+			// // 字符串 .split('')方法，以'中'间隔，转数组: ["aba", "bseda", "bde", "de"]
+
+			// 		const Setstring = new Set(theString);
+			// 		// 将字符串作为参数，传入 Set，自动去重				
+
+			// 		theString = [...Setstring].join('');
+			// 		//将Set 在数组中展开，转化为数组，并使用数组 .join('')方法，转为字符串
+
+			// 		console.log(theString , typeof theString); // 'absed'  string
+
+			// 		console.log([...new Set(theString)].join('')); // 简写成一行
+
+
+			// 		3. 存放Dom元素,遍历操作
+			// 		//NodeList 除了用for(){...} ,还可以用 Set
+			// 		const nodeList = new Set(document.querySelectorAll('p'));
+			// 		nodeList.forEach(function (value,key,set) {
+			// 			value.className ='title';
+			// 			value.style.color ='red';
+			// 			value.innerText ='中';
+			// 			value.dataset.name ='标题'; 
+			// 			//<p class="title" data-name="标题" style="color: red;">中</p>
+			// 		},document)
+
+			//   let str = "study hard and make and progress every day study"
+			//    // 在此补充代码
+			//   const strArr = str.split(' '); //利用split(' ') 消除空格，转数组
+
+			//   str = [...new Set(strArr)].join(' '); 
+			//   //数组转Set去重，再转数组，再使用 join(' ')方法转为字符，添加空格
+			//   document.write(str);
+
+
+			// 1. 认识 Map
+			// // (Map 翻译 映射的意思)
+
+			// Map 和 对象 本质上都是键值对的集合
+
+			// 键 ——> 值，key ——> value
+
+			// const person = {
+			// 	name:'Alex',
+			// 	age:18
+			// }
+
+			//  Map 没有字面量写法，只能通过 构造函数方式声明
+
+			// const m = new Map();
+			// m.set('name','Alex');
+			// console.log(m);  // Map(2) {"name" => "Alex"}
+
+			// 2. Map和对象的区别：
+
+			//  对象一般是用字符串当做键
+
+			//  基本数据类型:数字、字符串、布尔值、undefined、null;
+			//  引用数据类型: 对象([]、{}、函数、Set、Map等)
+			//  以上都可以作为 Map的键
+
+			// const m = new Map();
+			// m.set('name','Alex'); //字符串作为 键
+			// m.set(true,'true'); //布尔值作为 键
+			// m.set({},'true'); //对象作为 键
+			// m.set(new Set([1,2]),'Set'); //Set 作为 键
+			// m.set(undefined,'Set'); //undefined 作为 键
+
+			// console.log(m);
+			// //Map(5) {"name" => "Alex", true => "true", {…} => "true",Set(2) => "Set", undefined => "Set"}
+
+			// 	Map 实例的方法: //(增加/访问/查找/删除/遍历) 
+
+			// 	set()方法: 向Map 添加成员，每次只能添加1个，可以采用链式写法；
+
+			// 	const m = new Map();
+			// 	m.set('name','张三').set('age',18).set(true,'通过').set('age',20);
+			// 	console.log(m);   
+			// 	//Map(3) {"name" => "张三", "age" => 20, true => "true"}
+
+			// 使用 set() 添加新成员，键如果已经存在，后添加的键值对覆盖 已有的。
+
+			// 	//Set 不能单独访问获取某个成员，只能通过forEach()遍历，Map可以。
+
+
+			// 	get()方法: 获取某个成员的值，通过 键（key）来访问获取
+
+			// 	console.log(m.get('name')); // '张三'
+			// 	console.log(m.get(true));   // '通过'
+
+			// 	get获取不存在的成员，返回 undefined;
+
+
+			// 	has()方法：查找Map中，是否有某个成员，返回布尔值；通过键（key）
+			// 	console.log(m.has('name'));    //true
+			// 	console.log(m.has('school'));	  // false
+
+			// 	delete()方法:删除 Map中的成员；通过键（key）
+			// 	m.delete('age'); 
+			// 	console.log(m);   // Map(2) {"name" => "张三", true => "通过"}
+
+			// 	// 删除不存在的成员，什么也不会发生，也不报错。
+
+			// 	 clear()方法: 一键清除/删除所有 Map数据；			
+			// 	// m.clear();
+			// 	// console.log(m);   // Map(0) {}
+
+
+			// 	forEach()方法：遍历Map 数据
+
+			// 	m.forEach(function (value,key,map) { // 参数顺序，不可变化
+
+			// 		console.log(key,value,map === m);
+
+			// 										//输出:	name 张三 true
+			// 										//		true "通过" true
+
+			// 	},document)
+
+			// 	//forEach()遍历Map，是按照成员添加进集合的顺序遍历；
+
+			// 	 Map的属性:
+			// 	// size, 就是表示 Map中 数据成员的个数;
+			// 	console.log(m.size); // 2
+
+			// 	//对象中，没有类似 属性的
+
+			// Map 构造函数的参数:
+
+			// 1.数组（只能传二维数组，且必须体现出 键 和 值）
+			// const m = new Map([
+			// 	['name','张三'],
+			// 	['age',18],
+			// 	[true,'通过']
+			// ]);
+			// console.log(m)
+
+			// 2. Set、Map等
+			// // 传Set, Set中也必须体现出键和值
+			// const s = new Set([
+			// 	['name','张三'],
+			// 	['age',18],
+			// 	[true,'通过']
+			// ]);
+			// console.log(new Map(s));
+
+			// 复制1个 新的 Map
+			// const m2 = new Map(m);
+			// console.log(m === m2);   // false
+
+			// Map判断键名是否相等的方式:
+			// 基本遵循严格相等(===)
+			// 例外就是 NaN, Map中 NaN也是等于 NaN
+			
+			// console.log(NaN === NaN);
+			// const m = new Map();
+			// m.set(NaN, 1).set(NaN, 2); // 键名相同，后面的覆盖前面的
+			// console.log(m) // Map(1) {NaN => 2}
+			
+			// 2.什么时候使用Map?
+			
+			// 1. 如果只是需要 key ——> value (键值对)这样的结构,或者需要字符串	            以外的值做 键名 ,使用 Map 更合适;
+			
+			// 2.模拟现实世界的实体时,才使用对象;(开发经验,什么时候使用对象)
+			
+			
+			// const [p1,p2,p3] = document.querySelectorAll('p'); // 直接解构赋值
+			// //console.log(p1,p2,p3);
+			// // const m = new Map();
+			// // m.set(p1,'red');
+			// // m.set(p2,'green');
+			// // m.set(p3,'blue');
+			
+			// // 创建时，添加二维数组，包含对象；
+			// const m = new Map([
+			// 	[p1,{
+			// 		color:'red',
+			// 		backgroundColor:'#ddd',
+			// 		fontSize:'40px'
+			// 	}],
+			// 	[p2,{
+			// 		color:'green',
+			// 		backgroundColor:'#eee',
+			// 		fontSize:'40px'
+			// 	}],
+			// 	[p3,{
+			// 		color:'blue',
+			// 		backgroundColor:'#999',
+			// 		fontSize:'40px'
+			// 	}]
+			// ]);
+			
+			
+			// m.forEach((propObj,elem) => {
+			// 	for(const p in propObj){ //遍历对象
+			// 		elem.style[p] = propObj[p]; 
+			// 	}
+			// }) 
+						
+			// // m.forEach((color,elem) => { 				
+			// // 	elem.style.color = color;
+			// // }) 
+			// // 不需要考虑 this,改用箭头函数，
+			// //参数名 自定义（位置要相关对应，value,key,map），第三个可省略
+			// // forEach的第二个 上下文 参数可以省略
+			
+			  const [p1, p2, p3] = document.querySelectorAll('p')
+			        /*
+			const m = new Map([
+			        [
+			          p1,
+			          {
+			            color: 'red',
+			            backgroundColor: 'yellow',
+			            fontSize: '40px'
+			          }
+			        ],
+			        [
+			          p2,
+			          {
+			            color: 'green',
+			            backgroundColor: 'pink',
+			            fontSize: '40px'
+			          }
+			        ],
+			        [
+			          p3,
+			          {
+			            color: 'blue',
+			            backgroundColor: 'orange',
+			            fontSize: '40px'
+			          }
+			        ]
+			      ]);
+			
+			      m.forEach((propObj, elem) => {
+			        for (const p in propObj) {
+			          elem.style[p] = propObj[p];
+			        }
+			      });
+			 */
+			        
+			// 在此补充代码
+			
+			const p1Style = new Map([
+				['color','red'],['backgroundColor','yellow'],['fontSize','40px']
+			]);
+			const p2Style = new Map([
+				['color','green'],['backgroundColor','pink'],['fontSize','40px']
+			]);
+			const p3Style = new Map([
+				['color','blue'],['backgroundColor','orange'],['fontSize','40px']
+			]);
+
+			const m = new Map([
+				[p1,p1Style],
+				[p2,p2Style],
+				[p3,p3Style],
+			]);
+			
+			m.forEach((Objmap,elem)=>{
+				Objmap.forEach((value,key)=>{
+					elem.style[key] = value;
+				})
+			})
+			
+			
+		</script>
+
+
+	</body>
+</html>

@@ -1,0 +1,184 @@
+@charset "utf-8";
+a,body,center,cite,code,dd,del,div,dl,dt,em,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hr,html,img,input,label,legend,li,mark,ol,p,section,span,strong,textarea,time,ul,var {margin: 0;border: 0;padding: 0;font-style: normal}
+ol,ul {list-style: none}
+button,input,textarea {border: 0;margin: 0;padding: 0;font-size: 1em;line-height: 1em;background-color: rgba(0,0,0,0)}
+a:active,a:hover {outline: 0}
+a,a:visited {text-decoration: none}
+.clearfix:after {content: ' ';display: block;clear: both;visibility: hidden;line-height: 0;height: 0}
+html {
+ font-size:100px;
+}
+*{
+	padding: 0px;
+    margin: 0px;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */	
+	 
+}
+html{
+	min-height: 100%;
+	min-width: 100%;
+}
+a {
+    color: #333;
+	width: 100%;
+	height: 100%;
+}
+a:hover{color:#0f63c2;text-decoration:none;}a:link{text-decoration:none;}
+button,input[type=button],input[type=submit],input[type=reset],textarea {-webkit-appearance: none}
+img {max-width:100%;vertical-align: middle; border:0px;}
+input:-webkit-autofill {
+    background-color: rgb(250, 255, 189);
+    background-image: none;
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+body {
+	font-size: 0.14rem;
+	line-height: 1.6;
+	font-family: 'Helvetica Neue,Helvetica,Arial,Microsoft Yahei,Hiragino Sans GB,Heiti SC,WenQuanYi Micro Hei,sans-serif';	
+    color: #333;
+   /* -webkit-transition: all 0.3s;
+    transition: all 0.3s; */
+	transition: all 0.36s ease;
+	-webkit-transition: all 0.36s ease;
+    overflow-x: hidden;
+    font-weight: normal;
+    background-color: #fff;
+	min-width: 100%;
+	min-height: 100%;
+	
+	}
+	img{
+			-webkit-transition: -webkit-transform .7s;
+			transition: -webkit-transform .7s;
+			-moz-transition: transform .7s,-moz-transform .7s;
+			transition: transform .7s;
+			transition: transform .7s,-webkit-transform .7s,-moz-transform .7s;
+	}
+/*--图片缩放控制--	img:hover{
+	transform:scale3d(1.05,1.05,1.05);
+	}
+--*/
+
+.fleft{
+	float:left;
+}
+.fright{
+	float:right;
+}
+
+.suolv{
+	position: absolute;
+    top: -4rem;
+}
+.tran{
+	-webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.tranM{
+	-webkit-transition: all 0.6s;
+    transition: all 0.6s;
+}
+/*----width:calc(33.3333% - (10px + 5px) * 2 - 15px )---
+calc()能让你给元素的做计算，你可以给一个div元素，使用百分比、em、px和rem单位值计算出其宽度或者高度，
+比如说“width:calc(50% + 2em)”，这样一来你就不用考虑元素DIV的宽度值到底是多少，而把这个烦人的任务交由浏览器去计算。--*/
+
+
+.back-top{
+	position: fixed;
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+    opacity: 0;
+	display:block;
+    cursor: pointer;
+    z-index: 200;
+	right:0.35rem;
+	bottom:0.6rem;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.back-top:hover{
+	background-color: rgba(8, 47, 140, 0.9);
+	opacity: 1;
+}
+
+.back-top span{
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.12rem;
+    height: 0.12rem;
+	margin-left: -0.02rem;
+    margin-top: 0.02rem;
+    border-top: 0.01rem solid #fff;
+    border-left: 0.01rem solid #fff;
+	transform: translate(-30%,-50%) rotate(45deg);
+}
+.back-top.shows{
+	opacity: 1;
+}
+
+/*---------定义动画----------*/
+@-webkit-keyframes fadeIp{
+	0%{margin-top:1000px;opacity:0;
+	-webkit-transform:translate3d(0,100%,0);
+	transform:translate3d(0,100%,0)}
+	100%{margin-top:0px;opacity:95;
+	-webkit-transform:none;
+	transform:none}
+	}
+@keyframes fadeIp{
+	0%{margin-top:1000px;opacity:0;-webkit-transform:translate3d(0,100%,0);
+	transform:translate3d(0,100%,0)}
+	100%{margin-top:0px;opacity:95;-webkit-transform:none;transform:none}
+	}
+	.jiange{width: 100%;height: 1.1rem;}
+	
+
+
+@font-face {
+    font-family: 'siyuan';
+    font-display: swap;
+    src: url('fonts/webfont.eot'); /* IE9 */
+    src: url('fonts/webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/webfont.woff2') format('woff2'),
+    url('fonts/webfont.woff') format('woff'), /* chrome、firefox */
+    url('fonts/webfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('fonts/webfont.svg#webfont') format('svg'); /* iOS 4.1- */
+}
+@font-face {
+    font-family: 'siyuanNormal';
+    font-display: swap;
+    src: url('fonts/Nwebfont.eot'); /* IE9 */
+    src: url('fonts/Nwebfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/Nwebfont.woff2') format('woff2'),
+    url('fonts/Nwebfont.woff') format('woff'), /* chrome、firefox */
+    url('fonts/Nwebfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('fonts/Nwebfont.svg#webfont') format('svg'); /* iOS 4.1- */
+}
+
+@font-face{font-family:'AvantGarde';font-display: swap;src:url('fonts/AVGARDD.TTF')}
+
+	
+	/* @font-face {
+	  font-family: 'iconfont';
+	  src: url('font/iconfont.eot');
+	  src: url('font/iconfont.eot?#iefix') format('embedded-opentype'),
+	      url('font/iconfont.woff2') format('woff2'),
+	      url('font/iconfont.woff') format('woff'),
+	      url('font/iconfont.ttf') format('truetype'),
+	      url('font/iconfont.svg#iconfont') format('svg');
+	}
+	
+	.iconfont {
+	  font-family: "iconfont" !important;
+	  font-size: 16px;
+	  font-style: normal;
+	  -webkit-font-smoothing: antialiased;
+	  -moz-osx-font-smoothing: grayscale;
+	} */
+	

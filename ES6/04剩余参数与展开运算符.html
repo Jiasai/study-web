@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>剩余参数与展开运算符</title>
+	</head>
+	<body>
+		<!-- <p>剩余参数与展开运算符</p>
+		<p>剩余参数与展开运算符</p>
+		<p>剩余参数与展开运算符</p>
+		<p>剩余参数与展开运算符</p> -->
+		<style>
+			#wrap {
+			width: 324px;
+			margin: 0 auto;
+		}
+		button {
+			padding: 10px 20px;
+			margin-bottom: 20px;
+			border: none;
+			border-radius: 3px;
+			background: #f01414;
+			color: #fff;
+		}
+		#intro {
+			width: 300px;
+			min-height: 100px;
+			line-height: 20px;
+			padding: 10px;
+			border: 2px solid gray;
+			border-radius: 3px;
+		}
+	</style>
+		<div id="wrap">
+			<button>添加</button>
+			<div id="intro"></div>
+		</div>
+
+		<script type="text/javascript">
+			// 1.认识剩余参数:
+			// const add = (x,y,...args) => console.log(x,y,args);
+			// add(2,3,4,5,6);
+
+			// （用于函数参数时）剩余参数永远是个数组，即使没有值，也是空数组；
+
+			// 剩余参数注意事项:
+			// 1.箭头函数的参数部分,即使只有一个剩余参数,也不能省略圆括号;
+
+			// 2.可以使用剩余参数 替代 arguments获取实际参数
+			//   (A. arguments 不能用于箭头函数,剩余参数可以)
+			//   (B. arguments 是类数组,不能使用数组方法,剩余参数是数组,可以使用数组方法)
+
+			// 3.剩余参数只能是最后一个参数,之后不能再有其他参数,否则会报错;
+
+			// 用剩余参数求平均值
+
+			// const ResultValue = (...args) => {
+			// 	let addValue = 0;
+			// 	for (let i = 0 ; i < args.length; i++) {
+			// 		addValue += args[i];
+			// 	}
+			// 	return `平均值是：${parseInt(addValue/args.length)}`;
+			// }
+			// alert(ResultValue(3,2,5,8,9,25,100))   //平均值是：21
+
+			// const add = (...args) =>{
+			// 	let Result = 0;
+			// 	for (let i = 0; i < args.length; i++) {
+			// 		Result += args[i];
+			// 	}
+			// 	return Result;
+			// }
+
+			// console.log(add(1,2,3,4,5))
+
+			// 2. 剩余参数 与 解构赋值 的结合使用
+
+			// 剩余参数不一定 只能用作 函数参数 使用,也可以用于 解构赋值，叫做‘剩余元素’;
+			// 必须是最后一个
+
+			// const [x,...args] = [2,3,4,5]			
+			// console.log(x,args); //输出结果为:  2  [3, 4, 5]
+
+			// 剩余参数用于解构赋值，然后作为 函数参数 解构赋值
+			// const add = ([x,...args]) => console.log(x,args);
+			// add([1,2,3]);  //输出结果为: 1  [2, 3]
+
+			// 作为对象的解构赋值
+
+			// const {x,y,...z}={a:1,x:2,y:3,b:4}
+			// console.log(x,y,z) //输出结果为:   2 3 {a: 1, b: 4}
+
+
+			//       const add = (...args) =>{			
+			//             // 在此补充代码
+			//             let addValue = args.reduce(function (x,y) {
+			//             	return x + y;
+			//             },0)
+			// 			return addValue;
+
+			//         }			
+			//        document.write(add(1,2,3,4,5,6))
+
+			// 		数组的 reduce() 方法:
+			// 		接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，
+			// 		最终计算为一个值。
+
+			// 		Math.round(x)  把一个数字四舍五入为整数
+
+
+			// 	1. 认识展开运算符
+
+			// 	//寻找数组最小值
+			// 	const Arr = [5,2,6,8,1];
+			// 	Arr.sort(function (a,b) {
+			// 		return a-b;
+			// 	})
+			// 	console.log(Arr[0]);
+
+			// 	Math.min(3,2,1)  找到最小值				
+			// 	//数组形式 -> 参数列表
+
+			// 	数组展开运算符的基本用法:	
+			// 	console.log(Math.min(...[3,2,1]))  // ...展开运算符
+			// 	console.log(Math.min(3,2,1))	
+
+			// const resultArr = [];
+			// // 随机生成10个数，推入数组
+			// let count = 10;
+			// while(count--){
+			// 	resultArr.push(parseInt(Math.random()*(100-1+1))+1);
+			// }
+			// // 对数组进行降序排序,并输出最大值/最小值
+			// resultArr.sort(function (a,b) {
+			// 	return b-a;
+			// })
+			// // document.write(`${resultArr}<br>这组数中最大值是:${resultArr[0]}，最小值是:${resultArr[9]}`)
+			// let maxValue = Math.max(...resultArr); 
+			// let minValue = Math.min(...resultArr);
+			// document.write(`${resultArr}<br>这组数中最大值是:${maxValue}，最小值是:${minValue}`)
+
+			// 剩余参数与展开运算符根本区别:
+
+			// 展开运算符
+			// [3,1,2] ——> 3,1,2
+
+			// 剩余参数
+			// 3,1,2 ——> [3,1,2]
+
+			// console.log([1,2,...[4,5]])  //输出： [1, 2, 4, 5]
+
+			//  数组展开运算符的应用:
+
+			// // 1. 复制数组			
+			// const a = [1,2];
+			// const b = [...a];  
+			// console.log(a===b); // false  
+
+			// // 2. 合并数组
+			// const c = [1,2];
+			// const d = [3];
+			// const e = [4,5];			
+
+			// const f = [...c,...d,...e];  //用...展开运算符合并数组
+			// console.log(f);
+
+			// 3.字符串转数组
+			// //字符串可以按照数组的形式展开			
+			// // ...'alex' ——> 'a','l','e','x'
+
+			// let name = '！京北，油加'; 
+			// name = [...name].reverse(); //字符串...展开运算符转数组，reverse()方法置反
+			// console.log(name.join('')); // 数组 join(),转字符串，输出 "加油，北京！"
+
+			// 4.常见的类数组, 转换为数组
+			// // arguments
+			// function func() {console.log([...arguments])}
+			// func(1,2,3);
+
+			// // NodeList
+			// console.log([...document.querySelectorAll('p')][2]);
+
+			// 对象展开运算符
+			// 1. 对象不能直接展开,必须在 { } 中展开;			
+			// const apple = {
+			// 	color:'红色',
+			// 	shape:'球形',
+			// 	taste:'甜'
+			// }
+
+			// //复制对象
+			// const newApple = {...apple};			
+			// console.log(newApple === apple);   // false 
+
+			// //合并对象			
+			// const pen = {
+			// 	color:'黑色',
+			// 	shape:'圆柱形',
+			// 	use:'写字'
+			// }
+			//console.log({...apple,...pen});  
+			//{color: "黑色", shape: "圆柱形", taste: "甜", use: "写字"}
+			//console.log({...pen,...apple}); 
+			//{color: "红色", shape: "球形", use: "写字", taste: "甜"}
+
+			// const newObj = {...apple,pen};
+			// console.log(newObj)
+
+			// 新对象拥有全部属性，相同属性，后者覆盖前者；
+
+			// console.log({apple,pen}); // 属性的简洁表示法：{apple:apple,pen:pen}
+
+			// 1. 展开一个空对象 是没有任何效果的.
+
+			// 2.非对象展开,会自动将其转化为对象(new Object()),再将其属性罗列出来;
+
+			// 3.如果展开运算符后面是 字符串，它会自动转成一个类数组的对象，因此返回的不是空对象；
+			// console.log({...'alex'});  		// {0: "a", 1: "l", 2: "e", 3: "x"}
+			// console.log([...'alex']); 		  //  ["a", "l", "e", "x"]
+			// console.log(...'alex');			 // a l e x
+			// console.log({...['a','b','c']});// {0: "a", 1: "b", 2: "c"}
+
+			// 4. 不会展开对象中的对象属性
+
+			// console.log({...newObj})
+			//{color: "红色", shape: "球形", taste: "甜", pen: {…}}
+
+			// 对象展开运算符的应用:
+
+			// 1.复制对象;
+			// const a = {
+			// 	name: '张三',
+			// 	age: 18
+			// }
+			// const b = { ...a
+			// };
+			// console.log(b, a === b);  //{name: "张三", age: 18} false
+
+			// 2.用户参数和默认参数
+
+			// //函数参数默认值写法
+			// const logUser = ({
+			// 	userName = '张三',
+			// 	sex = 0,
+			// 	age = '男'
+			// } = {}) => console.log(userName, sex, age);		
+
+			// 使用展开运算符后，更合理写法：
+
+			// const logUser = (userCanshu = {}) => {
+			// 	const defaultCanshu = { //内部设置默认参数
+			// 		userName:'张三',
+			// 		sex: 0,
+			// 		age:'男'
+			// 	}				
+			// 	const {userName,sex,age} = {...defaultCanshu,...userCanshu};
+			// 	// 对象解构赋值，展开运算符合并2个对象，userCanshu 优先级高于默认
+			// 	console.log(userName,sex,age);
+			// }
+
+			// logUser({userName: '韩梅梅',age: 18,sex: '女'});
+			
+			
+			// 在此补全代码
+			const defalultText = {
+				name: "大话西游之月光宝盒 ",
+				year: "2014",
+				director: "刘镇伟",
+				star: "周星驰 / 吴孟达 / 罗家英",
+				type: "喜剧 / 爱情 / 奇幻 / 古装",
+				introduction: "　孙悟空（周星驰）护送唐三藏（罗家英）去西天取经路上，与牛魔王合谋欲杀害唐三藏，并偷走了月光宝盒，此举使观音萌生将其铲除心思，经唐三藏请求，孙悟空被判五百年后重新投胎做人赎其罪孽...."
+			}
+			
+			const userText = {
+				name: "功夫 ",
+				year: "2004",
+				director: "周星驰",
+				star: "周星驰 / 黄圣依",
+				type: "喜剧 / 爱情 / 动作",
+				introduction: "　20世纪40年代的广东，有一名无药可救的小混混阿星（周星驰饰），此人能言善道，擅耍嘴皮，但意志不坚，一事无成。他一心渴望加入手段冷酷无情、臭名昭著的斧头帮，并梦想成为黑道响当当的人物。当时斧头帮正倾全帮之力急欲铲平唯一未收入势力范围的地头，未料该地卧虎藏龙，痴肥的恶霸女房东肥婆加上与其成对比的懦弱丈夫二叔公，率领一班深藏不漏的武林高手，大展奇功异能，对抗恶势力...."
+			}
+			
+			const btn = document.querySelector('#wrap button');
+			const intro = document.getElementById('intro');
+			
+			const addHTML = (userText = {...defalultText}) =>{
+				//对象解构赋值
+				const {name,year,director,star,type,introduction} = {...userText}
+					
+				const HTMLelemt = `<h2>名称：${name}</h2><p>导演：${director}</p><p>主演：${star}</p><p>类型：${type}</p><p>上映年份：${year}</p><p>简介：${introduction}</p>` 
+				
+				intro.innerHTML = HTMLelemt
+				
+
+			}
+			
+			window.onload = () => addHTML(); //使用默认参数
+			
+			btn.addEventListener('click',function () {
+				addHTML(userText);
+			},false)
+			
+			
+			
+			
+			
+		</script>
+
+
+
+
+
+
+
+
+
+	</body>
+</html>

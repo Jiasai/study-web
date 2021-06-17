@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+		<script>
+			// switch 语句
+			// var a=4;
+			// switch(a){
+			// 	case 10: 
+			// 	case 8:
+			// 	case 6:
+			// 		alert("A");
+			// 		break;
+			// 	case 5:
+			// 		alert("D");
+			// 		break;
+			// 	default:
+			// 		alert("数字不在判断序列");
+			// }
+
+			// var num = Number(prompt("请输入你想转换成中文大写的0-9的数字："));
+			// if(num != "" && !isNaN(num) && num>=0){
+			// 	switch (num){
+			// 		case 0:
+			// 			alert("数字"+num+"转换成大写为:零");
+			// 			break;
+			// 		case 1:
+			// 			alert("数字"+num+"转换成大写为:壹");
+			// 			break;
+			// 		case 2:
+			// 			alert("数字"+num+"转换成大写为:贰");
+			// 			break;
+			// 		case 3:
+			// 			alert("数字"+num+"转换成大写为:叁");
+			// 			break;
+			// 		case 4:
+			// 			alert("数字"+num+"转换成大写为:肆");
+			// 			break;
+			// 		case 5:
+			// 			alert("数字"+num+"转换成大写为:伍");
+			// 			break;
+			// 		case 6:
+			// 			alert("数字"+num+"转换成大写为:陆");
+			// 			break;
+			// 		case 7:
+			// 			alert("数字"+num+"转换成大写为:柒");
+			// 			break;
+			// 		case 8:
+			// 			alert("数字"+num+"转换成大写为:扒");
+			// 			break;
+			// 		case 9:
+			// 			alert("数字"+num+"转换成大写为:玖");
+			// 			break;
+			// 		default:
+			// 			alert("数字输入有误！")					
+			// 	}			
+			// }else{
+			// 	alert("输入有误！")
+			// }
+
+
+			// var age=Number(prompt("请输入你的年龄：(数字)"));
+			// if(age !="" && !isNaN(age) && age>=0){
+
+			// 	type = age>18?"成年人。":"未成年人。";
+			// 	alert("你是"+type);	
+
+			// }else{
+			// 	alert("输入有误");
+			// }
+
+			// var score1= 50;	
+			// var score2= 70;	
+			// score1>=60?alert("成绩合格"):alert("成绩不合格");
+			// score2>=60?alert("成绩合格"):alert("成绩不合格");
+
+			// for(var i =3; i<=13; i += 3){
+			// 	console.log(i);
+			// }
+
+			// for(var i=0 ; i <= 1 ; i += 0.2){
+			// 	console.log(i.toFixed(1));
+			// }
+
+			// for(var i = 18; i>=-6; i -= 4){
+			// 	console.log(i);
+			// }
+
+			// for (var i = 1; i <= 9; i++) {
+			// 	document.write("第" + i + "圈<br>");
+			// }
+
+			//1.请计算 1+2+3+4+...100的和
+			//创建累加器 sum
+			// var sum=0;
+			// //遍历1到100每一个数字，每遍历一个数字把这个数字加到sum中去
+			// for(var i = 1; i<=100; i++){
+			// 	sum += i;
+			// }
+			// //输出累加器的值
+			// alert(sum);
+
+			// 累加器思想；
+
+			//请问1~100中，哪个数字除以3 余1，除以4 余2，除以5 余 3？
+
+			// for(var i = 1; i <= 100; i++){
+			// 	if(i%3 == 1 && i%4 == 2 && i%5 == 3){
+			// 		alert("数字"+i+"这个数字可以实现；");
+			// 	}
+			// }
+
+			//穷举法 算法思想（穷尽枚举）
+
+
+			// var sum = 0;
+			// var i = 1;
+			// while(i<=100){
+			// 	sum += i;
+			// 	i++;
+			// }
+			// alert(sum);
+
+			// while循环，while英语是 “当” 的意思
+			// while 是 “不定范围”的 循环
+			// var i = 1;
+			// while (i<=100){
+			// 	if(i%3 ==1 && i%4 == 2 && i%5 == 3){
+			// 		alert("数字"+i+"这个数字可以实现；");
+			// 	}
+			// 	i++;
+			// }
+
+			// var i =1;
+			// while (Math.pow(i,2)<=456789){				
+			// 	i++;
+			// }
+			// alert(i);
+
+			// 用for循环实现，用break 打断 跳出循环
+			// for(var i = 1; i < 10000; i++){
+			// 	if(Math.pow(i,2)>456789){
+			// 		alert(i);
+			// 		break;
+			// 	}
+			// }
+
+
+			// var i = 1;
+			// var sum = 0;
+			// while (sum <= 500) {
+			// 	sum = sum + i;
+			// 	i++;
+			// }
+
+			// alert("小兔子第" + (i - 1) + "天，能拔完500个萝卜");
+
+			// while循环终止条件和循环推力（i++）不是同一变量,大概率会出现 “出一错误”（满足终止条件时，i却多算了一次 +1）；
+
+
+			// 用for循环实现，用break 打断 跳出循环
+			// var sum=0;
+			// for(var i = 1; i<10000; i++){
+			// 	sum = sum + i; 
+			// 	if(sum>500){
+			// 		alert("小兔子第" + i + "天，能拔完500个萝卜");
+			// 		break;
+			// 	}
+			// }
+
+			// var i = 1;
+			// var sum= 0;
+			// while (true){
+			// 	sum += i;
+			// 	if(sum>500){
+			// 		alert(i);
+			// 		break;
+			// 	}
+			// 	i++;
+			// }
+
+			// var i = 1,
+			// 	sum = 0;
+			// //补充代码
+			// while (i <= 10) {
+			// 	sum = sum + i;
+			// 	i++;
+			// }
+			// document.write(sum);
+			// while (input != 5){
+			// 	var input= Number(prompt("请输入0-10的数字："));
+			// 	if(input<5) alert("猜小了");
+			// 	if(input>5) alert("猜大了");
+			// }
+			// alert("猜对了");
+
+			// var i=0;
+			// while(true){				
+			// 	if(i*i>456789){
+			// 		alert(i);
+			// 		break;
+			// 	}	
+			// 	i++;
+			// }
+			// var sum = 0;
+			// for(var i = 0; i <= 100; i++){
+			// 	if(i == 22 || i == 44 || i == 66 || i == 88){
+			// 		sum = sum + i;
+			// 		continue;
+			// 	}
+			// 	console.log(i);
+			// }
+			// alert("它们的和"+sum);
+
+			// do while 循环是后判断的循环形式，能至少执行1次循环体；
+			// do{
+			// 	console.log("☆★");
+			// }while(false);
+
+			//猜数字小游戏；  do while 做法
+
+			// var number = parseInt(Math.random() * (99 - 2 + 1)) + 2;
+			// console.log(number);
+			// do {
+			// 	var input = Number(prompt("请输入您猜的数字：(2~99之间)"));
+			// 	if (input > number) alert("输入的数字太大了");
+			// 	if (input < number) alert("输入的数字小了");
+
+			// } while (input != number)
+
+			// alert("猜对了！！！");
+
+			// while 做法			
+			// var number = parseInt(Math.random() * (99 - 2 + 1)) + 2;
+			// var min = 1;
+			// var max = 100;
+			// while (true) {
+			// 	var input = Number(prompt("请猜测数字" + min + "~" + max));
+			// 	// if (input > number) alert("输入的数字太大了");
+			// 	// if (input < number) alert("输入的数字小了");
+			// 	// if (input == number) {alert("猜对了！！"); break;}
+			// 	if (input > min && input < max) {
+			// 		if (input > number) {
+			// 			alert("输入的数字太大了");
+			// 			max = input;
+			// 		} else if (input < number) {
+			// 			alert("输入的数字小了");
+			// 			min = input;
+			// 		} else {
+			// 			alert("猜对了！！");
+			// 			break;
+			// 		}
+			// 	}else{
+			// 		alert("输入不合法！");
+			// 	}
+			// }
+			
+		// 	var number = parseInt(Math.random() * (99 - 2 + 1)) + 2;
+		// 	var min = 1;
+		// 	var max = 100;
+		// 	while (true) {
+		// 		var input = Number(prompt("请猜测数字" + min + "~" + max));
+		// 			//验证用户输入的数字是否在区间范围内
+		// 			if (input <= min || input >= max) {
+		// 				alert("输入不合法！");
+		// 				continue;
+		// 			}			
+							
+		// 			if (input > number) {
+		// 				alert("输入的数字太大了");
+		// 				max = input;
+		// 			} else if (input < number) {
+		// 				alert("输入的数字小了");
+		// 				min = input;
+		// 			} else {
+		// 				alert("猜对了！！");
+		// 				break;
+		// 			}
+		
+		// 	}
+			
+		//计算 100以内的奇数和 使用 while
+		// var i = 0;
+		// var sum = 0;
+		// while (i <= 100){
+		// 	if(i % 2 !== 0){
+		// 		sum += i;
+		// 	}
+		// 	i++;
+		// }
+		// alert(sum);
+		
+		
+		// 小灰同学在课余时间做兼职挣了1000块钱，他用这笔钱买了一款年化率为5%的理财产品。请问这1000块想要增长到2000块，需要花费多少年？	
+		
+		// var num = 10000;
+		// var i = 1;
+		// while(true){			
+		// 	num = num*1.05;
+		// 	if(num > 40000) break;	
+			
+		// 	i++;			
+		// }
+		// alert("小明同学10000块本金，年华5%收益，需要"+i+"年增长到40000元");
+		
+		// var n=Number(prompt("请输入数字："));
+		// var sum = 0;
+		// for(var i = 2; i <= n; i++){
+		// 	sum = sum + (i+1)/i;	
+		// 	console.log(sum);
+		// };
+		// sum = sum.toFixed(2);
+		// alert(sum);
+		
+		//由用户输入 数字 n, 请计算 n 的阶乘：3的阶乘 = 3*2*1
+		
+		// var num = Number(prompt("请输入数字，计算阶乘："));
+		// var sum = 1;
+		// for(var i = 1; i <= num; i++){
+		// 	sum *= i;
+		// 	console.log(sum);
+		// };
+		// alert(sum);
+		
+		// 输入 数字，计算圆周率 ：
+		
+		// var num = Number(prompt("请输入数字，计算圆周率："));
+		// var item = 1;
+		// var result = 1;
+		// for(var i = 1 ; i <= num; i++){
+		// 	item *= i/(2 * i +1);
+		// 	result += item ;
+		// };
+		// alert((1+result)*2);
+		
+		// var num = Number(prompt("请输入数字:"));
+		// var result = 0;
+		// for(var i = 2; i <= num; i++){
+		// 	result += (i-1)/i;
+		// }
+		// alert(result+1);
+		
+		
+		//穷举法是什么:
+		// document.write("满足100以内同时被3和5整除的数字有：<br/>");
+		// for(var i = 1; i <= 100; i++){
+		// 	if(i % 3 == 0 && i % 5 == 0){
+		// 		document.write(i+"<p></p>");
+		// 	}
+		// }
+		
+		//寻找所有的水仙花数：
+
+		// function Bianli(n) {
+		// 	for(var i = 1 ; i <= n; i++){				
+		// 		if(Result(i)){
+		// 			console.log(i + "是水仙花数");
+		// 		}
+		// 	};
+		// }	
+		// function Result(n){
+		// 	var result = 0;
+		// 	n = n.toString();
+		// 	for (var i = 0; i < n.length; i++) {
+		// 		var j = Number(n.charAt(i))
+		// 		result = result + Math.pow(j, 3);
+		// 	}
+		// 	if(result == Number(n)){
+		// 		return true;
+		// 	}else {
+		// 		return false;
+		// 	}
+		// }	
+
+		// Bianli(1000);
+		
+
+		// for(var i = 1; i <= 100; i++){			
+		// 	if(i % 7 != 0 && String(i).indexOf("7") == -1){				
+		// 		console.log(i);
+		// 	}
+		// }
+		
+		// for(var i = 2; i <= 100; i++){
+		// 	var IsZhishu = true;			
+		// 	for(var j = 2; j <= 10; j++){
+		// 		if(i % j == 0 && i != j){
+		// 			IsZhishu = false;	
+		// 			//console.log("j是:"+j);
+		// 		}
+		// 	}
+		// 	if(IsZhishu){
+		// 		console.log(i);
+		// 	}		
+		// }
+		
+		//给外层for循环加上label
+		
+		// outer:for(var i = 2; i <= 100; i++){
+		// 	for(var j = 2; j < i; j++){
+		// 		if(i % j == 0){
+		// 			continue outer;
+		// 			// 通过 outer 跳出外层循环
+		// 		}
+		// 	}
+		// 	console.log(i);
+		// }
+		
+		
+		// outer:for(var i = 1; i <= 35; i++){
+		// 	for(var j = 1; j <= 35; j++){
+		// 		if(i*2+j*4 == 94 && i + j == 35){
+		// 			console.log("鸡是"+i+"只，兔是"+j+"只");
+		// 			continue outer;
+		// 		}
+		// 	}
+		// }
+		
+		// for(var i = 1; i <= 35; i++){
+		// 	if(i*2+(35-i)*4 == 94){
+		// 		console.log("鸡是"+i+"只，兔是"+(35-i)+"只");
+		// 	}
+			
+		// }
+		
+		// for(var i = 1; i <= 5; i++){
+		// 	document.write("<br/><hr>第"+i+"轮游戏得分：<br/>");
+		// 	for(var j = 10; j <= 100; j += 10){
+		// 		document.write(j+"分&nbsp;&nbsp;");
+		// 	}
+		// }
+		
+		// for(var i = 1; i <= 9; i++){
+		// 	for(var j = 1; j <= i; j++){
+		// 		document.write("*");
+		// 	}
+		// 	document.write("<br>");
+		// }
+		
+		//九九乘法表:
+		
+		// for(var i = 1; i <= 9; i++){
+		// 	for(var j = 1; j <= i; j++){				
+		// 		document.write(j+"*"+i+"="+j*i+" 丨 ");
+		// 	}
+		// 	document.write("<br>");
+		// }
+		// var sum = 0;
+		// for(var i = 1 ; i <= 50 ; i++){
+		// 	for(var j = 1; j <= 50 ; j++){
+		// 		for( var z = 1; z <= 50 ; z++){
+		// 			if(i*5+j*2+z*10 == 100){
+		// 			document.write("购买毛巾"+i+"条，牙刷"+j+"只，牙膏"+z+"支<br>");
+		// 				sum += 1;	
+		// 			}
+		// 		}
+		// 	}
+		// }
+		// alert("共有"+sum+"种购买方案");
+		
+		// 有一个三位数，个位数比百位数大，而百位数比十位数大，并且各位数字之和等于各位数字相乘之积，求此三位数。
+		
+		for(var i = 100 ; i <= 999; i++){
+			var g = Number(String(i).charAt(2));
+			var s = Number(String(i).charAt(1));
+			var b = Number(String(i).charAt(0));				
+			if(g > b && b > s && g+s+b == g*s*b){
+				console.log(String(b)+String(s)+String(g));
+			}			
+		}
+		
+		// 253 % 10    取个位
+		// parseInt(253/10) % 10 取十位
+		// parseInt(253/100) % 10 取百位
+		//console.log(parseInt(253/100)%10 )
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			
+		</script>
+
+
+		
+
+
+
+	</body>
+</html>

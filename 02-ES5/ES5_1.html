@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+		<script type="text/javascript">
+			// var x=0,y=undefined;
+			// console.log(x&&y);
+			// var m=1,n="imooc";
+			// console.log(m&&n);
+
+			// var x=NaN,y=undefined,z=1;
+
+			// var m=1,n="0",j=33;
+
+			// var a=!(!undefined),b=!0;
+
+			// console.log(x||y||z);
+			// console.log(m||n||j);
+			// console.log(a||b);
+
+			// var a=6;
+			// a += 2;
+			// a -= 2;
+			// a *= 3;
+			// a /= 3;
+			// a %= 4;
+			// console.log(a);
+			// var a = 5;
+			// var b = 7;
+			// var c = a;
+			// a = b;
+			// b = c;
+			// console.log("a的值是：" + a);
+			// console.log("b的值是：" + b);
+
+			// var num1 = 4;
+			// var num2 = 5;
+			// var result;
+			// result = (num1++) + (--num2);
+			// console.log(result);
+
+			// 				var year=Number(prompt("请输入你在出生年份："));
+			// alert(year % 4==0 && year % 100 != 0 || year %100 == 0 && year % 400 ==0)
+			// var a=3;
+			// var b=4;
+			// alert(a++ + b++ + ++a + ++b);
+			//a++ 3
+			//a++ 4
+			//++a 5
+			//++b 6
+
+			// var num= Number(prompt("请输入一个数字："));
+			// if(num % 2!=0){
+			// 	alert(num+"是一个奇数");
+			// }else{
+			// 	alert(num+"是一个偶数");
+			// }
+
+			// var year=Number(prompt("请输入你的年龄："));
+			// if(year>=18 && year <= 70){
+			// 	alert("可以考取驾照");
+			// }else{
+			// 	alert("年龄不符合要求");
+			// }
+
+			// var score= Number(prompt("请输入分数："));
+			// if(score >= 80){
+			// 	alert("您的成绩为优");
+			// }else if(score >= 60){
+			// 	alert("您的成绩刚及格");
+			// }else{
+			// 	alert("不合格");
+			// }
+
+			// var Tizhong = Number(prompt("请输入您的体重(Kg)："));
+			// var sHeight = Number(prompt("请输入您的身高(cm)："));
+			// 	sHeight=sHeight/100;
+			// var BMI=Tizhong/(sHeight*sHeight);
+
+			// if(BMI>=32){
+			// 	alert("您的BMI值为："+BMI+" ,属于非常肥胖");
+			// }else if(BMI>28){
+			// 	alert("您的BMI值为："+BMI+" ,属于肥胖");
+			// }else if(BMI>24){
+			// 	alert("您的BMI值为："+BMI+" ,属于过胖");
+			// }else if(BMI>18.5){
+			// 	alert("您的BMI值为："+BMI+" ,属于正常");
+			// }else{
+			// 	alert("您的BMI值为："+BMI+" ,属于过瘦");
+			// }
+
+			// if(BMI<18.5){
+			// 	alert("您的BMI值为："+BMI+" ,属于过瘦");				
+			// }else if(BMI>18.5 && BMI<24){
+			// 	alert("您的BMI值为："+BMI+" ,属于正常");				
+			// }else if(BMI>24 && BMI<28){
+			// 	alert("您的BMI值为："+BMI+" ,属于过胖");
+			// }else if(BMI>28 && BMI<32){
+			// 	alert("您的BMI值为："+BMI+" ,属于肥胖");
+			// }else{
+			// 	alert("您的BMI值为："+BMI+" ,属于非常肥胖");
+			// }
+
+
+			// var phoneNumber=prompt("请输入您的手机号");
+			// if(phoneNumber.length<11){
+			// 	alert("请输入11位手机号码！");
+			// }else if(!Number(phoneNumber)){
+			// 	alert("输入的手机号码必须是11位数字！");
+			// }else{
+			// 	alert("号码输入正确！");
+			// }
+
+			// var score=Number(prompt("请输入成绩："));
+			// 	   if(score<0 || score>100){
+			// 	       alert("您输入的成绩有误！！")
+			// 	   }else if(score>=90){
+			// 	       alert("优秀")
+			// 	   }else if(score>=80){
+			// 	       alert("良好")
+			// 	   }else if(score>=70){
+			// 	       alert("良好")
+			// 	   }else if(score>=60){
+			// 	       alert("及格")
+			// 	   }else{
+			// 	       alert("不及格")
+			// 	   }
+
+			//判断水仙花数：
+
+			// var numb = prompt("请输入1个数字：");
+			// var result = 0;
+			// if (numb == "") {
+			// 	alert("请输入数字！");
+			// } else if (numb.charAt(0) == "0") {
+			// 	alert("数字首位，不可以为0");
+			// } else if (!Number(numb)) {
+			// 	alert("请用正确格式输入数字！");
+			// } else {
+			// 	for (var i = 0; i < numb.length; i++) {
+			// 		//var j = Number(numb.substr(i,1));	
+			// 		var j = Number(numb.charAt(i))
+			// 		result = result + Math.pow(j, 3);
+			// 	}
+
+			// 	if (result === Number(numb)) {
+			// 		alert("您输入的数字" + numb + ", 是水仙花数。");
+			// 	} else {
+			// 		alert("数字" + numb + ", 不是水仙花数。");
+			// 	}
+
+			// }
+			// alert(isNaN(Number("zhong")));
+
+			// var num = Number(prompt("请输入1个数字："));
+			// if(!isNaN(num) && num>=100 && num<=999){
+			// 	var a = parseInt(num/100); //取百位数；
+			// 	var b = Math.floor(num/10) % 10;	// 取十位数；
+			// 	var c = num % 10;	// 取个位数；
+			// 	if(Math.pow(a,3)+Math.pow(b,3)+Math.pow(c,3) == num){
+			// 		alert("这个数字是水仙花数");
+			// 	}else{
+			// 		alert("不是水仙花数");
+			// 	}
+			// }else{
+			// 	alert("您输入的数字不合法");
+			// }
+
+			// 			var age= Number(prompt("请输入年龄："));
+			// 			var date= Number(prompt("请输入星期几：(数字1-7)"));	
+
+			// if(!isNaN(age) && !isNaN(date) && age>0 && age<90 && date>=1&& date<=7){
+			// 				if(date>=1 && date<=5 && age>=10){
+			// 					alert("票价为：300元");							
+			// 				}else if(date>=1 && date<=5 && age<10){
+			// 					alert("票价为：140元");	
+			// 				}else if(date>=6 && date<=7 && age<10){
+			// 					alert("票价为：210元");	
+			// 				}else if(date>=6 && date<=7 && age>=10){
+			// 					alert("票价为：500元");	
+			// 				}							
+
+			// 			}else{
+			// 				alert("年龄或星期天数，输入不合法！");
+			// 			}
+
+			// var num= Number(prompt("请输入1个数字:(1~1000之间)"));
+			// 		if(!isNaN(num) && num>=1 && num<=1000){
+			// 		    if(num % 2 ==0 || num % 3 == 0){
+			// 		        alert("可以被2或者3整除");
+			// 		    }else{
+			// 		        alert("不能被2或者3整除");  
+			// 		    }
+
+			// 		}else{
+			// 		    alert("输入数字不合法");
+			// 		}
+			// var num= Number(prompt("请输入1个数字:"));
+			// 		if(num != " " && num>=0){
+			// 		    if(num % 2 ==0 ){
+			// 		        alert(num+"是偶数");
+			// 		    }else{
+			// 		        alert(num+"是奇数"); 
+			// 		    }
+
+			// 		}else{
+			// 		    alert("输入的不是自然数");
+			// 		}
+
+			var sex = prompt("请输入性别：(男、女)");
+			var weight = Number(prompt("请输入体重：(KG)"));
+			var height = Number(prompt("请输入身高：(CM)"));
+			var middle;
+			if (sex == "男") {
+				if (weight > 0 && height > 0 ) {
+					middle=(height-80)*0.7;
+				if (weight >= middle*0.95 && weight <= middle*1.05) {
+						alert("先生，您的体重正常");
+					} else if (weight < middle*0.95) {
+						alert("先生，您太瘦了，要多补充营养哦");
+					}else if (weight > middle*1.05) {
+						alert("先生，您该锻炼身体减肥了哦");
+					}
+					
+				} else {
+					alert("身高或体重，输入有误！")
+				}
+
+
+			} else if (sex == "女") {
+				if (weight > 0 && height > 0 ) {
+					middle=(height-70)*0.6;
+					if (weight >= middle*0.95 && weight <= middle*1.05) {
+						alert("女士，您的体重正常");
+					} else if (weight < middle*0.95) {
+						alert("女士，您太瘦了，要多补充营养哦");
+					}else if (weight > middle*1.05) {
+						alert("女士，您该锻炼身体减肥了哦");
+					}
+
+				} else {
+					alert("身高或体重，输入有误！")
+				}
+			} else {
+				alert('性别输入有误！请输入"男"或"女"。');
+			}
+			
+		</script>
+
+
+	</body>
+</html>

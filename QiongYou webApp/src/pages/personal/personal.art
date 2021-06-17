@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="Zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>暮云游商城-个人中心</title>
+</head>
+<body>
+    <div id="personal-page" class="personal-layout">
+     <!-- top头像 -->
+    <div class="person-top-layout">
+        {{include './components/top/top.art'}}
+    </div>
+    <!-- menu菜单 -->
+    <div class="personal-menu-layout">
+        {{include './components/menu/menu.art'}}
+    </div>
+
+     <!-- 标签栏 -->
+     <div class="tabbar-layout">
+        <% include('../../components/tabbar/tabbar.art',{active:'personal'}) %>
+      </div>
+    </div>   
+</body>
+</html>

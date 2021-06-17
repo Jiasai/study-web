@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>函数</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// //创建一个 累加器函数：
+			// function sum(min,max) {
+			// 	if(!Number(min) && !Number(max) || !min || !max){
+			// //如果非数字字符串，或者 空字符串，或者 少一个参数，值为undefined
+			// 		alert("参数不合法！");
+			// 		return;
+			// 	}
+			// 	if(typeof min == "string" || typeof max == "string"){
+			// 		//如果是字符串数字，转数字
+			// 		min = Number(min);
+			// 		max = Number(max);
+			// 	}
+			// 	if( min > max){ // 对参数大小值比较，并作出大小调整
+			// 		var mide = max;
+			// 		max = min;
+			// 		min = mide;
+			// 	}
+			// 	var result = 0;
+			// 	for (var i = min; i <= max ; i++) {
+			// 		result += i;
+			// 	}
+			// 	document.write("累加后结果为"+ result);
+
+			// }
+			// //调用函数
+			// sum("1",2);
+
+
+			// fun();
+			// var fun = function () {
+			// 	alert("A");
+			// }
+
+			// function fun () {
+			// 	alert("B");
+			// }
+			// fun();
+
+			// fun();
+
+			// a();
+			// function a () {
+			// 	document.write("你好");
+			// }
+
+			// var b = function () {
+			// 	document.write("JavaScript");
+			// }
+			// b();
+
+
+			// function fun () {
+			// 	console.log(arguments[0]);
+			// 	console.log(arguments[1]);
+			// 	console.log(arguments[2]);
+			// }
+
+			// fun(22,33,44,2);
+
+			//不管用户传入多少参数，永远能计算它们的和
+
+			// function cals () {
+			// 	for (var i = 0, sum = 0; i < arguments.length; i++) {
+			// 		sum += arguments[i];
+			// 	}
+			// 	document.write("计算传入参数的和为："+sum);
+			// }
+
+			// cals(2,3,4,5,1,100);
+
+
+			// function sque () {
+			// 	var result = arguments[0] * arguments[1];
+			// 	document.write(arguments[0]+'*'+arguments[1]+'='+result+'<br/>');
+			// }
+
+			// 		sque(3,4,6,7);
+			// 		sque(5,6,6);
+			// 		sque(7,7);
+
+			// var UserName = prompt("请输入用户名：");
+			// var UserPwd = prompt("请输入密码：");
+			// var sure = prompt("请输入验证码：");
+
+			// function Yanzheng () {
+			// 	if(!Number(arguments[1])){
+			// 		 alert("密码错误");
+			// 	}
+			// 	if(arguments[2].length < 4){
+			// 	    alert("验证码不小于4位");
+			// 	}
+			// }
+			// Yanzheng(UserName,UserPwd,sure);
+
+			// function Oushu (num) {
+			// 	num = Number(num);
+			// 	if(num != 0 && !num || num < 0) return '参数不合法';
+			// 	if(num % 2 == 0) return num+'是偶数';	
+			// 	return num+'不是偶数';
+			// }
+			// var result = Oushu(0);
+			// alert(result);
+
+
+			// 		var input = prompt("请输入您的密码");
+			// 		// 补充代码
+			// 		function funName(input) {
+			// if (input.length >= 6 && input.length <= 12) return '密码格式正确';
+			// if (input.length < 6) return '密码不能小于6位数';
+			// if (input.length > 12) return '密码不能大于12位数';
+			// 		}
+			// 		alert(funName(input));
+
+			// function PingJunValue () {
+			// 	var sum = 0 ;
+			// 	for (var i = 0 ; i < arguments.length; i++) {
+			// 		sum += arguments[i];
+			// 	}
+			// 	return parseInt(sum / arguments.length);
+			// }
+
+			// var result = PingJunValue(3,4,14,89,23,12,43,12);
+			// alert("平均值为"+result);
+
+			//穷举法，寻找喇叭数
+			// function TheNumber() {
+			// 	for (var i = 100; i <=999; i++) {
+			// 		// 用字符串方法，拆位；
+			// 		var B = Number(String(i).charAt(0));
+			// 		var S = Number(String(i).charAt(1));
+			// 		var g = Number(String(i).charAt(2));
+			// 		// 调用阶乘函数，判断 是否满足条件
+			// 		if(i == JieCheng(B)+JieCheng(S)+JieCheng(g)){
+			// 			//输出喇叭数
+			// 			document.write(i+",是喇叭数");
+			// 		}
+			// 	}
+			// }
+			// // 计算数字阶乘的函数
+			// function JieCheng(num) {
+			// 	var sum = 1;
+			// 	for (var i = 1; i <= num ; i++) {
+			// 		sum *= i;
+			// 	}
+			// 	return sum;
+			// }
+
+			// //调用执行函数
+			// TheNumber();
+
+
+			// var Arr = [33,22,11,55,77];
+
+			// // 通过sort排序方法，快速排序
+			// //函数是Js中的第一等公民，它可以当作参数，传入另一个函数
+
+			// Arr.sort(function (a,b) {
+			// 	return a - b;
+			// })
+
+			// console.log(Arr);
+
+
+
+			// var input;
+			// var arr = [];
+
+			// while (input != "-1") {
+			// 	input = Number(prompt("请输入您想排序的数字"));
+			// 	//补充代码
+			// 	if(input != -1) arr.push(input);
+
+			// }
+			// //补充代码
+			// arr.sort(function (a,b) {
+			// 	return b-a;
+			// }); //在括号中补充代码
+			// document.write(arr);
+
+			// function factorial(n) {
+			// 	if (n == 1) return 1;
+			// 	return n * factorial(n - 1);
+			// }
+
+			// var result = factorial(4);
+			// alert(result);
+
+
+			// return 4 * factorial(3);
+
+			// return 4 * 3 * factorial(2);
+
+			// return 4 * 3 * 2 * factorial(1);
+
+			// return 4 * 3 * 2 * 1;
+
+			// //从1-100 计算数字的和
+			// function add(n) {
+			// 	if(n == 1) return 1;
+			// 	return n + add(n-1);
+			// }
+
+			// var result = add(100);
+			// alert(result);
+
+			//从15-150 计算数字的和
+			// function add(min,max) {
+			// 	if(max == min) return min;
+			// 	return max + add(min , max - 1);
+			// }
+
+			// var result = add(15,150);
+			// alert(result);
+
+
+			// 使用递归，对一个数组进行大小值排序：
+
+			// var Arr = [88,44,77,66,33,11,22];
+
+			// // Arr.sort(function (a,b) {
+			// // 	return a-b;
+			// // })
+			// // 用递归思想，便利数组；
+			// function con(i){
+			// 	if(i == 0) return Arr[i]; //条件式，结束递归
+			// 	console.log(Arr[i]); // 动作；
+
+			// 	i--; // 动力因；
+			// 	return con(i);	// 循环使用			
+			// }
+
+			// console.log(con(Arr.length - 1))
+
+
+			// var sum = 0;
+			// function sam(m){
+			// 	if(m == 0) return sum; //判断式，出口					
+			// 	sum += m;				
+			// 	m--;
+			// 	return sam(m);  //动因，n在变化
+			// }
+
+			// var result = sam(100);
+			// alert("1~100数字之和是" + result);
+
+
+			//用编程生成 斐波那契数列：1、1、2、 3 、 5 、8 、13 、21
+			// var Arr = [];
+			// function shulie(n , m) {
+			// 	Arr.push(n,m);
+			// 	if(Arr.length > 10) return Arr;
+			// 	n = n + m;
+			// 	m = n + m;				
+			// 	return shulie(n , m);
+			// }
+
+			// var Result = shulie(1,1);
+			// console.log(Result);
+
+			// 使用for循环 生成斐波那契数列
+			// var Arr = [];			
+			// function shulie(){
+			// 	var n = 1;
+			// 	var m = 1;
+			// 	for (var i = 0 ; i <= 20 ; i++) {
+			// 		Arr.push(n,m);
+			// 		n = n+m;
+			// 		m = n+m; 
+			// 	}
+			// 	return Arr;
+			// }
+
+			// var result = shulie();
+			// console.log(result);
+			//用编程生成 斐波那契数列：1、1、2、 3 、 5 、8 、13 、21
+
+			//编写一个函数，这个函数的功能是返回斐波那契数列中下标为 n 的值
+			// 		function fib (n) {
+			// 			if ( n == 0 || n == 1) return 1;
+			// 			// 菲波那切数列值的本质特征就是 每一项，都等于前面两项的和
+			// 			return fib(n - 1) + fib(n - 2);
+			// 			//动因n 在变化，在变小；
+			// 			// 判断 n == 0 或 1， return 1;
+			// 		}
+
+			// return fib(4)+fib(3);
+			// return fib(3)+fib(2)+fib(2)+fib(1);
+			// return  1+1+1+1+1+1+1+1;
+
+
+			// 		var resul = fib(5);
+			// 		console.log(resul);
+			// var i = 1;
+
+			// function gongzi(n) {
+			// 	if (i > 20) return parseInt(n);
+			// 	n = n * 1.05;
+			// 	i++;
+			// 	return gongzi(n);
+			// }
+
+			// var result = gongzi(10000);
+			// alert("20年后的工资" + result)
+
+
+			// var year = 20; //年
+			// var t = 0.05; //涨幅
+
+			// // 计算每年工资
+			// function fn(y) {
+			// 	if (y == 1) return 10000;
+			// 	// 补充代码				
+			// 	return parseInt(fn(y-1)*(1 + t));
+			// }
+
+
+			// document.write("20年后,小慕的月薪为" + fn(year));
+			
+			//计算1~100数字和：
+			
+			// var sum = 0;
+			// function he(m) {
+			// 	if(m == 0) return sum;
+			// 	sum = sum + m;
+			//     return he(m-1);
+			// }
+			
+			// document.write(he(100));
+
+			// var Arr = [2,3,4,[34,45,56,['中国','我爱你']]]
+			
+			// function deepClone(arr) {
+			// 	var resultArr = [];
+			// 	for (var i = 0 ; i < arr.length; i++) {
+			// 		if(Array.isArray(arr[i])){
+			// 			resultArr.push(deepClone(arr[i]));
+			// 		}else{
+			// 			resultArr.push(arr[i]);	
+			// 		}
+					
+			// 	}
+			// 	return resultArr;
+			// }			
+			// var result = deepClone(Arr);			
+			// console.log(result);
+			
+			// var n = '中国';
+			
+			// function aler (n) {
+			// 	alert(n);
+			// }
+			
+			// window.aler(window.n);
+			
+			// var a =1;
+			// function b() {
+			// 	var a = 2;
+			// }
+			// b();
+			// console.log(a);
+			
+			// function a(bool) {				
+			// 	if(bool) return b;
+			// 	alert("Hello , a");
+			// 	function b () {
+			// 		alert("Hello , b");
+			// 	}
+				
+			// }
+			// // var b = a(true);
+			// // b();
+			// a(true)();
+			
+			var a =3;
+			var b =2;
+			(a + b >4) ? alert("正确") : alert("错误");			
+			// 三元运算符
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
+			
+			
+		</script>
+
+
+
+
+	</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch用法</title>
+</head>
+<body>
+<script>
+/* 1.Fetch是什么？
+Fetch也是前后端通信的一种方式
+Fetch是 Ajax (XMLHttpRequest) 的一种替代方案，它是基于 Promise的
+现在前后端通信有两种选择：Ajax 和 Fetch
+
+Ajax 的 兼容性比 Fetch 好；
+Fetch原生没有提供 abort 和 timeout 这些机制；
+ */
+//2.fetch的基本用法：
+//js内置了fetch函数，直接就可以调用；
+
+//fetch()调用后，返回 Promise对象；
+const url = 'https://www.imooc.com/api/http/json/search/suggest?words=js';
+
+//第二个参数是对象，用来配置 fetch
+//fectch没有params，如果要用请求头携带参数，在url内添加
+//有body，通过请求体携带数据；
+//同时要设置headers,可以设置 Content-Type
+//直接传对象数据，需要用JSON.stringify()转一下字符化
+
+//body也可以传 FormData数据，不需要设置headers的Content-Type
+const formdata = new FormData();
+formdata.append('username','Lisi');
+fetch(url,{
+    method:'post',
+    body:formdata,
+    /* body:JSON.stringify({username:'alex'}),
+    headers:{
+        'Content-Type':'application/json'
+    } */
+    /* body:'username=alex&age=18',
+    headers:{
+        'Content-Type':'application/x-www-form-urlencoded'
+    } */
+    mode:'cors'
+    //设置跨域资源共享，默认值
+    //credentials:'include'
+    //设置跨域是否携带Cookie
+})
+.then(response=>{
+    if(response.ok){
+        return response.json();//如果响应数据是json格式
+        //return response.text();//如果响应数据是字符串格式使用 text()
+    }else{
+        throw new Error(`HTTP CODE异常${response.status}`);
+    }
+    //body/bodyUsed
+    //body只能读一次，读过之后就不让再读了，bodyUsed被锁上
+    //ok属性 为true,表示可以读取数据，不用再去判断HTTP状态码了
+
+})
+.then(data=>{
+    console.log(data);
+})
+.catch(err=>{
+    console.log(err);
+});
+
+/* body: (...)
+bodyUsed: false
+headers: Headers {}
+ok: true
+status: 200
+statusText: "OK"
+type: "cors"
+url: "https://www.imooc.com/api/http/search/suggest?words=js" */
+
+
+
+
+
+
+
+</script>
+    
+</body>
+</html>

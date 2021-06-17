@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>封装cookie 及 cookie应用</title>
+	</head>
+	<body>
+		<button type="button" id='cn'>中文</button>
+		<button type="button" id='en'>English</button>
+		
+		<form action="http://127.0.0.1:8848/" method="post">
+			<p>用户名：<input type="text" name="username" value="" placeholder="请输入用户名" /></p>
+			<input type="button" id="submitBtn" style="background: #008000;border:0;padding:5px 15px;color: #fff;" value="登录并记住"/>
+			<input type="button" id="removeBtn" style="background: #F01414;border:0;padding:5px 15px;color: #fff;"  value="清除记录" />
+		</form>
+		
+		<script type="module">
+			//设置、修改
+			//获取值
+			//remove删除
+			/* import {setCookie,getCookieValue,removeCookie} from './cookie.js';
+			setCookie('username','alex');
+			setCookie('username','ZS');
+			setCookie('age',18);
+			setCookie('用户名','李四');
+			
+			setCookie('sex','male',{
+				maxAge:30*24*3600
+			})
+			
+			removeCookie('username');
+			removeCookie('age');
+			
+			console.log(getCookieValue('username'));
+			console.log(getCookieValue('用户名'));
+			console.log(getCookieValue('age'));
+			console.log(getCookieValue('sex')); */
+			
+			
+			
+			
+		import {setCookie,getCookieValue,removeCookie} from './cookie.js';
+		//使用封装好的 cookie实现网站语言切换
+		
+		
+		const cnBtn = document.getElementById('cn');
+		const enBtn = document.getElementById('en');
+		
+		cnBtn.addEventListener('click',()=>{
+			setCookie('language','cn',{
+				maxAge:30*2*3600
+				});
+			window.location.reload(); //刷新页面
+		},false);
+		enBtn.addEventListener('click',()=>{
+			setCookie('language','en',{
+				maxAge:30*2*3600
+				});
+			window.location.reload();
+		},false);
+		
+		
+		const loginBtn = document.getElementById('submitBtn');
+		const DeleBtn = document.getElementById('removeBtn');
+		const usName = document.querySelector('[name="username"]');
+				
+		loginBtn.addEventListener('click',()=>{
+			if(!usName.value) return; //如果为空
+			setCookie(usName.name,usName.value,{
+				maxAge:3*30*24*3600
+				});			
+			window.location.reload();
+		},false);
+		
+		DeleBtn.addEventListener('click',()=>{
+			removeCookie(usName.name);
+			alert('已清除');
+			window.location.reload(); 
+		},false);
+		
+		//初始化一下页面
+		const PageInit=()=>{		
+			const name = getCookieValue(usName.name); 									
+			if(!name){	
+				usName.placeholder = '请输入用户名';								
+			}else{
+				usName.value = name;
+			};					
+		}
+		PageInit();	
+			
+			
+		</script>
+		
+		
+		
+	</body>
+</html>

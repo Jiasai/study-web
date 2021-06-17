@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表页-慕云游商城 - 机票、酒店、旅游攻略</title>
+    <meta name="Keywords" content="机票，酒店，旅游攻略，签证，出国，自由行">
+    <meta name="Description" content="慕云游商城有10多年旅游行业经验，为您提供全方位旅游服务">
+
+	
+</head>
+
+<body>
+    <header class="site-head">
+        <!--引入topbar-->
+    {{include '../../components/topbar/topbar.art'}}
+       <!--引入main-nav-->
+    {{include '../../components/main-nav/main-nav.art'}}  
+        <!-- 页面顶部主要内容 -->   
+    <% include('../../components/header-con/header-con.art',{page:'列表页'}) %>
+    </header>
+
+    <!-- banner -->
+    <section class="banner" id="banner">
+       
+        <div id= 'silderLayout'>
+        <!--引入loading-->       
+        <!-- 定制传参数 inline:true text:拼命加载 -->
+		<% include('../../components/loading/loading.art',{inline:true,text:'列表页加载'}) %>
+        </div>
+        <div class="center-wrap">
+            <!--引入菜单-->
+            {{include '../index/components/menu/menu.art'}}
+        </div>
+    </section>
+
+   
+
+    <!-- 引入热门广告 -->
+    {{include '../index/components/fav-ad/fav-ad.art'}}
+
+  
+
+    <!-- 引入列表页 main -->
+   {{include './components/main/main.art'}}
+
+    <!-- 页脚 -->
+    <footer>
+        {{include '../../components/bottom-bar/bottom-bar.art'}}
+        {{include '../../components/footer-nav/footer-nav.art'}}
+    </footer>
+
+    <!-- 引入返回顶部按钮 -->
+    {{include '../../components/backtotop/backtotop.art'}}
+
+</body>
+
+</html>

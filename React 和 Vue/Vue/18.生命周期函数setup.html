@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>setup中的声明周期函数</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      const app = Vue.createApp({
+        setup() {
+          const { 
+              onBeforeMount, 
+              onMounted, 
+              onBeforeUpdate, 
+              onUpdated, 
+              onRenderTracked,
+              onRenderTriggered,
+              ref } =
+            Vue;
+          //onBeforeMount 等价于 beforeMount(){}
+          //onMounted 等价于 mounted(){}
+          //onBeforeUpdate等价于 beforeUpdate(){}
+          //onUpdated 等价于 updated(){}
+
+          onBeforeMount(() => {
+            console.log("onBeforeMount");
+          });
+          onMounted(() => {
+            console.log("onMounted");
+          });
+          onBeforeUpdate(() => {
+            console.log("onBeforeUpdate");
+          });
+          onUpdated(() => {
+            console.log("updated");
+          });
+
+          onRenderTracked(()=>{
+            console.log("onRenderTracked"); 
+            //每次页面渲染之后，重新收集响应依赖会自动执行
+          });
+          onRenderTriggered(()=>{
+            //每次触发页面重新渲染时会自动执行
+            console.log("onRenderTriggered"); 
+          });
+
+          const name = ref("Dell");
+          const show = ref(true);
+          setTimeout(() => {
+            name.value = "张三";
+            show.value = false;
+          }, 3000);
+
+          return { name, show };
+        },
+        template: `
+            <div>{{name}}</div>
+            <child v-if='show' />
+        `,
+      });
+
+      app.component("child", {
+        setup() {
+          const { onBeforeUnmount, onUnmounted, ref } = Vue;
+          //onBeforeUnmount 等价于 BeforeUnmount(){}
+          //onUnmounted 等价于 Unmounted(){}
+          onBeforeUnmount(() => {
+            console.log("onBeforeUnmount");
+          });
+          onUnmounted(() => {
+            console.log("onUnmounted");
+          });
+        },
+        template: `
+            <div>Hello,World</div>
+        `,
+      });
+      //beforeCreate(){}, created(){}这两个生命周期函数在setup中无法使用， 因为setup函数执行在时间点就在 beforeCreate 和 created 之间
+
+      app.mount("#root");
+
+    </script>
+  </body>
+</html>

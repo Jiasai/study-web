@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>axios的基本用法</title>
+</head>
+<body>
+
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <script src="./axios.min.js"></script>
+    <script>
+    /* axios是什么
+    axios是一个基于 Promise的 HTTP库，可以用在浏览器和 node.js中；
+    第三方 Ajax库，基于 Promise;
+    http://www.axios-js.com/zh-cn/docs/  
+    302临时跳转
+    axios的基本用法
+    1.引入 axios 
+    通过 script标签引入 
+
+    使用要点：
+    要从服务器获取数据、资源，就用 axios.get()
+    //（当然，你用axios()/asios.post(),也不会错）
+
+    用从服务器获取并且，要传参数过去就用axios.post(); */
+
+const URL1 = 'https://www.imooc.com/api/http/json/search/suggest?words=js';
+
+axios(URL1,{
+    method:'post',
+    //请求时的头信息
+    headers:{
+        // 'Content-Type':'application/x-www-form-urlencoded',
+        "Content-Type":"application/json"
+    },
+    //通过请求头(地址)携带的数据
+    params:{
+        username:'alex'
+    },
+    //通过请求体携带的数据
+    //Content-Type设置为application/json
+    data:{
+        age:18,
+        sex:'male'
+    },
+    //axios,data传对象,Content-Type 要设置 json格式
+
+    //Content-Type设置为application/x-www-form-urlencoded
+    //data:'age=18&sex=male'
+
+    // timeout:10 //请求超时
+
+    //withCredentials:true //是否跨域携带 Cookie
+}).then(response=>{
+    console.log(response);
+    //console.log(response.data.data);
+}).catch(err=>{
+    console.log(err);
+});
+
+
+//axios.get()用法，得到的就是 json转js的格式，相当于getJSON
+//通过请求头(地址)携带的数据, Query String Parameters 形式
+axios.get(URL1, {  //get简便的 写法： axios.get(`${URL1}&username=zhangsan`)
+    params: {
+        username: 'zhangsan'
+    }
+}).then(response => {
+    console.log(response);
+})
+.catch(err => { console.log(err) });
+
+
+//post直接传字符串,键和值的形式，默认自动设置Content-Type: application/x-www-form-urlencoded，
+//Form Data 形式
+axios.post(URL1,'username=Lisi&father=xm').then(response => {
+    console.log(response);
+})
+.catch(err => { console.log(err) });
+
+
+
+//用post直接传对象数据，默认会自动设置Content-Type,为application/json  格式
+ const a1= axios.post(URL1,{
+    data:{
+        school:'shiyan',
+        height:'168cm'
+    }
+}).then(response => {
+    console.log(response);
+})
+.catch(err => { console.log(err) });
+
+//console.log(a1); //Promise对象
+
+//axios.put()方法 和 axios.delete()方法
+
+
+
+
+
+
+
+
+</script>
+    
+</body>
+</html>

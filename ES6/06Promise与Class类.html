@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Promise与Class类</title>
+		<style type="text/css">
+			*{margin:0;padding: 0;}
+			#box{width:100px;height: 100px;background: red; transition: all 0.4s;}
+			img{display: block;max-width: 98%;margin-bottom: 10px;}
+		</style>
+	</head>
+	<body>
+	<!-- <div id="box"></div> -->
+		<img src='' data-url="https://img2.mukewang.com/6013c87a0001a35f17920764.jpg" alt="" class="imglis">
+		<img src='' data-url="https://img3.mukewang.com/5ffbb3e30001a3c617920764.jpg" alt="" class="imglis">
+		<img src="" data-url='https://img.mukewang.com/6010d7a50001af7917920764.jpg' alt="" class="imglis">
+		
+		
+		
+		
+<script type="text/javascript">
+			
+	// Promise是什么？
+			
+	// 1.认识Promise:
+	/* Promise是异步的一种解决方案;
+	异步操作：比如 回调函数；
+	//回调函数就是一个被作为参数传递、后又被'别人'调用的函数。	
+	document.addEventListener('click',()=>{
+		console.log('这里是异步的');
+	},false)
+	console.log('这里是同步的');
+			
+	//2.什么时候使用Promise?
+	 Promise 一般用来解决层层嵌套的回调函数（回调地狱 callback hell）的问题
+			
+	const move = (el,{x=0,y=0}={},end=()=>{}) =>{
+		el.style.transform = `translate3d(${x}px,${y}px,0)`;
+		el.addEventListener('transitionend',()=>{
+			end();
+		},false)		
+	}		
+	const boxEl = document.getElementById('box');
+	document.addEventListener('click',()=>{
+		move(boxEl,{x:150},()=>{
+			move(boxEl,{x:150,y:150},()=>{
+				move(boxEl,{x:0,y:150},()=>{
+					move(boxEl,{});
+				})
+			});
+		})	
+	},false)
+	
+	层层嵌套就是'回调地狱'，Promise是解决回'层层嵌套'（回调地狱）的。
+			
+	1.实例化构造函数Promise()生成实例对象：
+
+	2.Promise的状态:	
+	const p = new Promise((resolve,reject)=>{
+		resolve();
+		//reject();
+	});
+	console.log(p);	
+	
+	Promise 有3种状态，一开始是 pending(未完成)，
+	执行resolve，变成fulfilled（resolved）,已成功；
+	执行reject,变成rejected，已失败
+	
+	pending 状态：(实例化后初始状态)
+	fulfilled 状态：（调用resolve()，成功状态）
+	rejected状态：(调用reject()，失败状态)	
+	
+	 resolve() : pending ——> fulfilled
+	 reject() :  pending ——> rejected
+	
+	 Promise的状态一旦变化，就不会再改变了。
+		
+	4.resolve 和 reject 函数的参数：
+		
+	const p2 = new Promise((resolve,reject)=>{
+		//resolve();
+		//resolve({name:'张三'});
+		//reject('错误提示：如下...');
+		
+		//reject()一般传 错误对象
+		reject(new Error('错误提示：如下...'));
+	});	
+	
+	p2.then(
+	data=>{ // (调用resolve())成功态执行，接收resolve()参数
+		console.log('success',data);  // success  {name:'张三'}
+	},
+	err=>{ // (调用reject())失败态执行，接收 reject()参数
+		console.log('error',err);
+	})
+	 */
+	
+	// Promise实例的 then()方法 (Promise实例调用)	
+	// //1.什么时候执行:
+	// pending -> fulfilled时，执行then的第一个回调函数；  pending -> rejected时，执行then的第二个回调函数；	
+	// //2.执行后的返回值:
+	// then方法执行后，返回一个新的Promise对象,也可以调用then方法	
+	// 3.then方法返回的Promise对象的状态如何改变:
+	// const p = new Promise((resolve,reject)=>{
+	// 	//resolve();
+	// 	reject();})	
+	// p.then(
+	// ()=>{ //console.log('success');},
+	// ()=>{ console.log('error');		
+	// 	//在 then的回调函数中，return后面的东西，会用Promise包装一下
+	// 	 return '成功'; //等价于
+	// 	// return new Promise(resolve=>{
+	// 	// 	resolve('成功');
+	// 	// })
+		
+	// 	// 默认返回的永远都是成功状态的Promise对象
+	// 	如果你想要失败状态,手动设置return
+	// 	return new Promise((resolve,reject)=>{
+	// 		reject('失败'); // 调用reject()
+	// 	})
+	// }
+	// ).then(
+	// 	data=>{console.log('success2',data);//success2 成功},
+	// 	err=>{console.log('error2',err); }
+	// );
+	
+	
+	
+	
+	
+	
+	
+	// //4. 使用Promise 解决回调地狱	
+	// const move = (el,{x=0,y=0}={},end=()=>{}) =>{
+	// 	el.style.transform = `translate3d(${x}px,${y}px,0)`;
+	// 	el.addEventListener('transitionend',()=>{
+	// 		end();
+	// 	},false)		
+	// }		
+	// const movePromise=(el,point)=>{
+	// 	return new Promise(resolve=>{
+	// 		move(el,point,()=>{
+	// 			resolve();
+	// 		});
+	// 	});
+	// }					
+	// const boxEl = document.getElementById('box');	
+	// document.addEventListener('click',()=>{		
+	// 	movePromise(boxEl,{x:150})
+	// 	.then(()=>{
+	// 	   return movePromise(boxEl,{x:150,y:150});
+	// 	})
+	// 	.then(()=>{
+	// 	   return movePromise(boxEl,{y:150});
+	// 	})
+	// 	.then(()=>{
+	// 	   return movePromise(boxEl,{x:0,y:0});
+	// 	})	
+	// },false)
+	
+	// document.addEventListener('click',()=>{
+	// 	move(boxEl,{x:150},()=>{
+	// 		move(boxEl,{x:150,y:150},()=>{
+	// 			move(boxEl,{x:0,y:150},()=>{
+	// 				move(boxEl,{});
+	// 			})
+	// 		});
+	// 	})	
+	// },false)
+	
+	/* catch()方法:
+
+	then常用第1个回调:
+	then(data=>{});
+	
+	catch 专门用来处理then的 rejected 状态
+	catch 本质上是 then 的 特例,捕获错误；
+	then(null,err=>{});
+	
+	
+	new Promise((resolve,reject)=>{
+		//resolve(1234);
+		reject('失败');
+	}).then(data=>{
+		console.log(data);
+	}).catch(err=>{
+		console.log(err);  //失败
+		//throw new Error('');
+	})
+	
+	 catch()可以捕获它前面的错误 */
+	// 一般总是建议，Promise 对象后面要跟catch()方法，这样可以处理Promise内部发生的错误
+	
+	// finally();
+	//当Promise状态发生变化时，不论如何变化都会执行，不变化不执行
+
+	
+	//finally()
+	//本质上是 then()的特例
+	//意思是 中转站，什么都不做
+	
+	// new Promise((resolve,reject)=>{
+	// 	reject('catch()捕获了错误abc');
+	// }).finally(data=>{
+	// 	console.log(data);
+	// }).catch(err=>{
+	// 	console.log(err);
+	// })
+	
+	/* const p = new Promise(resolve=>resolve('小明'));
+	
+	p.then(data=>{
+		console.log(`我叫${data}`); //我叫小明
+	}).catch(err=>{
+		console.log('错误');
+	})	
+	
+	1. Promise.resolve()
+	是成功状态的 Promise的一种简写形式
+	new Promise(resolve=>resolve('foo'));	
+	//简写等价于
+	Promise.resolve('foo');
+	
+	参数 //一般参数
+	 Promise.resolve('foo').then(data=>{
+		console.log(data);  // 'foo'
+	}) */
+	/* 
+	特殊参数 //(传 Promise对象作为参数)
+	当Promise.resolve()接收的是 Promise对象时，
+	直接返回这个Promise对象,什么都不做;
+	
+	const p1 = new Promise(resolve =>setTimeout(resolve,1000,'我执行了'));
+	
+	Promise.resolve(p1).then(data=>console.log(data));
+	//等价于
+	p1.then(data=>console.log(data));
+	
+	console.log(Promise.resolve(p1) === p1);//true
+	 
+	 当 resolve 函数接收到的是 Promise对象时，
+	 后面的then会根据传递的Promise对象的状态变化决定执行哪一个回调。 */
+	// new Promise(resolve =>resolve(p1)).then(data=>{
+	// 	console.log('data');  // '我执行了'
+	// })
+	
+/* 	2. Promise.reject()
+	失败状态Promise的一种简写方式
+	new Promise((resolve,reject)=>{
+		reject('reason');
+	})
+	//简写，等价于
+	Promise.reject('reason');
+	
+	参数:
+	不管什么参数,都会原封不动的向后传递,作为后续方法的参数;
+	 */
+	
+	/* Promise.all();
+	//作用：
+	Promise.all()关注多个 Promise对象的状态变化 ,传入多个 Promise实例，
+	包装成一个新的 Promise实例返回	
+	//2.基本用法:	
+	const delay=ms=>{
+	  return new Promise(resolve=>{
+		  setTimeout(resolve,ms);
+	  })
+	}	
+	const p1 = delay(1000).then(()=>{
+		console.log('p1完成了');
+		return 'p1';
+	});
+	const p2 = delay(2000).then(()=>{
+		console.log('p2完成了');
+		return Promise.reject('失败');
+	});
+	
+	const p = Promise.all([p1,p2]); //p1完成了   //p2完成了    
+	p.then(data=>{console.log(data)},err=>{
+		console.log(err);  //失败
+	})	
+	Promise.all()的状态变化与所有传入的Promise实例对象状态有关
+	所有状态都变成resolved,最终状态才会变成resolved
+	只要有一个变成rejected，最终状态就变成rejected */
+	
+	
+	/* Promise.race() 和 Promise.allSettled()
+	
+	Promise.race()的状态取决于 第一个完成的Promise实例对象，如果第一个完成的成功了，那最终的就成功；
+	如果第一个完成的失败了，那最终的就失败。
+	
+	Promise.allSettled() 
+	Promise.allSettled()的状态与传入的Promise状态无关
+	永远都是成功的。
+	它只会忠实的记录下各个 Promise的表现
+	
+	//Promise注意事项:
+	1.resolve 或 reject函数执行后的代码
+	new Promise((resolve,reject)=>{
+		resolve(123);
+		
+	 	console.log('hi');
+	 })
+	
+	resolve()或 reject()后面不推荐再写代码；
+	因为调用resolve()或reject()后，Promise的使命已经完成，后续的操作和程序应该在 then()方法内完成；
+	
+	推荐在调用resolve 或 reject函数的时候 加上 return, 不再执行它后面的代码；
+	
+	 2. Promise.all()、Promise.race()、Promise.allSettled()的参数问题
+	
+	1. 参数传数组,数组内是一个一个的Promise对象;
+	参数如果不是Promise数组,会将不是Promise的数组元素变成Promise对象
+	Promise.all([1,2,3]).then(data=>console.log(data))
+	等价于
+	Promise.all([1,2,3]) === Promise.all([Promise.resolve(1),Promise.resolve(2),Promise.resolve(3)]) 
+	
+	不只是数组，任何可遍历的都可以作为参数；
+	
+	2. Promise.all()、Promise.race()、Promise.allSettled()的错误处理
+	
+	传入的 Promise对象，自己添加个 catch()方法，自己捕获错误并处理；
+	
+	给返回的 Promise对象，统一添加个 catch()方法，统一处理
+	
+	Promise的应用: 异步加载图片
+	 */
+	const loadImgAsync =(url,ms)=>{
+		return new Promise((resolve,reject)=>{
+			setTimeout(()=>{
+				//Image()构造函数:图片对象
+				const img = new Image();
+				//图片加载成功了
+				img.onload = ()=>{
+					resolve(img);
+				};
+				//图片加载失败了
+				img.onerror = ()=>{
+					reject(new Error(`找不到图片路径 ${url}`));
+				};
+				// 图片开始加载
+				img.src = url;
+				
+			},ms);
+		})
+	}
+		
+	const picListArr = ['http://climg.mukewang.com/5b16558d00011ed506000338.jpg','http://climg.mukewang.com/5b165603000146ca06000338.jpg','http://climg.mukewang.com/5b1656140001c89906000338.jpg'];
+	
+	
+	for (let i = 0 ; i < picListArr.length; i++) {
+		
+		loadImgAsync(picListArr[i],(i+1)*1000).then(img=>{
+			const bodys=document.getElementsByTagName('body')[0];
+			let imgEl = document.createElement('img');
+			imgEl.src = img.src;		
+			bodys.appendChild(imgEl);							
+		}).catch(err=>{
+			console.log(err);
+		})		
+	}
+	
+	
+	
+	
+	
+	
+		
+</script>
+		
+		
+		
+		
+	</body>
+</html>

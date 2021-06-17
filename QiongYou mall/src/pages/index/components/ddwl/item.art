@@ -1,0 +1,83 @@
+<div class="col">
+    <div class="bigpicbox animation upMove shadow">
+        <img src="{{one.url}}" alt="">
+        <div class="info">
+            <p class="proname">
+               {{one.title}}
+            </p>
+            <div class="bottom clearfix">
+                <p class="tag">{{one.type}}</p>
+                <p class="price"><strong>{{one.price}}</strong>元起</p>
+            </div>
+        </div>
+    </div>
+ 
+        <div class="grid animation upMove shadow">
+            <a href="">
+                <div class="picbox">
+                    <img src="{{items[0].url}}" alt="">
+                </div>
+                <div class="wordbox">
+                    {{items[0].title}}
+                </div>
+            </a>
+        </div>
+   
+</div>
+<div class="col">
+    <div class="grid animation upMove shadow">
+        <a href="">
+            <div class="picbox">
+                <img src="{{items[1].url}}" alt="">
+            </div>
+            <div class="wordbox">
+                {{items[1].title}}
+            </div>
+        </a>
+    </div>
+    <div class="grid animation upMove shadow">
+        <a href="">
+            <div class="picbox">
+                <img src="{{items[2].url}}" alt="">
+            </div>
+            <div class="wordbox">
+                {{items[2].title}}
+            </div>
+        </a>
+    </div>
+    <div class="grid animation upMove shadow">
+        <a href="">
+            <div class="picbox">
+                <img src="{{items[3].url}}" alt="">
+            </div>
+            <div class="wordbox">
+                {{items[3].title}}
+            </div>
+        </a>
+    </div>
+</div>
+<div class="col">
+    <div class="grid animation upMove shadow">
+        <a href="">
+            <div class="picbox">
+                <img src="{{items[4].url}}" alt="">
+            </div>
+            <div class="wordbox">
+                {{items[4].title}}
+            </div>
+        </a>
+    </div>
+    <div class="more-grid">
+        <a href="">
+            <p>查看更多</p>
+            <p>{{more.title}}</p>
+            <span class="iconfont">&#xe619;</span>
+            <ul>
+                {{each more.items}}
+                <li>{{$value}}</li>
+                {{/each}}
+               
+            </ul>
+        </a>
+    </div>
+</div>

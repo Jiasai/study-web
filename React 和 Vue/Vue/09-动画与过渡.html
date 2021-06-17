@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue动画与过渡</title>
+    <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
+    <style>
+    /* 动画 */
+    @keyframes leftToRight{
+       0% {
+           transform: translateX(0px);
+       }     
+       50% {
+        transform: translateX(100px);
+       }
+       0% {
+        transform: translateX(-100px);
+       }
+    }
+    .animation{
+    animation:leftToRight 3s;  
+    }
+    /* 过渡 */
+    .transition{
+transition: 3s background-color ease; 
+    }
+    .blue{
+        color:#fff;
+        background: blue;
+    }
+    .red{
+        color:#fff;
+        background: red;
+    }
+
+    </style>
+</head>
+<body>
+<div id="root"></div>
+<div id="root1"></div>
+<script>
+//过渡、动画
+//过渡：从一个状态变化到另一个状态
+//动画：一个元素运动的效果
+const app=Vue.createApp({
+    data(){
+        return{
+            animate:{
+                animation:false,
+                transition:true,
+                blue:true,
+                red:false
+            },
+            lock:true
+        }
+    },
+    methods:{
+        handleClick(){
+        //锁
+        if(!this.lock) return;
+        this.lock = false;
+        //改变
+        this.animate.animation = !this.animate.animation;
+        this.animate.blue = !this.animate.blue;
+        this.animate.red = !this.animate.red;
+        //回初始
+        setTimeout(()=>{
+            this.animate.animation = false;
+            this.lock=true;
+        },3000);
+
+        }
+    },
+    template:`
+    <div :class='animate'>Hello,world</div>
+    <button @click='handleClick'>切换</button>
+    `
+});
+const vm = app.mount('#root');
+
+
+const app1=Vue.createApp({
+    data(){
+        return{
+            styleObj:{
+                color:"#fff",
+                background: "blue"
+            }
+        }
+    },
+    methods:{
+        handleClick(){
+            //用行内 style 写过渡
+            this.styleObj.background = this.styleObj.background ==='blue'?'red':'blue';
+        }
+    },
+    template:`
+    <div class='transition' :style='styleObj'>Hello,world</div>
+    <button @click='handleClick'>切换</button>
+    `
+});
+const vm1 = app1.mount('#root1');
+
+
+</script>
+
+
+</body>
+</html>

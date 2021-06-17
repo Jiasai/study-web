@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:border-box; /* Firefox */
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+
+}
+ol,ul{
+    list-style: none;
+}
+button,input,textarea {border: 0;margin: 0;padding: 0;font-size: 0.14em;line-height: 0.3em;background-color: rgba(0,0,0,0.1)}
+a:active,a:hover {outline: 0}
+a,a:visited {text-decoration: none}
+
+
+html {
+    font-size: 100px;   
+}
+
+body {   
+    font: 0.14rem/1.5 Helvetica Neue,Helvetica,Arial,Microsoft Yahei,Hiragino Sans GB,Heiti SC,WenQuanYi Micro Hei,sans-serif;
+    color: #333;
+    transition: all 0.36s ease;
+	-webkit-transition: all 0.36s ease;
+    overflow-x: hidden;
+
+}
+
+a {
+    font-size: 14px;
+    color: #363636;
+    text-decoration: none;
+    transition: all 0.36s ease;
+	-webkit-transition: all 0.36s ease;
+}
+a:hover {
+    color: #1428a0;
+}
+
+
+img{
+    vertical-align: top;
+    max-width: 100%;
+    border: none;
+    transition: all 0.36s ease;
+	-webkit-transition: all 0.36s ease;
+}
+/*--图片缩放控制--	img:hover{
+transform:scale3d(1.08,1.08,1.08);
+}
+--*/
+
+
+.suolv{
+	position: absolute;
+    top: -4rem;
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>移动端事件：touch事件</title>
+    <style>
+        .box {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            background: red;
+        }
+        #xinxi{
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box"></div>
+    <div id="xinxi1"></div>
+    <div id="xinxi2"></div>
+    <div id="xinxi3"></div>
+
+    <script>
+        const boxEl = document.getElementById('box');
+        const boxXinxi1 = document.getElementById('xinxi1');
+        const boxXinxi2 = document.getElementById('xinxi2');
+        const boxXinxi3 = document.getElementById('xinxi3');
+
+        
+        const handleStart = (el,ev) => {
+           el.style.backgroundColor='green';
+           const touch = ev.changedTouches[0];
+           let html=``;
+           html = `touch开始的位置：${touch.pageX},${touch.pageY}`;
+           boxXinxi1.innerHTML = html;
+        }
+        //绑定事件
+        boxEl.addEventListener('touchstart',e=>{
+            handleStart(boxEl,e);
+        }, false);
+
+        const handleMove = (el,ev) => {
+            el.style.backgroundColor='blue';
+            const touch = ev.changedTouches[0];
+            let html=``;
+            html =`touch移动位置变化：${touch.pageX},${touch.pageY}`;
+            boxXinxi2.innerHTML = html;
+
+        }
+        const handleEnd = (el,ev) => {
+            el.style.backgroundColor='pink';
+            const touch = ev.changedTouches[0];
+            let html=``;
+            html =`touch结束时的位置：${touch.pageX},${touch.pageY}`;
+            boxXinxi3.innerHTML = html;
+        }
+        
+
+        //touchmove 触摸移动的时候
+        boxEl.addEventListener('touchmove',e=>{
+            handleMove(boxEl,e);
+        }, false);
+        
+        //touchend 触摸结束的时候
+        // boxEl.addEventListener('touchend', handleMove, false);//通过addEveentListener添加事件
+        boxEl.addEventListener('touchend',e=>{
+            handleEnd(boxEl,e);
+        }, false);
+        //touchcancel 触摸中断的时候（系统级，基本用不上）
+        //boxEl.ontouchcancel = handleCancel; //了解一下
+
+       /*  事件对象：e,的属性和方法：
+
+        altkey:false;(当你手指按住时，是否同时按住alt键)
+        bubbles:true (是否在冒泡)
+        cancelBubble:false (是否取消冒泡：不取消)
+        cancelable:true (是否支持取消冒泡：支持)
+
+        重要的：
+        type:'touchstart' (事件名称)
+        target:div#box.box  (响应的事件源)
+
+        非常重要：
+        changedTouches:TouchList
+        （触摸列表，包含手指的信息）所有触摸点
+        targetTouches:TouchList
+        （触摸列表，包含手指的信息）目标触摸点
+        Touches:TouchList
+        （触摸列表，包含手指的信息）发生变化的触摸点
+
+        changedTouches:TouchList
+
+        TouchList(类数组对象)
+
+        0和length代表，一根手指的；
+
+        当有4根手指按在屏幕上，2根手指在box盒子内，其中一根手指移动时，会触发touchmove事件监测，会有touches、targetTouches、changedTouches类数组列表，
+        这个时候，
+        Touches列表就会包含 所有的手指信息（4根手指），
+        targetTouches列表，包含目标物体上的手指信息（2根手指），
+        changedTouches列表：发生变化的手指信息，一根手指移动，这里包含了（1根手指）
+
+        一般来说，1根手指操作时，大部分情况下，用哪个都行（Touches/targetTouches/changedTouches）,
+        
+        但是，手指离开的刹那触发 touchend事件，屏幕上1根手指也没有了，touches,是0, 物体上也没有手指了，targetThouches也是 0，只有变化的那根手指（离开）被 changedTouches检测到记录了，所以它是1。
+
+        所以，推荐大家，一般情况下使用 changedTouches列表；
+
+
+        clientX:252
+        clientY:100  (手指点击地方x和y的坐标)
+
+        pageX:252
+        pageY:100 (手指点击地方x和y的坐标)
+
+        区别：
+        clientX、clientY是可视区范围内（窗口）的坐标；
+        pageX和pageY是考虑的滚动条的，相对于 （页面）的坐标（跟offsetTop和offsetLeft同理）；
+
+        force:1;(力度大小，不准确)
+        identifier:0 (id，唯一标识符)
+
+        radiusX:11.5
+        radiusY:11.5 (手指点击‘点儿’（圆形）的半径)
+
+        rotationAngle:0 (旋转角度)
+
+        screenX:305
+        screenY:373 (屏幕的x/y)
+
+        重点使用：
+        clientX/clientY
+        pageX/pageY （这两组）
+        一般常用 pageX、pageY
+ */
+
+
+
+
+
+    </script>
+</body>
+
+</html>

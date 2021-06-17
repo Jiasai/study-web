@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="Zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>暮云游商城-详情</title>
+<link href="css/details.css" rel="stylesheet"></head>
+<body>
+    <div id="details-page" class="details-layout">
+        <!-- details头部 -->
+      <div class="header-layout">
+          <div class="header details-header">
+    <div id="goback" class="details-header-back"><i class="iconfont icon-back"></i></div>
+    <div class="details-header-right">
+        <div id="details-like" class="details-header-like"><i class="iconfont icon-collect"></i></div>
+        <div id="details-share" class="details-header-share"><img src="data:image/png;base64,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" alt=""></div>
+    </div>
+</div>
+      </div>
+      <!-- 主体内容 -->
+      <div id="details-main-content" class="details-main-content-layout">
+        <div id='loading' class='loading loadInline'>
+    <div class='loading-indocator'>
+        
+    </div>
+    <div class='loading-text'>正在拼命加载</div>
+</div>
+
+      </div>
+      <!-- 底部bar -->
+      <div class="tabbar-layout">
+        <div class="bottomBar">
+    <div class="bottomBar-left">
+        <div class="bottomBar-btn-service">
+            <i class="iconfont icon-service"></i><span>咨询</span>
+        </div>
+        <div class="bottomBar-btn-like">
+            <i class="iconfont icon-collect"></i><span>收藏</span>
+        </div>
+    </div>
+    <div class="bottomBar-right">
+        <div class="bottomBar-btn-addBuy">立即预定</div>
+    </div>
+</div>
+      </div>
+
+
+
+    </div>
+    
+<script src="js/details.js"></script></body>
+</html>

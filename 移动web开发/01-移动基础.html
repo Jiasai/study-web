@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no,maximum-scale=1,minimum-scale=1">
+    <title>移动web开发基础</title>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0;}
+        .box{background: #ddd;
+        display: flex;
+        flex-flow:row wrap;
+        justify-content: space-around;
+        align-content: center;
+        height: 750px;
+        }
+        .items{background: #fff;
+    width: calc(33.3% - 20px);
+    height: calc(33.3% - 20px);
+    margin: 10px;
+    font-size: 36px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        
+        }
+        
+    /* 1.什么是媒体查询 media jQuery */
+    
+    @media screen and (min-width:900px){
+        body{
+            background:red;
+        }
+
+    }
+
+    /* 2.为什么需要媒体查询
+    一套样式不可能适应各种大小的屏幕
+    针对不同的屏幕大小写样式
+    让我们的页面在不同大小的屏幕上都能正常显示 */
+
+    /* 3.媒体的类型
+    all(default)
+    screen / print /speech */
+    @media (min-width:900px){
+
+    }
+
+   /*  4.媒体查询中的逻辑
+    与（and）
+    或（,）
+    非（not） */
+
+    /* and: 屏幕大小在900-1200之间的 */
+    @media (min-width:900px) and (max-width:1200px){
+        body{background: green;}
+    }
+   /* ,: 大于1200或者小于900的屏幕都可以 */
+    @media (min-width:1200px) , (max-width:900px){
+        body{background: pink;}
+    }
+    /* not: 大于1200或者小于900的屏幕都可以 */
+    @media not screen and (min-width:900px) and (max-width:1200px){
+            body{font-size:48px;}
+    }
+
+    /* 5.媒体特征表达式
+    max-width/min-width */
+    @media (-webkit-max-device-pixel-ratio:3) and(orientation: landscape){
+       /*  满足，设备像素比最大是3，且，是横屏 */
+       body{
+        background:black;
+       }
+
+    }
+
+
+
+
+
+
+    </style>
+</head>
+    <div class="box">
+        <div class="items">1</div>
+        <div class="items gao">2</div>
+        <div class="items">3</div>
+        <div class="items gao">4</div>
+        <div class="items">5</div>
+        <div class="items gao">6</div>
+        <div class="items">7</div>
+        <div class="items gao">8</div>
+        <div class="items">9</div>
+    </div>
+    <span>display:flex|inline-flex</span>
+<body>
+    <script>
+    //移动开发2种方式：
+    //1.响应式布局
+    //2.屏幕适配（2个站点：pc+移动）
+    // 视网膜高清显示屏：
+    // 6.1英寸：指对角线是6.1英寸
+    // 分辨率：
+    
+    //ppi:
+    //css像素
+
+    //视口：viewport
+    //视口 是 远大于 移动端的 css像素的，所以我们需要设置视口，以适应移动端屏幕
+    //<meta name="viewport" content="width=device-width">
+    //device-width是代表设备的css像素宽度
+    // 让当前的layout viewport（布局窗口）等于当前设备的宽度(css像素)
+    // 有 width= ,也就有 height=
+    //initial-scale=1.0 代表 缩放比
+    //user-scalable=no ,不希望用户缩放,另一种写法
+    //maximum-scale=1,minimum-scale=1
+    //考虑兼容性，综合写法
+    // <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no,maximum-scale=1,minimum-scale=1">
+    
+    //获取屏幕视口大小（宽度）
+    console.log(window.innerWidth);
+    //或者通过
+    console.log(document.documentElement.clientWidth);
+    //还可以通过
+    console.log(document.documentElement.getBoundingClientRect().width);
+
+    //为了考虑兼容性：
+    const viewWidth = document.documentElement.clientWidth||window.innerWidth||document.documentElement.getBoundingClientRect().width;
+
+    //获取 dpr缩放比
+   /*  console.log(window.devicePixelRatio);
+
+    box-sizing,默认是 content-box;
+    box-sizing:border-box;
+    border-box会控制总大小，改变padding或者border边框，都是 '向内挤压'；
+    
+    图标字体
+    什么是 flex布局，也叫"弹性布局"
+    .box{display:flex|inline-flex}
+    采用flex布局的元素，成为flex容器;
+    flex容器的所有子元素自动成为容器成员，成为flex项目
+
+    项目默认沿主轴排列的。
+    
+    容器的属性(都是设置在父容器box上不是项目)：
+    1.display 属性决定了是否使用flex布局；
+    区别：display:flex是块级元素，inline-flex是行内元素；跟display:block 与inline-block相似
+
+    2.flex-direction属性决定主轴的方向（即项目的排列方向）
+    .box{flex-direction:row|row-reverse|column|column-reverse}
+    row(默认值):主轴为 水平方向，起点在左端；
+
+    3.flex-wrap属性，默认情况下，项目都排在一条线(又称"轴线")上
+    flex-wrap属性定义，如果一条轴线排不下，如何换行；
+    .box{flex-wrap:nowrap|wrap|wrap-reverse}
+    nowrap 不换行； wrap 换行，第一行在上方；
+
+    4.flex-flow属性是 flex-direction属性和flex-wrap属性的简写形式，默认为 row nowrap;
+    (相当于 margin-left|margin-top被简写成 margin)
+
+    5.justify-content属性 定义了项目在主轴上的对齐方式
+    .box{justify-content:flex-start|flex-end|center|space-between|space-around}
+    flex-start(默认值) 左对齐
+    flex-end:右对齐
+    center :居中
+    space-between:两端对齐，同一行，项目之间的间隔相等；
+    space-around:每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。
+
+    6.align-items属性 定义项目在交叉轴上 如何对齐
+    .box{align-items:flex-sart|flex-end|center|baseline|stretch}
+    flex-start:交叉轴起点对齐；(从顶部对齐)
+    flex-end: 交叉轴的终点对齐；(从底部对齐)
+    center：交叉轴的中点对齐（垂直居中）
+    baseline:项目的第一行文字的基线对齐
+    stretch(默认值,不用设置):如果项目没有设置高度或者设为auto,将占满整个容器的高度。
+
+    7.align-content属性 定义了多根轴线（多行）在交叉轴上的对齐方式
+    如果项目只有一根轴线（一行）,该属性不起作用。
+    .box{align-content:flex-start|flex-end|center|space-around|space-between|stretch} */
+
+   /*  项目的属性
+    order属性定义项目的排列顺序
+    数值越小，排列越靠前。默认值为0
+    .items4{order:-1}
+    flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
+    如果所有项目的 flex-grow属性都为1，则他们将等分剩余空间（若果有的话）
+    如果你希望实现等分布局，可以给容器设置属性：
+    如果一个项目的 flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。
+    (分成4份，一个独占2份，另外的一个一份。)
+    如果有的项目有flex-grow属性，有的项目有width属性，
+    有flex-grow属性的项目将等分剩余空间。
+    
+    flex-shrink属性 定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小，属性为0时，为不缩小。
+
+    flex-basis属性 定义了在分配多余空间之前，项目占据的主轴空间，跟width相似，优先级比 width高，默认是 auto.
+
+    flex属性：是flex-grow 、flex-shrink和 flex-basis的简写。 
+    你希望项 平分剩余空间，就写：flex:1;
+
+    6.align-self属性 允许单个项目与其他项目不一样的对齐方式，可覆盖align-items属性。默认值是auto,继承父元素的align-items属性。
+    item{align-self:auto|flex-start|flex-end|center|baseline|stretch}
+
+    项目属性 重点记忆：
+    1.order,定义排序,数值越小越靠前，默认是0；
+    2.flex:1; 项 等分 剩余空间；
+    3.align-self:flex-start; 某个项单独设置垂直对齐方式
+ */
+   
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

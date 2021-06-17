@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>XHR对象</title>
+	</head>
+	<body>
+<script type="text/javascript">
+	
+// XHR对象的属性:
+// reponseType 和 reponse属性
+// timeout属性
+// withCredentials属性
+
+const url = 'https://www.imooc.com/api/http/search/suggest?words=js';
+const url1 = 'https://www.imooc.com/api/http/json/search/suggest?words=js';//后端提供支持发送JSON的接口
+
+//同域
+const url2 = './JSON/obj.json';
+
+const xhr = new XMLHttpRequest();
+
+xhr.onreadystatechange=()=>{
+	if(xhr.readyState !== 4) return;
+	if((xhr.status >=200 && xhr.status < 300)||xhr.status === 304){
+		// 文本形式的响应内容
+		// console.log(xhr.responseText);
+		// responseText只能在没有设置 reponseType或者responseType='text'的时候才能使用;
+		
+		console.log(xhr.response);
+		//直接使用response，可以来替代 responseText
+	}
+}
+
+
+xhr.open('POST',url1,true);
+//设置默认的响应内容
+//xhr.responseType = 'text';
+xhr.responseType = 'json'; 
+/* 设置了'json',相当于浏览器帮我们自动调用了JSON.parse()，把JSON字符串转化成了 JS 中的对应值； */
+
+//存在兼容性,IE6~9不支持，IE10开始支持
+
+xhr.timeout = 1000; //设置请求规定的超时时间；
+//xhr.withCredentials = true; //跨域要求携带数据
+
+
+/* timeout属性:	
+设置请求的超时时间(单位ms)
+会触发 timeout事件
+IE6~7不支持，IE8支持；
+
+3. withCredentials属性
+指定使用 Ajax发送请求时是否携带 Cookie;
+使用Ajax发送请求，默认情况下，同域时，会携带 Cookie；跨域时，不会；若果要携带，要设置属性 withCredentials 为 true;
+最终能否成功跨域携带 Cookie,还要看服务器同不同意（url接口支不支持接收Cookie）；
+IE6~9不支持， IE10开始支持
+ */
+
+// XHR方法:
+// abort();
+// 终止当前请求 //(xhr.abort();在 send()后面用)
+// 一般配合abort事件一起使用
+// setRequestHeader();
+// 设置请求头信息（一部分信息）
+// xhr.setRequestHeader(头部字段的名称,头部字段的值);
+
+
+// xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+//对应这种格式字段 'username=alex&age=18'
+//请求头中的 Content-Type字段用来告诉服务器，浏览器发送的数据是什么格式的
+xhr.setRequestHeader('Content-Type','application/json');//告诉发送json格式，默认浏览器不支持，会阻止，需要后端提供JSON支持的接口
+// const url1 = 'https://www.imooc.com/api/http/json/search/suggest?words=js';//后端提供支持发送JSON的接口
+
+
+//xhr.send('username=alex&age=18');
+// xhr.send(null);
+xhr.send(JSON.stringify({
+	username:'alex',
+	age:18
+}));
+
+
+</script>
+</body>
+</html>
+ 

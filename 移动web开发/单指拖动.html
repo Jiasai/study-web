@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>单指拖动</title>
+</head>
+<style>
+    body{height: 2000px;}
+    .backTop{
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        height: 45px;
+        width: 45px;
+        text-align: center;
+        line-height: 45px;
+        background: rgba(0,0,0,0.6);
+        border-radius: 50%;
+        color: #fff;
+        font-size: 30px;
+        transform: translate3d(0,0,0);
+        -webkit-tap-highlight-color: transparent;
+    }
+
+</style>
+<body>
+    
+<a id='goTop' class="backTop">
+&uarr;</a>
+
+<script type="text/javascript">
+
+    // //开始点击pageX,pageX
+    // let startX=0;
+    // let startY=0;
+
+    // //结束时，移动距离的x/y;
+    // let x=0;
+    // let y=0;
+
+    // //box的right和bottom
+    // let right=20;
+    // let bottom=20;
+
+    // //锁
+    // let isTouchMove = false;
+
+    // const start=(el,e)=>{   
+    //     const touch = e.changedTouches[0];
+    //     startX = touch.pageX;
+    //     startY = touch.pageY;
+
+    // }
+
+    // const follow=(el,e)=>{   //拖动跟随
+    //     e.preventDefault();//阻止默认行为
+    //     isTouchMove = true;
+    //     const touch = e.changedTouches[0];
+
+    //     let juliX=touch.pageX-startX;
+    //     let julilY=touch.pageY-startY;
+
+    //     [x,y]=move(el,juliX,julilY);
+
+    // }
+
+    // const end=(el,e)=>{   
+    //     if(!isTouchMove) return;
+    //     const touch = e.changedTouches[0];
+    //     right=-x+right; //更新位置
+    //     bottom=-y+bottom;
+    //     el.style.right = `${right}px`;
+    //     el.style.bottom = `${bottom}px`;
+    //     [x,y]=move(el);
+
+    //     isTouchMove=false;
+    // }
+    
+
+    // //move跟随
+    // const move=(el,s,m)=>{
+    //     s=s||0;
+    //     m=m||0;
+    //     el.style.transform=`translate3d(${s}px,${m}px,0)`;
+
+    //     /*用translate3d移动端性能更好，开启GPU加速*/
+    //     // el.style.left=`${s}px`;
+    //     // el.style.top=`${m}px`;
+    //     // 这个方法性能较低
+
+    //     return [s,m];
+    // }
+
+    // //添加事件监听,出入函数执行
+    // const _addTouchEvent=(el,name,func)=>{
+    //     el.addEventListener(name,e=>{
+    //         func(el,e);
+    //     },false);
+    // }
+    // //执行事件监听函数
+    // _addTouchEvent(gotop,'touchstart',start);
+    // _addTouchEvent(gotop,'touchmove',follow);
+    // _addTouchEvent(gotop,'touchend',end);
+    //move跟随
+
+    //锁,移动才处理
+    let isTouchMove=false;
+    //移动函数
+    const move=(el,x,y)=>{
+        x=x||0;
+        y=y||0;
+        el.style.transform=`translate3d(${x}px,${y}px,0)`;
+       return [x,y];
+    }
+    const drag=(el,options)=>{
+        //默认值
+        options.x= typeof options.x !=='undefined'?options.x:true;
+        options.y= typeof options.y !=='undefined'?options.y:false;
+        if(!options.x&&!options.y) return;
+
+        const curPoint={x:0,y:0}; //实时更新当前坐标
+        const startPoint={};    //手指刚按下坐标
+        const stopMovePoint={x:0,y:0};
+
+        const viewport=()=>{ //获取文档宽高
+            const viewWidth = window.innerWidth||document.documentElement.clientWidth||document.documentElement.getBoundingClientRect().width;//兼容性写法，获取屏幕宽度
+            const viewHeight = window.innerHeight||document.documentElement.clientHeight||document.documentElement.getBoundingClientRect().height;//兼容性写法，获取屏幕高度
+            //let documentHeight= document.documentElement.offsetHeight>viewHeight?document.documentElement.offsetHeight:viewHeight;
+            return {width:viewWidth,height:viewHeight};
+        }
+
+        const handleStart=e=>{
+            const touch = e.changedTouches[0];
+            startPoint.x=touch.pageX;
+            startPoint.y=touch.pageY;
+        }
+
+        const handleMove=e=>{
+            e.preventDefault();
+            isTouchMove =true;
+            const touch = e.changedTouches[0];
+            //拖动相关
+            const diffPoint={};
+            const movePoint={x:0,y:0};
+
+            diffPoint.x=touch.pageX-startPoint.x;
+            diffPoint.y=touch.pageY-startPoint.y;
+
+            movePoint.x=diffPoint.x+curPoint.x;
+            movePoint.y=diffPoint.y+curPoint.y;
+
+            //拖动限制
+            const width = viewport().width;
+            const height= viewport().height;
+            if(movePoint.x>20){//拖动限制
+                movePoint.x=20;
+                [stopMovePoint.x,stopMovePoint.y]=move(el,movePoint.x,movePoint.y);
+                return;
+            }else if(movePoint.x<-width+60){
+                movePoint.x=-width+60;
+                [stopMovePoint.x,stopMovePoint.y]=move(el,movePoint.x,movePoint.y);
+                return;
+            }else if(movePoint.y>20){
+                movePoint.y=20;
+                [stopMovePoint.x,stopMovePoint.y]=move(el,movePoint.x,movePoint.y);
+                return;
+            }else if(movePoint.y<-height+60){
+                movePoint.y=-height+60;
+                [stopMovePoint.x,stopMovePoint.y]=move(el,movePoint.x,movePoint.y);
+                return;
+            }else{
+                //拖动move
+                [stopMovePoint.x,stopMovePoint.y]=move(el,movePoint.x,movePoint.y);
+            }
+        }
+
+        const handleEnd=e=>{
+            if(!isTouchMove) false;
+            curPoint.x = stopMovePoint.x;
+            curPoint.y = stopMovePoint.y; 
+
+        }
+
+        //绑定事件
+        el.addEventListener('touchstart',handleStart,false);
+        el.addEventListener('touchmove',handleMove,false);
+        el.addEventListener('touchend',handleEnd,false);
+
+    }
+
+
+    //执行drag函数
+    const gotop= document.getElementById('goTop');
+    drag(gotop,{
+        x:true,
+        y:true
+    })
+
+
+
+</script>
+
+
+
+</body>
+</html>

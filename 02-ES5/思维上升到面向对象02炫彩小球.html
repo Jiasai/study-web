@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>思维上升到面向对象02：炫彩小球</title>
+		<style type="text/css">
+			body {
+				background-color: #000000;
+			}
+
+			.ball {
+				position: absolute;
+				border-radius: 50%;
+			}
+		</style>
+	</head>
+	<body>
+
+		<script type="text/javascript">
+			// 			获得随机数：
+			// 			console.log(Math.random()); //0-1之间小数；
+			// 			console.log(Math.random()*10); //0-10之间小数；
+			// 			console.log(Math.random()*100); //0-100之间小数；
+			// 			console.log(parseInt(Math.random()*1000)); //0-1000之间整数；
+			// 			//从 a 到 b之间的 随机整数数，比如 20-50之间：
+			// 			//parseInt(Math.random()*(b-a+1)+a) 取整随机数公式
+			// 			console.log(parseInt(Math.random()*(50-20+1)+20));
+			// //Math.random()*(b-a+1)+a公式 ，为什么加1？
+			// //如果a = 0 ; b = 100, Math.random()是一个随机的大于等于0，小于1的小数
+			// //即是 Math.random()随机出 0.99999，乘100，也小于100，parseInt一取整（不会四舍五入），就是 99，永远得不到 100这个数，所以加1, 101 * 0.9999 取整后是100
+
+
+			function Ball(x, y) {
+				//属性x、y表示的是圆心坐标；
+				this.x = x;
+				this.y = y;
+				//小球背景色,从颜色数组中随机一个颜色
+				this.color = colorArr[parseInt(Math.random() * colorArr.length)];
+				//小球半径
+				this.r = 20;
+				//小球透明度；
+				this.opacity = 1;
+				//这个小球的 x增量 和 y增量,使用do while 语句，防止dx和dy都是0；
+				do {
+					this.dx = parseInt(Math.random() * 20) - 10;
+					this.dy = parseInt(Math.random() * 20) - 10;
+				} while (this.dx == 0 && this.dy == 0);
+
+				//初始化
+				this.init();
+				//把自己推入数组，注意，这里的this不是类本身，而是实例；
+				ballArr.push(this);
+			}
+
+			Ball.prototype.init = function() {
+				//创建自己的dom
+				this.dom = document.createElement('div');
+				this.dom.className = 'ball';
+				//设置小球的宽、高、left、top、background
+				this.dom.style.width = this.r * 2 + 'px';
+				this.dom.style.height = this.r * 2 + 'px';
+				this.dom.style.left = this.x - this.r + 'px';
+				this.dom.style.top = this.y - this.r + 'px';
+				this.dom.style.backgroundColor = this.color;
+				//上树
+				document.body.appendChild(this.dom);
+			}
+
+			//更新位置、透明度
+			Ball.prototype.update = function() {
+				//位置改变
+				this.x += this.dx;
+				this.y -= this.dy;
+				//大小改变
+				this.r += 0.2;
+				//透明度改变
+				this.opacity -= 0.01;
+				//操作dom
+				this.dom.style.width = this.r * 2 + 'px';
+				this.dom.style.height = this.r * 2 + 'px';
+				this.dom.style.left = this.x - this.r + 'px';
+				this.dom.style.top = this.y - this.r + 'px';
+				this.dom.style.opacity = this.opacity;
+
+				//当透明度小于零的时候，从数组中删除自己，dom也要删除自己
+				if (this.opacity < 0) {
+					//从数组中删除自己
+					for (var i = 0; i < ballArr.length; i++) {
+						if (ballArr[i] == this) {
+							ballArr.splice(i, 1);
+						}
+					}
+					//还要删除自己的dom
+					document.body.removeChild(this.dom);
+				}
+
+			}
+
+
+			//把所有的小球都放在一个数组中，
+			var ballArr = [];
+
+			//初始颜色数组
+			var colorArr = ['#6cc', '#cf6', '#f9c', '#f66', '#c39', '#f60', ]
+
+
+			//鼠标指针监听,获取x、y值，并 new出实例
+			document.onmousemove = function(ev) {
+				var x = parseInt(Math.random()*1920);// 或者 ev.clientX 鼠标离窗口左边的距离，跟随鼠标
+				var y = parseInt(Math.random()*1080);;
+				new Ball(x, y);
+			}
+
+
+			//定时器负责更新所有小球的实例
+			setInterval(function() {
+	
+				//遍历所有数组中的小球，调用upDate方法
+				for (var i = 0; i < ballArr.length; i++) {
+					ballArr[i].update();
+				}
+
+			}, 20)
+		</script>
+
+	</body>
+</html>

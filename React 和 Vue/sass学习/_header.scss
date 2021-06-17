@@ -1,0 +1,53 @@
+.header{
+    font-size: 12px;
+}
+.content{
+    span{
+        color:red;
+    }
+    span:active{
+        color: green;
+    }
+    span:hover{
+        color:blue;
+    }
+
+    div{
+        color:red;
+        &:active{
+            color: green;  
+        }
+        &:hover{
+            color:blue;
+        }
+    }
+
+}
+
+/*sass知识点 ：变量*/
+/*通过定义变量 $text-color，解决重复的公共样式设置问题,变量一定要定义在上面，因为从上往下编译执行*/
+/*变量可以做 加减乘除 运算*/
+/*使用 sass变量时，还有 公共的函数我们可以使用:lighten()/darken()等*/
+/* 定义变量 */
+$text-color:#444;
+$small-f:14px + 3px;
+$default-font:'microsoft yahei';
+
+/* 使用变量 */
+.title{
+    color:lighten($text-color,20%);
+    font-size: $small-f;
+    font-family: $default-font;
+}
+.subtitle{
+    color:darken($text-color, 20%);
+    font-size: $small-f;
+    font-family: $default-font;
+
+}
+.text{
+    color:$text-color;
+    font-size: $small-f;
+    font-family: $default-font;
+
+}

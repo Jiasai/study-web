@@ -1,0 +1,9 @@
+<ul>
+    {{each items}}
+    <li class='animation shadow leftMove'>
+        <a href="" class="animation coverWhite">
+            <img src="{{$value.url}}" alt="">
+        </a>
+    </li>
+    {{/each}}
+</ul>

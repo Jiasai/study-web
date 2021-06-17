@@ -1,0 +1,225 @@
+@charset "utf-8";
+
+/*----PC first原则，向下响应手机----*/
+@media (max-width:768px) {
+
+	/*首页*/
+	div.header {
+		display: none;
+	}
+
+	.slider {
+		height: 3.45rem;
+	}
+
+	.slider .sliderText p.big-English {
+		font-size: 0.32rem;
+	}
+
+	.slider .sliderText p.big-title {
+		font-size: 0.2rem;
+		margin-top: -0.11rem;
+	}
+
+	.slider .sliderText p.big-subtitle {
+		font-size: 0.12rem;
+		padding: 0.05rem 0.2rem;
+	}
+
+	.slider .sliderText p.big-jianjie {
+		font-size: 0.12rem;
+		margin-top: 0.14rem;
+		line-height: 1.5;
+		width: 90%;
+		font-style: normal;
+	}
+
+	.slider .page_wrap {
+		top: 0.75rem;
+	}
+
+	.sliderImg.ban1 {
+		background: url(../images/moban1.jpg) no-repeat;
+		background-size: cover;
+		background-position: center center;
+	}
+
+	.sliderImg.ban2 {
+		background: url(../images/moban2.jpg) no-repeat;
+		background-size: cover;
+		background-position: center center;
+	}
+
+	.headerTitle {
+		padding: 0px 5px;
+		height: 0.64rem;
+		display: flex;
+		align-items: center;
+	}
+
+	.Youshi-container .YouShiItem {
+		border: none;
+		padding: 0.1rem 0rem 0.15rem 0.5rem;
+		border-bottom: 1px solid #e2e2e2;
+	}
+
+	.Youshi-container .YouShiItem:first-child {
+		justify-content: flex-start;
+	}
+
+	.Youshi-container .YouShiItem {
+		justify-content: flex-start;
+	}
+
+	.Youshi-container {
+		height: 5.1rem;
+	}
+
+	.Youshi-container .mainWid {
+		padding-top: 0.25rem;
+	}
+
+	.business-container {
+		padding: 0.35rem 0rem 0.4rem;
+	}
+
+	#productBusiness .col-lg-8 {
+		display: block;
+	}
+
+	.pagination {
+		justify-content: center;
+		padding-top: 0;
+	}
+
+	.business-silder-img {
+		width: 100%;
+		right: 0;
+		height: auto;
+	}
+
+	.business-Title,
+	.Youshi-container .YoushiTitle {
+		padding-left: 0.2rem;
+	}
+
+	.business-container-main .slider-item.start .business-slider-text {
+		width: 100%;
+		padding: 0.2rem;
+		margin-top: 2.25rem;
+	}
+
+	.business-slider-text .text-top {
+		width: 100%;
+		height: auto;
+		padding-bottom: 0.2rem;
+	}
+
+	.business-container .slider-content {
+		margin-top: 0rem;
+	}
+
+	.business-container {
+		min-height: 13rem;
+	}
+
+	#productBusiness .col-xl-8 {
+		flex-flow: row wrap;
+		position: relative;
+		z-index: 20;
+
+	}
+
+	.list-news-menu {
+		justify-content: flex-start;
+		margin: 0.2rem 0rem 0.2rem 0rem;
+	}
+
+	.list-ninegrid-item {
+		border: none;
+		padding: 0.2rem 0rem 0.2rem;
+		border-bottom: 1px solid #ddd;
+	}
+
+	.news-container {
+		padding: 0.4rem 0.15rem 0.35rem;
+	}
+
+	.list-ninegrid-item .list-itemImg {
+		height: 1.85rem;
+	}
+
+	.list-ninegrid-item:hover {
+		box-shadow: 0 0.22rem 0.2rem rgba(0,0,0,0);
+	}
+
+	.Youshi-container .YouShiItem .YoushiItem-text {
+		margin-left: 0.35rem;
+	}
+
+	.icon-jiantou-copy-copy {
+		width: 0.4rem;
+		line-height: 0.4rem;
+		height: 0.4rem;
+		font-size: 0.20rem;
+	}
+
+	.list-news-top {
+		margin-bottom: 0rem;
+	}
+
+	.list-ninegrid-item:last-child {
+		border-right: 0px;
+	}
+
+	.product-container {
+		height: auto;
+		overflow: inherit;
+		padding: 0rem 0.15rem 0.4rem;
+	}
+
+	.list-news-menu .listMenuItem {
+		margin: 0rem 0.1rem 0rem 0rem;
+	}
+{
+	padding: 0rem 0.15rem 0rem;
+}
+.hezuo-item{
+	margin:0.1rem 0.04rem;
+}
+.hezuo-subtitle{
+	    margin: 0.05rem 0rem 0.25rem;
+}
+.hezuo-container {
+    padding: 0rem 0.15rem 0.4rem;
+}
+
+.footer-container{
+	padding: 0rem 0.18rem 0.2rem;
+}
+.footer-Menu {
+    padding: 0.4rem 0rem 0.25rem;
+	 border-bottom: 1px solid #393939;
+}
+figure.media{
+	padding-bottom: 0.25rem;
+	    border-bottom: 1px solid #393939;
+	    margin-bottom: 0.25rem;
+}
+.footer-menuItem2 {
+    padding-left: 0%; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

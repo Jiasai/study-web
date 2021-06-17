@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<style type="text/css">
+			body {
+				min-height: 2000px;
+				background-image: linear-gradient(to bottom, #fff, #06f);
+			}
+
+			
+
+			#blacktop {
+				position: fixed;
+				bottom: 40px;
+				cursor: pointer;
+				right: 25px;
+				background: #000;
+				color: #fff;
+				padding: 5px 10px 7px;
+			}
+
+			.LoginDiv {
+				width: 400px;
+				margin-top: 80px;
+				height: 150px;
+				border: 1px solid #c7c7c7;
+				padding: 45px;
+				text-align: center;
+			}
+
+			.LoginDiv div {
+				margin-bottom: 20px;
+			}
+
+			.LoginDiv div span {
+				display: inline-block;
+				width: 90px;
+				text-align: right;
+			}
+
+			input#subBtn {
+				width: 85px;
+			}
+	
+		</style>
+		<div style="position:fixed;top:85px;"></div>
+		<div id="blacktop">返回顶部</div>
+		<input type="button" value="点击获取浏览器信息" id="browser">
+		<input type="button" name="" id="urlBtn" value="点我去慕课网" />
+		<input type="button" name="" id="reloadBtn" value="点我从服务器加载刷新" />
+
+		<div class="LoginDiv">
+			<div><span>用户名：</span><input type="text" name="" id="userName" value="请输入用户名" /></div>
+			<div><span>密码：</span><input type="text" name="" id="userPwd" value="输入密码" /></div>
+			<div><input type="button" name="" id="subBtn" value="登录" /></div>
+		</div>
+
+		<style type="text/css">
+			ul {
+				list-style: none;
+			}
+			.paraDiv {
+				color: #fff;
+				height: 980px;
+				padding: 25px;
+			
+			}
+			
+			.floornav {
+				position: fixed;
+				right: 25px;
+				top: 40%;
+				text-align: center;
+			
+			}
+			
+			.floornav ul li {
+				background: #fff;
+				margin-bottom: 8px;
+				padding: 5px 20px;
+				font-size: 12px;
+				border-radius: 3px;
+				cursor: pointer;
+			}
+			
+			.floornav ul li:hover {
+				color: #f00;
+			}
+			.floornav ul li.current{
+				background-color: #FF0000;
+				color: #fff;
+			}
+		</style>
+		<section class="paraDiv" style="background: #1fafcf;" data-n='教育'>
+			<h2>教育栏目</h2>
+		</section>
+		<section class="paraDiv" style="background: #005FCF;" data-n='科技'>
+			<h2>科技栏目</h2>
+		</section>
+		<section class="paraDiv" style="background: #009DFF;" data-n='体育'>
+			<h2>体育栏目</h2>
+		</section>
+		<section class="paraDiv" style="background-color: #F5A623;" data-n='娱乐'>
+			<h2>娱乐栏目</h2>
+		</section>
+		<section class="paraDiv" style="background: #d91d1d;" data-n='文化'>
+			<h2>文化栏目</h2>
+		</section>
+		<section class="paraDiv" style="background: #ffda45;" data-n='综艺'>
+			<h2>综艺栏目</h2>
+		</section>
+
+		<nav class="floornav">
+			<ul>
+				<li data-n='教育' class="current">教育</li>
+				<li data-n='科技'>科技</li>
+				<li data-n='体育'>体育</li>
+				<li data-n='娱乐'>娱乐</li>
+				<li data-n='文化'>文化</li>
+				<li data-n='综艺'>综艺</li>
+			</ul>
+		</nav>
+
+		<script type="text/javascript">
+			var ulLis = document.querySelector('.floornav ul'); //电梯楼层 ul
+			var sectionlis = document.querySelectorAll('.paraDiv'); // 楼层区
+			var lis = ulLis.querySelectorAll('li'); //电梯楼层 li 数组
+			var lock = true; //函数节流锁1：解决频繁点击按钮
+			var lock2 = true; // 函数节流锁2：document.documentElement.scrollTop 滚动动画时，关闭高亮跟随
+			
+			// 使用事件委托，给li添加监听
+			ulLis.addEventListener('click', function(ev) {
+
+				//首先判断 点击到的是 li 的区域，不是空白缝隙区域
+				if (ev.target.tagName.toLowerCase() == 'li' && ev.target.className != 'current') {
+					if (!lock) return;
+					lock = false;
+					
+					//高亮显示
+					for (var j = 0 ; j < ev.currentTarget.children.length ; j++) {
+						ev.currentTarget.children[j].className = '';
+					}
+					ev.target.className = 'current'
+					
+					// 根据共同的 data-n属性，关联起来
+					var section = document.querySelector(".paraDiv[data-n = " + ev.target.dataset.n + "]");
+					//设表先关
+					clearInterval(timer);
+					var timer = setInterval(function() { //设置定时器，实现滚动动画
+						var top = section.offsetTop;					
+						if (top > document.documentElement.scrollTop) { //楼层offserTop大于scrollTop 向下滚动
+													
+							document.documentElement.scrollTop += 150; 
+							
+							lock2 = false; // 关闭锁 lock2，滚动高亮函数不执行
+							
+							if (document.documentElement.scrollTop > top) { //滚动结束条件
+								document.documentElement.scrollTop = top; //设置值相等
+								clearInterval(timer); //结束定时器
+								
+								lock = true;//打开锁 lock，可以再次点击执行
+								lock2 = true;//打开锁 lock2，滚动高亮函数可以执行
+							}
+
+						} else if (top < document.documentElement.scrollTop) {//楼层offserTop小于scrollTop 向上滚动
+							
+							document.documentElement.scrollTop -= 150;
+							
+							lock2 = false;// 关闭锁 lock2，滚动高亮函数不执行
+							
+
+							if (document.documentElement.scrollTop < top) {//滚动结束条件
+								document.documentElement.scrollTop = top; //设置值相等
+								clearInterval(timer);//结束定时器
+								
+								lock = true;//打开锁 lock，可以再次点击执行
+								lock2 = true;//打开锁 lock2，滚动高亮函数可以执行
+							}
+							
+						}
+					
+
+					}, 30)
+
+				}
+
+			}, false);
+			
+			//初始化后，存储各楼层 距离 顶部的距离；
+			var floorArr = [];
+			for (var j = 0 ; j < sectionlis.length; j++) {
+				floorArr.push(sectionlis[j].offsetTop);				
+			}
+			floorArr.push(Infinity);
+			
+			//设置初始楼层号	
+			var nowFloor = -1;	
+		
+			window.addEventListener('scroll',function () {	
+				
+				if (!lock2) return;	//判断锁lock2的状态，决定函数是否执行		
+				
+				var top = window.scrollY || document.documentElement.scrollTop;
+				// 遍历 floorArr数组，看看当前的 top值 在哪个楼层之间	
+				for (var i = 0 ; i < floorArr.length; i++) {
+					if(top >= floorArr[i]-150 && top < floorArr[i+1]){
+						break;
+					}
+				}
+				//退出循环时， i 是几，就表示当前楼层是 几
+				// 如果当前楼层不是 i, 就是表事 换楼了				
+				if(nowFloor != i){
+					// 让全局变量楼层号 nowFloor，改变为 i;
+					nowFloor =  i;
+				}
+
+				// 设置高亮				
+				var n = sectionlis[i].dataset.n;						
+				var li = ulLis.querySelector('[data-n = "'+n+'"]');	
+				
+				for (var z = 0 ; z < lis.length; z++) {			
+					lis[z].className = ''; // 消除所有li的高亮					
+				}
+				li.className = 'current'; // 当前楼层对应的 楼层电梯 高亮
+				
+				
+			},true)
+			
+			
+			
+		</script>
+
+		<script type="text/javascript">
+			var blacktop = document.getElementById('blacktop');
+			var body = document.getElementsByTagName('div')[0];
+			window.onresize = function() {
+				body.innerText = "窗口被改变：" + document.documentElement.clientWidth;
+			}
+			window.onscroll = function() {
+				var text = "窗口发生了滚动：滚动高度为" + window.scrollY + ',' + document.documentElement.scrollTop;
+				body.innerText = text;
+
+			}
+			//返回顶部动画
+			blacktop.onclick = function() {
+				//设表先关
+				clearInterval(time);
+
+				var time = setInterval(function() {
+
+					document.documentElement.scrollTop -= 100;
+
+					if (document.documentElement.scrollTop <= 0) clearInterval(time);
+
+				}, 20)
+
+			}
+
+
+
+
+
+
+			console.log("浏览器品牌：" + navigator.appName);
+			console.log("浏览器版本：" + navigator.appVersion);
+			console.log("用户代理：" + navigator.userAgent);
+			console.log("操作系统：" + navigator.platform);
+
+			var btn = document.getElementById("browser");
+
+			function getBrowserInfo() {
+
+				var info = navigator.userAgent;
+
+				var result = "";
+
+				switch (true) {
+					case info.includes("MSIE"):
+						result += "IE浏览器 ";
+						break;
+					case info.includes("Firefox"):
+						result += "火狐(Firefox)浏览器";
+						break;
+					case info.includes("Chrome"):
+						result += "谷歌(Chrome)浏览器";
+						break;
+					case info.includes("QQBrowser"):
+						result += "QQ浏览器";
+						break;
+
+					default:
+						result = "未知";
+				}
+
+				return result;
+
+			}
+
+			function btnClick() {
+
+				var result = getBrowserInfo();
+
+				alert(`您使用的浏览器是${result}`);
+
+			}
+
+			btn.onclick = btnClick;
+
+
+
+
+			var urlBtn = document.getElementById('urlBtn');
+
+			var reloadBtn = document.getElementById('reloadBtn');
+
+			urlBtn.onclick = function() {
+				window.location.href = 'http://www.imooc.com'
+			}
+
+			reloadBtn.onclick = function() {
+				window.location.reload(true);
+			}
+
+
+			var userName = document.getElementById('userName');
+			var userPwd = document.getElementById('userPwd');
+			var subBtn = document.getElementById('subBtn');
+
+			subBtn.onclick = function() {
+				if (userName.value == '张三' && userPwd.value == '123456') {
+					window.location.href = 'https://www.imooc.com';
+				} else {
+					alert('信息不对！')
+				}
+			}
+		</script>
+	</body>
+</html>

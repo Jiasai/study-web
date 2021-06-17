@@ -1,0 +1,12 @@
+{{each items}}
+<li class="{{$value['key']}}" data-t="{{$value.key}}">
+    <dl>
+        <dt>{{$value.title}}</dt>
+        <dd>
+            {{each $value.subTitles}}
+            <em>{{$value}}</em>
+            {{/each}}
+        </dd>
+    </dl>
+</li>
+{{/each}}

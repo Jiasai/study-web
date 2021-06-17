@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>媒体查询</title>
+</head>
+<body>
+<style>
+    /* 媒体查询-策略篇 */
+
+    /* 断点：
+    超小屏（手机）:          < 576px
+    小屏（大屏手机）:        576px ~ 768px
+    中屏（平板）:           768px ~ 992px
+    大屏（pc显示器）:       992px ~ 1200px
+    大屏显示器:             1200px~ 1680px
+    超大屏:                >1680px */
+
+    @media (max-width:768px){ 
+        /* 移动端 */ /*这里用rem做一些计算缩放*/
+    }
+    @media(min-width: 769px)and(max-width:1080px){
+        /* 平板 */
+    }
+    @media(min-width: 1081px)and(max-width:1440px){
+        /* 笔记本 */
+    }
+    @media(min-width: 1441px){
+        /* 大屏PC *//*这里用rem做一些计算缩放*/  
+    }
+
+    /* PC first */
+    /* 大屏PC *//*这里用rem做一些计算缩放*/ 
+
+
+    @media (max-width:1440px){ 
+        /* 笔记本 */
+        
+        
+    }
+    @media(max-width:1080px){
+        /* 平板 */
+
+
+    }
+    @media (max-width:768px){
+        /* 移动端 */ /*这里用rem做一些计算缩放*/
+
+
+    }
+
+    /* mobile first */
+    /* 移动端 *//*这里用rem做一些计算缩放*/ 
+
+
+    @media (min-width:768px){ 
+        /* 平板 */
+        
+        
+    }
+    @media(min-width:1080px){
+       /* 笔记本 */
+
+
+    }
+    @media (min-width:1440px){
+       /* 大屏PC *//*这里用rem做一些计算缩放*/ 
+
+
+    }
+    /* PC first优先,断点从大到小,用 max-width
+mobile first优先,断点从小到大,用 min-width */
+
+    /* 5.媒体特征表达式
+    max-width/min-width */
+    @media (-webkit-min-device-pixel-ratio:2) and(orientation: landscape){
+       /*  满足，设备像素比最小是2，且，是横屏 */
+       body{
+        background:black;
+       }
+
+    }
+
+    /* 移动端常用单位：
+    px 、% 、em 、rem 、vw 、vh
+    px 是固定单位，其他的是 相对单位  */
+
+    /* em: 根据自身的font-size 相乘，得到em的值;(布局时不常用),设置缩进2个字符 text-indent:2em; 很好用 */
+
+    /* rem: 根据 html 的font-size 相乘，得到rem的值;（布局时常用）
+    rem做单位,可以实现统一的修改，做到等比例缩放；
+     */
+    /* vw ： 1个视口宽度的单位； 
+    给body设置width:100%; 相当于 width:100vw;
+    vh ： 1个视口高度的单位； 
+    给body设置height:100%; 相当于 height:100vh; */
+
+    
+
+
+
+
+
+
+
+
+
+
+
+</style>
+
+
+
+
+
+
+
+</body>
+</html>

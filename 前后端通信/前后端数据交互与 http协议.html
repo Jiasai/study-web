@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>前后端数据交互与 HTTP协议</title>
+	</head>
+	<body>
+		
+<script type="text/javascript">
+	
+	/* 1.前后端通信是什么
+	前端和后端数据交互的过程;
+	浏览器和服务器之间数据交互的过程;
+			
+	2.后端向前端发送数据:
+	访问页面
+	(开发者工具-Network)		
+			
+	3.前端向后端发送数据:
+	用户注册
+			
+	
+	//前后端通信的过程
+	前后端通信是在 '请求 — 响应'中完成的
+			
+	//概念解释		
+	前端: (一般指)浏览器端	,
+	
+	客户端: 只要能和服务器通信的就叫客户端(包含浏览器端/命令行工具/下载的应用程序等)
+	(命令行工具 'crul https:www.imooc.com')
+	
+	后端:(一般指)服务器端
+
+	
+	前后端的通信方式
+	
+	a. 使用浏览器访问网页
+	在浏览器地址栏输入网址,按下回车
+	
+	b. HTML的标签
+	b1.浏览器在逐行解析 HTML 的时候, 遇到一些特殊的标签,会再次向服务器发送请求
+	<link>、<script>、<img>、<video>、<iframe>
+	浏览器一般采用 并发请求
+	(同一域名下,chrome一共同时可以并发6个请求)
+	
+	为什么把一些图片资源/视频/css文件等放在不同的域名/二级域名下？
+	因为把这些文件放在同一个域名下,被请求获取时,会争那个 6个并发请求的资格.而把它们放在不同的域名下,那每个域名下都有6个,多个域名,并发请求更多,同一时间就可以获取到更多的文件.
+	把一些小图标,小图片 合并成一张图(雪碧图),也是为了降低占用并发请求的资格;
+	
+	b2.还有一些标签,浏览器解析的时候,不会向服务器发送请求,但是用户可以使用他们向服务器发送请求
+	<a>、<form>
+	
+	
+	c. Ajax 和 Fetch
+	
+	思考:为什么要前后端分离,意义是什么？
+	https://class.imooc.com/lesson/jobdetail?mid=44251#
+	 */
+	/* 
+	HTTP报文是什么 
+	//(这里的报文是指在网络中交互与传输的一个信息数据单元)
+	
+	浏览器向服务器发送请求时,请求本身就是信息,叫请求报文	 
+	服务器向浏览器发送响应时传输的信息,叫响应报文;
+	 
+	 
+	HTTP报文格式:
+	
+	请求报文
+	请求头(Request Headers):起始行 + 首部
+	请求体
+	 
+	响应报文 
+	响应头(Response Headers):起始行 + 首部
+	响应体 
+	 
+	GET 请求,没有请求体,数据通过请求头携带
+	(通过GET方法,发送的数据会在网址栏中体现出来)
+	
+	POST请求,有请求体 , 数据通过请求体携带
+	 
+	Response (响应)
+	 
+	1.常用的 HTTP方法
+	浏览器发送请求时采用的方法,和响应无关
+	
+	GET、POST、PUT、DELETE
+	
+	HTTP方法用来定义对于资源(文件数据)采用什么样的操作的,有各自的语义
+	
+	
+	2.HTTP方法的语义:
+	GET (获取数据)
+	场景:用来获取资源(html/js/css等文件)
+	
+	POST(创建数据)
+	场景:注册用户时
+	
+	PUT(更新数据)
+	场景:修改个人信息、修改密码
+	
+	DELETE(删除数据)
+	场景:删除1条评论
+		
+	// 增删改查（POST、DELETE、PUT、GET）	
+	这些方法虽然有各自的语义,但并不是强制性的
+			
+	3.RESTful接口设计
+	一种接口设计的风格,充分利用HTTP方法的语义
+	
+	举例:
+	通过用户ID获取个人信息,使用 GET方法
+	https://www.imooc.com/api/http/getUser?id=1
+	(接口)
+	
+	注册新用户,使用 POST方法
+	https://www.imooc.com/api/http/addUser
+	(接口)
+	
+	修改一个用户,使用 POST方法
+	https://www.imooc.com/api/http/modifyUser
+	(接口)
+	
+	删除一个用户,使用 POST方法
+	https://www.imooc.com/api/http/deleteUser
+	(接口)
+	
+	(创建了 4 种接口)
+	
+	使用RESTful接口修改之后:
+	
+	GET
+	https://www.imooc.com/api/http/User?id=1
+	
+	POST
+	https://www.imooc.com/api/http/User
+	
+	PUT
+	https://www.imooc.com/api/http/User
+	
+	DELETE
+	https://www.imooc.com/api/http/User
+	(使用用同样的 接口 User, 后端会根据你请求的方法,来处理不同的事件)
+	 */
+	
+	
+	GET 和 POST方法 的对比
+	1.语义不同: 
+	GET:获取数据,
+	POST:创建数据,
+	
+	2.发送数据不同:
+	GET通过地址栏在请求头中携带数据(地址栏地址)
+	(能携带的数据量和地址的长度有关系,一般最多就几KB)
+	
+	POST 既可以通过地址在请求头中携带数据,也可以通过 请求体携带数据
+	(能携带的数据量理论上是无限的)
+	
+	携带少量的数据,可以使用GET请求,大量的数据可以使用POST请求
+	
+	3.缓存问题
+	GET可以被缓存,POST不会被缓存
+	(GET请求连同携带的数据都是通过地址来发送的,而地址是会被浏览器缓存的.
+	POST一般不通过地址来发送,而是通过请求体,所以,不会被浏览器缓存.)
+	
+	4.安全性差不多
+	GET地址上直接有 ?username=alex, 但POST发送,打开开发者工具,Network,找到请求体,也同样可以看到,并没有加密
+	所以,GET和POST都不安全
+	
+	发送密码或其他敏感信息时不要使用GET,主要是避免直接被人'窥屏'或通过历史记录找到你的密码
+	使用POST,就不存在这样的问题
+	
+	HTTP状态码(Status Code)
+	是什么:定义服务器对请求的 处理结果,是服务器返回的
+	
+	HTTP状态码的语义:
+	100~199 消息:代表请求已被接受,需要继续处理
+	//场景： websocket
+	
+	200~299 代表 成功
+	// 200 请求处理成功
+	
+	300~399 重定向 
+	http://www.imooc.com 
+	(打开这个网址，改变成下面这个)
+	https://www.imooc.com
+	(状态码就会变成 301 Moved Permanently)
+	
+	301 Moved Permanently (永久性移动,产生本地缓存)
+	
+	302 Move Temporarily(临时性移动,不会缓存)
+	
+	304 Not Modified (表示没有修改)
+	
+	400~499 请求错误
+	404 Not Found (一般浏览器端出错)
+	
+	500~599 服务器错误
+	500 Internal Server Error 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</script>
+<form action="https://www.imooc.com" method="get">
+	<input type="text" name="username" placeholder="用户名"/>
+	<input type="password" name="password" placeholder="密码"/>
+	<input type="submit" value="注册"/>
+</form>
+		
+<form action="https://www.imooc.com" method="post">
+	<input type="text" name="username" placeholder="用户名"/>
+	<input type="password" name="password" placeholder="密码"/>
+	<input type="submit" value="注册"/>
+</form>
+		
+	</body>
+</html>

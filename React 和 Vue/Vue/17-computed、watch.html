@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Computed/watch</title>
+</head>
+<body>
+<div id="root"></div>
+<div id="root1"></div>
+
+<script>
+    //setup中的 computed计算属性
+    const app=Vue.createApp({
+        setup(){
+            const {ref,computed}= Vue;
+            //从Vue中解构出 computed方法
+            const count = ref(0);
+
+            //count值累加1
+            const handleClick=()=>{
+                count.value += 1;
+            }
+            //创建一个 newCount 计算属性值
+            /* const newCount= computed(()=>{
+                const newCount = count.value + 5;
+                return newCount;
+            }); */
+            //创建一个复杂的计算属性值,设置 get()/set()方法
+            let newCount=computed({
+                get(){
+                   return count.value + 5;
+                },
+                set(param){
+                    count.value=param-5;
+                }
+            });
+            setTimeout(()=>{
+                newCount.value = 100;
+            },1000);
+
+            return {count,handleClick,newCount}
+        },
+        template:`
+        <div>
+        <span @click='handleClick'>{{count}}</span>
+        --{{newCount}}
+        </div>
+        `
+    });
+    app.mount('#root');
+
+    
+const app1 = Vue.createApp({
+    setup(){
+        const {reactive,toRefs,watch,watchEffect} = Vue;
+        const nameObj=reactive({
+            name:'Dell',
+            EnglishName:'Lee'
+        });
+        //侦听器
+        //watchEffect 侦听器，偏向于 effect
+        // 具备 一定的惰性 lazy（首次页面展示的时候，不会执行，变化了值，才会执行）
+        //参数可以拿到 当前值 和 原始值 
+        //watch()也可以侦听多个引用类型响应数据变化，用1个侦听器承载    
+       watch(
+            [()=>nameObj.name,()=>nameObj.EnglishName],([curName,curEng],[preName,preEng])=>{
+
+            console.log('watch',curName,preName,'----',curEng,preEng);
+
+        },{
+            immediate:true
+        })
+        //watch可以传 第3个参数，{},配置 immediate 做到 立即执行。
+
+        //watchEffect()
+        //watchEffect立即执行，没有惰性（首次展示就执行）
+        //watchEffect中的代码 对外部有依赖，而外部依赖的数据有变化，watchEffect中的代码就会执行（watchEffect不需要传递你要侦听的内容，自动会感知代码依赖）
+        //watchEffect不需要你传递很多参数，只要传递一个 回调函数
+        //watchEffect 无法获取原始值，只能获取当前值 
+
+        const stop = watchEffect(()=>{           
+            console.log(nameObj.name);
+            console.log(nameObj.EnglishName);
+            setTimeout(()=>{
+                stop();
+            },5000);
+        });
+
+
+        const {name,EnglishName} = toRefs(nameObj);
+
+        return { name,EnglishName }
+
+    },
+    template:`
+    <div>
+        name:<input v-model='name'/>
+    </div>
+    <div>
+        name is {{name}}
+    </div>
+    <div>
+        EnglishName:<input v-model='EnglishName'/>
+    </div>
+    <div>
+        EnglishName is {{EnglishName}}
+    </div>
+    `
+});
+
+app1.mount('#root1');
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

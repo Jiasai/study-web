@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="Zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>暮云游商城-详情</title>
+</head>
+<body>
+    <div id="details-page" class="details-layout">
+        <!-- details头部 -->
+      <div class="header-layout">
+          {{include './components/header/header.art'}}
+      </div>
+      <!-- 主体内容 -->
+      <div id="details-main-content" class="details-main-content-layout">
+        <% include('../../components/loading/loading.art',{inline:true,text:'正在拼命加载'}) %>
+      </div>
+      <!-- 底部bar -->
+      <div class="tabbar-layout">
+        {{include './components/bottomBar/bottomBar.art'}}
+      </div>
+
+
+
+    </div>
+    
+</body>
+</html>

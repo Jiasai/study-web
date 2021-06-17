@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>class类</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+	/* 		
+		//Class是什么、基本用法、Class与构造函数
+		// Class,翻译为'类'；
+		// 类可以看做是对象的模板,用一个类可以创建出许多不同的对象;
+			
+		//2.Class的基本用法
+		// 类名一般首字母大写
+		//class PersonP{}  √ 对
+		// class Person() {}  × 错
+		// class Person {};  × 错
+		
+		class Person{
+			//实例化时执行构造方法，所以必须有构造方法
+			//一旦实例化时，构造方法就被执行,每new个实例，执行一次构造方法
+			//构造方法中一般是定义属性的，不定义方法
+			constructor(name,age) {
+			  console.log('我被实例化时执行了'); 
+			   this.name = name;
+			   this.age = age;
+			}
+			//定义实例对象方法，new 实例 共享此方法；
+			speak(){
+			console.log(`我叫${this.name},今年${this.age}岁`)
+			}
+		}	
+		const zs = new Person('张三',18); //我被实例化时执行了
+		const hm = new Person('韩梅梅',12);//我被实例化时执行了
+		console.log(zs.name,zs.age); //张三 18 
+		zs.speak();	//我叫张三,今年18岁
+		hm.speak(); //我叫韩梅梅,今年12岁
+		console.log(Person.prototype.speak);
+
+//3.Class与构造函数:
+		function Persons (name,age){
+			console.log('我被实例化时执行了'); 
+			this.name = name;
+			this.age = age;
+		}	
+		Persons.prototype.speak = function(){
+		console.log(`我叫${this.name},今年${this.age}岁`)
+		}			
+		const xm = new 	Persons('小明',15); //我被实例化时执行了
+		xm.speak(); //我叫小明,今年15岁
+			
+		//1.声明形式
+		class students{
+			constructor(){
+				
+			}
+			play(){
+				
+			}
+		}
+		
+		//2.表达式的形式	
+		const studentd = class{ //匿名的类赋值给常量
+			constructor(name,school){
+				this.name = name;
+				this.school = school;
+			}
+			paly(){
+				console.log(`我叫${this.name},在${this.school}上学`)
+			}
+		}	
+		const xl = new studentd('李峰','实验小学');
+		xl.paly();
+			
+		//立即执行的匿名函数，IFEE	
+		(function () {
+			console.log('立即执行func');
+		})();
+	//立即执行的匿名类
+	new (class{
+		  constructor(){
+			console.log('我是立即执行的匿名类class');
+		  }
+	})();
+	
+	//实例属性、静态方法和静态属性		
+
+	class Personnel{
+		name = '员工'
+		age=0;
+		sex ='男';
+		getXX =function () {
+			console.log( `我是${this.name}，${this.sex}，${this.age}岁。`)
+		}
+		constructor(name,age,sex){
+			this.name = name;
+
+		}
+		
+	}
+	const p2 = new Personnel('李刚');
+		console.log(p2); //{name: "李梅", age: 0, sex: "男", getXX: ƒ}
+		p2.getXX(); //我是李刚，男，0岁。
+		
+		const p3 = new Personnel('李梅',32,'女');
+		p3.getXX(); //我是李梅，男，0岁。
+		
+		 
+		//静态方法
+		
+		class Personnel2{
+			constructor(){
+				
+			}//构造方法
+			speak(){
+				console.log(this) //this指向实例对象
+			} //实例对象方法
+			static speak(){
+			console.log(this)// this指向class类本身
+			} //静态方法						
+		}
+		Personnel2.speak();
+		const pp1 = new Personnel2();
+		pp1.speak();
+		
+		//3.静态属性
+		//实例对象属性、类属性
+		class Personnel3{
+			constructor(name){
+				this.name = name; //实例对象属性
+			}
+			speak(){
+				console.log(`我叫${this.name}`) 
+			} 
+			static getVersion(){ 
+				// 静态属性完全可以用静态方法替代
+				return '1.0';
+			}
+			//不推荐，有兼容性
+			//static version = '1.0';
+		}
+		const pp3 = new Personnel3('王威');
+		console.log(pp3.name);
+		console.log(Personnel3.getVersion());
+		
+	
+			
+	
+	 */	
+		
+		
+//1.为什么需要私有属性和方法:
+//一般情况下，类的属性和方法都是公开的。
+/* class Person{
+	constructor(name){
+		this.name= name;
+	}
+	speak(){
+		console.log(`我是${this.name}`);
+	}
+}
+const p = new Person('张三');
+console.log(p.name); // 可以直接访问属性，公有化
+p.speak();
+
+//...		
+p.name = '李四' // 被修改了......
+console.log(p.name);
+		 */
+//私有化属性和方法
+
+// 2.模拟私有属性和方法
+// a. _开头表示 私有的 (约定俗成)
+// b. 将私有的属性和方法移除类
+
+//在一个局部私有作用域内创建类:
+(function () {
+	let name ='';
+	class Person{		
+		constructor(username){
+			name = username;
+		}
+		speak(){
+			console.log(`我是${name}`);
+		}
+		getName(){ // 通过方法，去暴露出去
+			return name;
+		}
+	}
+	window.Person= Person; 
+	//给window添加属性 Person,全局变量，暴露出去;
+})();
+
+(function () {
+	const p = new Person('Alex');
+	console.log(p.name);
+	console.log(p.speak());
+	
+})();
+	
+		
+		
+			
+	</script>
+		
+		
+		
+	</body>
+</html>

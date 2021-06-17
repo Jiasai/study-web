@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Dom事件委托、定时器、延时器、动画</title>
+	</head>
+	<body>
+	<style type="text/css">
+		*{
+			box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			/* Firefox */
+			-webkit-box-sizing: border-box;
+		}
+		ul li{cursor: pointer; padding: 4px 0px;}
+		#box1 {background:#ddd; width:200px;height: 200px; color:#000;
+			font-size: 48px;font-weight: bold;text-align: center;
+			padding: 15px 15px 25px;
+			margin-top: 30px;
+			margin-bottom: 15px;
+		}
+	</style>
+	<ul id="li_list">
+		<li>我是li元素节点</li>
+		<li>我是li元素节点</li>
+		<li>我是li元素节点</li>
+		<li>我是li元素节点</li>
+	</ul>
+	<input type="button" name="" id="addLi" value="点我添加Li" />
+	
+	<div id="box1">
+		<p>0</p>
+	</div>
+	<input type="button" name="" id="start" value="开始" />
+	<input type="button" name="" id="stop" value="暂停" />
+	
+	
+	<script type="text/javascript">
+		var ul_lis = document.querySelector('#li_list');
+		var li_lis = ul_lis.querySelectorAll('#li_list li');
+		var addli = document.getElementById('addLi');
+		
+		//批量绑定事件函数
+		// function Onclick(arr) {
+		// 	for (var i = 0 ; i < arr.length; i++) {
+		// 		//arr[i].onclick = ChangColor;  无法传输参数
+		// 		arr[i].addEventListener('click',function () {
+		// 			//可以进行参数传输
+		// 			ChangColor(this,arr);
+		// 		},false)
+		// 	}
+		// }
+				
+		//修改颜色变化函数；
+		// function ChangColor(li,arr) {
+		// 	for (var i = 0 ; i < arr.length; i++) {
+		// 		arr[i].style.color = '#222';
+		// 	}
+		// 	//表示 这个点击元素
+		// 	li.style.color = 'red';			
+		// }
+		
+		// Onclick(li_lis);
+		
+		
+		// addli.onclick = function () {
+		// 	//创建元素节点，用appendChild方法添加进 ul
+		// 	var li = document.createElement('li');
+		// 	li.innerHTML = '我是li元素节点';			
+		// 	ul_lis.appendChild(li);
+		// 	//重新获取 li 元素节点的数组对象
+		// 	var li_lis = document.querySelectorAll('#li_list li');
+		// 	//事件绑定函数绑定
+		// 	Onclick(li_lis);
+		// }
+		
+		
+		// 利用事件委托的方法：
+		
+		
+		ul_lis.onclick = function (e) { //监听父元素，子元素冒泡原理也被监听
+		//e.currentTarget 表示被监听的 ul 父元素 ，与onclick的this差不多
+			var arr = e.currentTarget.children;//获取父元素所有子元素数组
+			for (var i = 0 ; i < arr.length; i++) {
+				arr[i].style.color = 'black';
+			}
+			//e.target 表示真正被点击的那个 li —— "事件源元素"（最内层元素）
+			e.target.style.color ='red';			
+		}
+		
+		addli.onclick = function () {
+			//创建元素节点，用appendChild方法添加进 ul
+			var li = document.createElement('li');
+			li.innerHTML = '我是li元素节点';			
+			ul_lis.appendChild(li);		
+		}
+		
+		//定时器
+		var box1 = document.getElementById('box1');
+		var show = box1.firstElementChild;
+		var start = document.getElementById('start');
+		var stop = document.getElementById('stop');
+		
+		var number = show.innerText; // 存储数字的变量		
+		var Jishu; // 存储定时器的变量
+		var sudu = 200; //定时器刷新间隔
+		
+		start.onclick = function () {  // 点击开始，创建定时器，赋值给Jishu
+			// 防止多次点击引起的定时器同时存在、叠加
+			//添加定时器之前，先清除定时器
+				clearInterval(Jishu);
+				Jishu = setInterval(addNum,sudu);	
+		}		
+		stop.onclick = function () {// 点击暂停，清除变量Jishu指向的定时器
+			clearInterval(Jishu);			
+		}
+		
+		//实现数字自加，变化
+		function addNum() {
+			++number;
+			show.innerText = number;
+		}
+		
+		
+		
+		
+		
+		
+		
+	</script>
+	
+	</body>
+</html>

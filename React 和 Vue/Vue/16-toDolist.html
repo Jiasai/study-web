@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Composition AIP:toDoList</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+//关于list操作的内容进行了封装
+const listRelativeEffect=()=>{
+    const {reactive}=Vue;
+    const list=reactive(['Dell','Lee']);
+    const addItemTodoList=(item,blurInput)=>{
+        list.push(item);
+        blurInput('',true);
+    }
+    return {list,addItemTodoList}
+}
+//关于inputValue操作的内容进行了封装
+const inputValueRelativeEffect=()=>{
+    const {ref}=Vue;
+    const focusValue=ref('请输入');
+    const inputValue=ref('');
+
+    const FocusInput= ()=>{
+        focusValue.value='';
+    }
+    const setInputValue=(e)=>{   
+        inputValue.value=e.target.value;        
+    }
+    const blurInput=(e,open=false)=>{ 
+        if(inputValue.value ===''){focusValue.value='请输入'}
+        if(open){
+            setTimeout(()=>{        
+                inputValue.value='';      
+                focusValue.value='请输入'
+            },100)
+        }       
+    }
+    return {focusValue,inputValue,FocusInput,blurInput,setInputValue}
+}
+
+const app = Vue.createApp({
+    setup(){
+        //流程调度中转
+        const {focusValue,inputValue,FocusInput,blurInput,setInputValue} = inputValueRelativeEffect();
+        const {list,addItemTodoList} = listRelativeEffect();
+        return{
+            focusValue,inputValue,FocusInput,blurInput,setInputValue,
+            list,addItemTodoList
+        }
+    },
+    template:`
+    <div>
+        <div>
+        <input 
+        :value='inputValue'
+        :placeholder='focusValue'
+        @input='setInputValue'
+        @focus="FocusInput"
+        @blur="blurInput"
+        />
+        <button
+        @click='addItemTodoList(inputValue,blurInput)'
+        >提交</button>
+        </div>
+        <ul>
+        <li
+        v-for='(item,index) of list'
+        :key='item'
+        >{{item}}</li>
+
+        </ul>
+    </div>
+    `
+});
+const vm = app.mount('#root');
+
+</script>  
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>多个Ajax请求的并发执行</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+<style>
+    .loading-page{
+        width:100%;
+        height: 100%;
+        background: #fff;
+        position:absolute;
+        left:0;
+        top:0;
+        z-index: 100;
+    }
+    .loading-page img{
+        position:absolute;
+        display: block;
+        left:50%;
+        top:50%;
+        transform: rotate(180deg) scale(1.25) translate(50%,50%);
+    }
+</style>
+<div id="loading-page" class="loading-page">
+    <img src="./img/loading.gif" alt="加载中" class="loading-img">
+</div>
+<div class="header">
+    <div class="menu" id="menu">       
+    </div>
+</div>
+
+<div class="wrap"><div class="banner demo"></div></div>
+
+<div class="slider-layout">
+    <div class="banner-slider slider" id='Slider1'>
+    </div>
+</div>
+<script src="./Ajax/axios.min.js"></script>
+<script type="module">
+import { getJSON } from './Ajax/index.js';
+import {Banner1Config,Slider} from './js/Slider.js';
+//接口：
+const menuURL = 'https://www.imooc.com/api/mall-PC/index/menu'; //导航接口
+
+const sliderURL = 'https://www.imooc.com/api/mall-PC/index/ad'; //图片接口
+
+
+const loadingPageEl = document.getElementById('loading-page');
+
+const sliderEl = document.getElementById('Slider1');
+
+
+//导航菜单Ajax
+const menuEL = document.querySelector('#menu');
+const p1=getJSON(menuURL)
+.then(response => {
+//{key: "hot", title: "热门出发地", subTitles: Array(5)}
+let html = '';
+for (const item of response.data) {
+html += `<li class="OneJi" data-key='${item.key}'>
+${item.title}
+<ul class="ErjiMenu">
+<li><img class="menu-loading" src="./img/loading.gif" alt="加载中"></li>
+</ul>
+</li>`;
+}
+menuEL.innerHTML =`<ul>${html}</ul>`;
+}).then(() => {
+const liEl = menuEL.querySelectorAll('li.OneJi');
+for (const itemLi of liEl) {
+itemLi.addEventListener('mouseenter', () => {
+    if (itemLi.dataset.done === 'done') return;
+    getJSON(`${menuURL}/${itemLi.dataset.key}`)
+        .then(response => {
+            itemLi.dataset.done = 'done';
+            //成功获取，改变属性'done'
+            let html = '';
+            for (const value of response.data) {
+                html += ` <li>${value.title}</li>`;
+            }
+            itemLi.querySelector('ul.ErjiMenu').innerHTML = html;
+
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+}, false);
+}
+})
+.catch(err => {
+console.log(err);
+});
+
+
+//Slider轮播图片Ajax
+const p2=getJSON(sliderURL).then(response=>{
+    let html = '';
+    for (const item of response.data) {
+        html += `<div class="slider-item"><img src="${item.url}" alt=""></div>`;
+    }
+    sliderEl.innerHTML =`<div class="slider-content">${html}</div><div class="dots style2 pagination"></div>`;
+
+}).then(()=>{
+    const ban1 = new Slider(document.querySelector('#Slider1'),Banner1Config);
+}).catch(err=>{
+    console.log(err);
+});
+
+
+// Promise.all();
+// 关注多个 Promise对象的状态变化，传入多个Promise实例，包装成一个新的Promise实例返回；
+// Promise.all()的状态变化与所有传入的 Promise实例对象状态有关，所有状态都变成，resolved，最终状态才会变成 resolved；
+// 只要有一个变成 rejected,最终状态就变成了 rejected;
+
+Promise.all([p1,p2])
+.then(()=>{
+   //console.log('都成功了');//都成功了,隐藏加载页
+   loadingPageEl.classList.add('none');
+
+}).catch(err=>{
+    console.log(err);
+}); 
+
+
+
+
+//使用axios来实现
+/* 
+import {Banner1Config,Slider} from './js/Slider.js';
+//接口：
+const menuURL = 'https://www.imooc.com/api/mall-PC/index/menu'; //导航接口
+
+//const sliderURL = 'https://www.imooc.com/api/mall-PC/index/ad'; //图片接口
+const sliderURL = 'https://www.imooc.com/api/mall-PC/index/slider?icode=J6DDC8E3E7A8BF54C'; //图片接口
+
+
+
+const loadingPageEl = document.getElementById('loading-page');
+
+const sliderEl = document.getElementById('Slider1');
+
+
+//导航菜单axios
+const menuEL = document.querySelector('#menu');
+const p1=axios.get(menuURL)
+.then(response => {
+let html = '';
+for (const item of response.data.data) {
+html += `<li class="OneJi" data-key='${item.key}'>
+${item.title}
+<ul class="ErjiMenu">
+<li><img class="menu-loading" src="./img/loading.gif" alt="加载中"></li>
+</ul>
+</li>`;
+}
+menuEL.innerHTML =`<ul>${html}</ul>`;
+}).then(() => {
+const liEl = menuEL.querySelectorAll('li.OneJi');
+for (const itemLi of liEl) {
+itemLi.addEventListener('mouseenter', () => {
+    if (itemLi.dataset.done === 'done') return;
+    axios.get(`${menuURL}/${itemLi.dataset.key}`)
+        .then(response => {
+            itemLi.dataset.done = 'done';
+            //成功获取，改变属性'done'
+            let html = '';
+            for (const value of response.data.data) {
+                html += ` <li>${value.title}</li>`;
+            }
+            itemLi.querySelector('ul.ErjiMenu').innerHTML = html;
+
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+}, false);
+}
+})
+.catch(err => {
+console.log(err);
+});
+
+
+//Slider轮播图片axios
+const p2=axios.get(sliderURL).then(response=>{
+    let html = '';
+    for (const item of response.data.data) {
+        html += `<div class="slider-item"><img src="${item.url}" alt=""></div>`;
+    }
+    sliderEl.innerHTML =`<div class="slider-content">${html}</div><div class="dots style2 pagination"></div>`;
+
+}).then(()=>{
+    const ban1 = new Slider(document.querySelector('#Slider1'),Banner1Config);
+}).catch(err=>{
+    console.log(err);
+});
+
+
+Promise.all([p1,p2])
+.then(()=>{
+   loadingPageEl.classList.add('none');
+}).catch(err=>{
+    console.log(err);
+});
+
+
+
+
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+</body>
+
+</html>

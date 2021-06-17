@@ -1,0 +1,7 @@
+      {{each items}}
+      <li class="product-items"><a href="./details.html?id={{$value.id}}">
+            <p class="procuct-pic"><img src="{{$value.url}}" alt="" class="product-img"></p>
+            <p class="product-name">{{$value.title}}</p>
+            <p class="product-price">￥{{$value.price}}</p>
+        </a></li>
+        {{/each}}

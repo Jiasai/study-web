@@ -1,0 +1,31 @@
+
+<div class="swiper-container">
+  <div class="swiper-wrapper">
+    {{each items}}
+    <div class="swiper-slide">
+      <a href="javascript:;"
+        ><img class="swiper-img" src="{{$value.url}}" alt="slider1"
+      /></a>
+    </div>
+  {{/each}}
+
+
+  </div>
+  <!-- 如果需要分页器 -->
+  {{if pagination && pagination.el}}
+  <div class="swiper-pagination"></div>
+  {{/if}}
+    <!-- 如果需要左右按钮 通过if配置参数决定结构 -->
+ {{if navigation && navigation.nextEl}}
+ <div class="swiper-button-prev"></div>
+ {{/if}}
+ {{if navigation && navigation.prevEl}}
+ <div class="swiper-button-next"></div>
+ {{/if}}
+ <!-- 如果需要滚动条 -->
+ {{if scrollbar && scrollbar.el}}
+ <div class="swiper-scrollbar"></div>
+ {{/if}}
+  
+
+</div>

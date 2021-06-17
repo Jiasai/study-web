@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>慕云游商城 - 机票、酒店、旅游攻略</title>
+    <meta name="Keywords" content="机票，酒店，旅游攻略，签证，出国，自由行">
+    <meta name="Description" content="慕云游商城有10多年旅游行业经验，为您提供全方位旅游服务">
+  
+	<!--
+	 定向CSS3页面特效:
+		1. 划过下拉菜单；
+		2. 滑过弹跳动画；
+		3. 滑过 文字飞入动画；
+		4. 滑过 图片放大显示阴影；
+		5. 滑过 角标旋转；
+	-->
+	<!--
+	 定向JS页面动画特效:
+		1. 横屏海报轮播；
+		2. 产品轮播；
+		3. 楼层电梯导航；
+		4. Tab 切换1；
+		5. Tab 切换升级；
+		6. 跑马灯新闻；
+		7. 抽拉式Meau菜单；
+		8. 风琴图片特效；
+		9. 返回顶部；
+		10. 漂浮在线客服
+	-->
+	
+</head>
+
+<body>
+    <header class="site-head">
+        <!--引入topbar-->
+    {{include '../../components/topbar/topbar.art'}}
+       <!--引入main-nav-->
+    {{include '../../components/main-nav/main-nav.art'}}  
+    <!-- 页面顶部主要内容 -->
+    <% include('../../components/header-con/header-con.art',{page:'首页'}) %>
+    </header>
+
+    <!-- banner -->
+    <section class="banner" id="banner">
+       
+        <div id= 'silderLayout'>
+        <!--引入loading-->       
+        <!-- 定制传参数 inline:true text:拼命加载 -->
+		<% include('../../components/loading/loading.art',{inline:true,text:'正在拼命加载'}) %>
+        </div>
+        <div class="center-wrap">
+            <!--引入菜单-->
+            {{include './components/menu/menu.art'}}
+        </div>
+    </section>
+
+   
+
+    <!-- 引入热门广告 -->
+    {{include './components/fav-ad/fav-ad.art'}}
+
+    <!-- 引入新鲜甩尾 -->
+    {{include './components/xxsw/xxsw.art'}}
+
+    <!-- 机酒自由行 -->
+    <section class="jjzyx content-part common-style">
+        <div class="center-wrap">
+            {{include './components/jjzyx/jjzyx.art'}}
+        </div>
+    </section>
+
+    <!-- 当地玩乐 -->
+    <section class="ddwl content-part">
+        <div class="center-wrap">
+            {{include './components/ddwl/ddwl.art'}}
+        </div>
+    </section>
+
+    <!-- 特色当地体验 -->
+    <section class="tsddty content-part">
+        <div class="center-wrap">
+          
+            {{include './components/tsddty/tsddty.art'}}
+        
+        </div>
+    </section>
+
+    <!-- 最世界·深度旅行 -->
+    <section class="zsjsdlx content-part common-style">
+        <div class="center-wrap">          
+            {{include './components/zsj/zsj.art'}}
+        </div>
+    </section>
+
+    <!-- 跟团/半自助游 -->
+    <section class="gtbzzy content-part common-style">
+        <div class="center-wrap">
+            {{include './components/gt/gt.art'}}
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        {{include '../../components/bottom-bar/bottom-bar.art'}}
+        {{include '../../components/footer-nav/footer-nav.art'}}
+    </footer>
+
+    <!-- 引入返回顶部按钮 -->
+    {{include '../../components/backtotop/backtotop.art'}}
+
+</body>
+
+</html>

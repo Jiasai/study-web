@@ -1,0 +1,6 @@
+ <div class="hd">
+                <h2>特色当地体验</h2>
+            </div>
+            <div class="bd">
+                <% include('../../../../components/loading/loading.art',{inline:false,text:'正在拼命加载'}) %>
+            </div>

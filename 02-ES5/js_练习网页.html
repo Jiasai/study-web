@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		ul li.list_study{
+			line-height: 45px;
+			margin-bottom: 20px;
+			width: 200px;
+			cursor: pointer;
+		}
+		ul li.overStyle{
+			color: red;
+			font-size: 28px;
+			font-weight: bold;
+		}
+		ul li.xiahua{
+			text-decoration: underline;
+		}
+	</style>
+	<body>
+		<ul>
+			<li class="list_study">HTML</li>
+			<li class="list_study">css</li>
+			<li class="list_study">JavaScript</li>
+			<li class="list_study">jquery</li>
+			<li class="list_study">HTML5</li>	
+			<li class="list_study">CSS3</li>
+			<li class="list_study">ES6</li>
+			<li class="list_study">Vue/React</li>
+		</ul>
+
+		
+		
+		<script type="text/javascript">
+// 方法一:利用鼠标的mousemove和mouseout事件分别添加addEventListener事件流
+			// let listDom=document.querySelectorAll(".list_study");
+			// for(let i=0 ; i<listDom.length; i++){				
+			// 	listDom[i].addEventListener("mouseover",function(){
+			// 		listDom[i].className="list_study overStyle";
+			// 	},false);
+			// 	listDom[i].addEventListener("mouseout",function(){
+			// 		listDom[i].className="list_study";
+			// 	},false);
+				
+			// }
+			
+// 方法二:利用 for循环，消除所有dom节点的添加className,再为当前dom节点，添加新class
+			// let listDom=document.querySelectorAll(".list_study");
+			// for(let i=0 ; i<listDom.length; i++){				
+			// 	listDom[i].addEventListener("mouseover",function(){
+			// 		for(let j=0;j<listDom.length; j++){
+			// 			listDom[j].className="list_study";
+			// 		}
+			// 		listDom[i].className="list_study overStyle";
+					
+			// 	},false);
+
+			// }
+
+//函数封装-方法一：
+			// //获取dom节点（数组）；
+			// let listDom=document.querySelectorAll(".list_study");
+			
+			// //通过for循环绑定事件函数；
+			// for(let i=0 ; i<listDom.length; i++){
+			// 	ChangStyle(i);
+			// }
+			
+			// //添加class，改变样式的函数；
+			// function addClass(i){
+			// 	listDom[i].className="list_study overStyle";
+			// }
+			// //消除class，恢复样式的函数；
+			// function removerClass(i){
+			// 	listDom[i].className="list_study";
+			// }
+			// //鼠标划入或离开，改变或恢复样式的事件函数；
+			// function ChangStyle(i){
+			// 	listDom[i].addEventListener("mouseover",function(){
+			// 		addClass(i);
+			// 	},false);
+			// 	listDom[i].addEventListener("mouseout",function(){
+			// 		removerClass(i);
+			// 	},false);
+			// }
+
+//面向对象+函数封装-方法一：
+			//获取dom节点（数组）；
+			const Doms={
+				addClass:"",
+				oldClass:"",
+				addEvent:function(){
+					addEvnt(this.obj)
+				}				
+			};
+			//通过for循环创建绑定事件函数；
+			function addEvnt(obj){
+				for(let i=0 ; i<obj.length; i++){
+					ChangStyle(obj[i]);
+				}
+			}			
+			//添加class，改变样式的函数；
+			function addClass(obj){
+				obj.className=Doms.addClass;
+			}
+			//消除class，恢复样式的函数；
+			function removerClass(obj){
+				obj.className=Doms.oldClass;
+			}
+			//鼠标划入或离开，改变或恢复样式的事件函数；
+			function ChangStyle(obj){
+				obj.addEventListener("mouseover",function(){
+					addClass(obj);
+				},false);
+				obj.addEventListener("mouseout",function(){
+					removerClass(obj);
+				},false);
+			}				
+			
+		</script>
+		
+			
+		<script>
+			//获取执行对象	
+			Doms.obj=document.querySelectorAll(".list_study");
+			Doms.oldClass="list_study";
+			Doms.addClass="list_study overStyle xiahua";
+			Doms.start=true;
+
+		</script>
+		
+		
+		<script>			
+			//执行对象的方法
+			if(Doms.start) Doms.addEvent();			
+		</script>
+		
+	</body>
+</html>

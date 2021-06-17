@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue基础语法、生命周期、事件绑定</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <div id="root1"></div>
+<script>
+//调用 Vue.createApp()创建1个Vue的应用,赋值给 app;
+let app = Vue.createApp({
+    //在Vue.createApp创建应用时，传递对象作为参数
+    //在对象参数内，有个data属性方法，和 template属性
+    //传入的参数表示，这个应用的最外层的组件，应该如何展示
+    data(){
+    return{
+    message:'Hello,world'
+    }
+},
+    template:`
+    <div>{{message}}</div>
+    `
+});
+//这个叫 app 的Vue应用，通过mount()方法,挂载到 id是root的 DOM节点上
+
+const vm=app.mount('#root');
+// vm代表的就是 vue应用的 根组件
+// vm代表的就是 vm层
+
+/* vue的这种 面向数据的编程方式，是参考了 mvvm的设计模式： m-> model 数据，v -> view 视图， vm -> viewModel 视图数据连接层 */
+
+//通过 vm根组件节点获取到 数据:$data,并修改
+vm.$data.message='Think you,bye-bye';
+
+//Vue应用的 8个生命周期函数
+
+const app1 = Vue.createApp({
+    data(){
+        return{
+            message:'Hello,world'
+        }
+    },   
+    //在实例创建之前 会自动执行的函数
+    beforeCreate(){ 
+        console.log('beforeCreate');
+    },
+    //在实例创建之后，会自动执行
+    created(){
+        console.log('created')
+    },
+    //在组件内容被挂载之前立即自动执行
+    beforeMount(){
+        console.log(document.getElementById('root1').innerHTML,'beforeMount');
+    },
+    //在组件内容被渲染挂载到页面之后自动执行
+    mounted(){
+        console.log(document.getElementById('root1').innerHTML,'mounted');
+    },
+    //当data中的数据发生变化时，会自动执行
+    beforeUpdate(){
+        console.log('beforeUpdate')
+    },
+    //当data中的数据发生变化，同时页面重新渲染、完成更新渲染后，会自动执行的函数
+    updated(){
+        console.log('updated')
+    },
+    // 通过 app.unmount()销毁挂载移除时
+    //当Vue 应用失效时，自动执行的函数
+    beforeUnmount(){
+        console.log('beforeUnmount')
+    },
+    //当Vue应用失效时，且 dom完全销毁之后，自动执行的函数
+    unmounted(){
+        console.log('unmounted')
+    },
+    methods:{
+        //通过此属性自定义事件方法
+    },
+    template:`
+        <div>{{message}}</div>
+    `
+});
+
+const vn = app1.mount('#root1');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

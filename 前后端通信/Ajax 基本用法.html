@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Ajax 基本用法</title>
+	</head>
+	<body>
+<script type="text/javascript">
+	
+	/* 1.Ajax是什么？
+	全称为“Asynchronous JavaScript and XML”（异步JavaScript和XML）是指一种创建交互式网页应用的网页开发技术
+	
+	Ajax中的异步:可以异步地向服务器发送请求,在等待响应的过程中,不会阻塞当前页面,浏览器可以做自己的事情.直到成功获取响应后,浏览器才开始处理响应数据.
+	
+	XML(可扩展标记语言)是前后端数据通信时传输数据的一种格式;
+	XML现在已经不怎么用了,现在比较常用的是 JSON
+	
+	Ajax其实是浏览器与服务器之间的一种异步通信方式
+	
+	使用Ajax可以在不重新加载整个页面的情况下,对页面的某部分进行更新;
+	
+	例子: 
+	a.网站注册检测(用户名被占用/用户已存在...);
+	b.搜索提示:搜索框自动提示搜索关键词
+	
+	
+	2.搭建Ajax开发环境
+	Ajax需要服务器环境,非服务器环境下,很多浏览器无法正常使用 Ajax; */
+	
+	// VSCode 安裝 Live server	
+
+	/* Ajax的基本用法	
+	1.XMLHttpRequest
+	
+	Ajax想要实现浏览器 与 服务器之间的异步通信,需要依靠 XMLHttpRequest,它是一个构造函数;
+	
+	不论是 XMLHttpRequest,还是 Ajax,都没有和具体的某种数据格式绑定;以前用 XML,现在常用 JSON
+		
+	
+	2.Ajax的使用步驟
+	1).创建 xhr对象;
+	const xhr = new XMLHttpRequest();
+	
+	
+	 2).监听事件,处理响应
+	 当获取到响应后,会触发 xhr对象的 readystatechange事件,可以在该事件中对响应进行处理;
+	
+	xhr.onreadystatechange =()=>{
+		if(xhr.readyState !== 4) return; //不等于4，跳出执行
+		// HTTP Code ： xhr.status 验证状态码正确
+		if((xhr.status>=200 && xhr.status <300)||xhr.status===304){
+			//正常使用响应数据：.responseText
+			console.log(xhr.responseText);
+		}
+	}
+	
+	readystatechange 事件监听 readystate这个状态的变化；它的值从0~4，一共 5个状态；
+	0: 未初始化,尚未调用 open()
+	1:启动,已经调用 open(),但尚未调用 send()
+	2:发送,已经调用 send(),但尚未接收到响应;
+	3:接收,已经接收到部分响应数据;
+	4:完成,已经接收到全部响应数据,而且已经可以在浏览器中使用了	
+	(我们,大部分情况,只关心状态 4)	
+	获取响应后，响应的内容会自动填充 xhr对象的属性
+	
+	readystatechange事件也可以配合 addEventListener()使用,不过要注意, IE6~8不支持 addEventListener
+	onreadystatechange ,不用考虑兼容性
+	为了兼容性， readystatechange 中不使用 this,而是直接使用 xhr;
+	由于兼容性原型，监听事件最好放在 open 之前；
+		
+	3).准备发送请求
+	xhr.open('要使用的HTTP方法：GET/POST','地址URL','是否使用异步的方式，true')	
+	调用open并不会真正发送请求,而只是做好了发送请求前的准备工作;
+	
+	4).发送请求
+	调用 send()正式发送请求	
+	xhr.send();	
+	发送请求要携带数据,可以通过send();send()的参数是通过请求体携带的数据;
+	 */
+	
+	
+	// 3.使用Ajax完成前后端通信
+	
+	const URL = 'https://www.imooc.com/api/http/search/suggest?words=js'; //通信地址（接口）
+	
+	//创建对象实例
+	const xhr = new XMLHttpRequest();
+	
+	//添加事件监听
+	xhr.onreadystatechange=()=>{
+		if(xhr.readyState !== 4) return;
+		if((xhr.status>=200 && xhr.status < 300)||xhr.status ===304){
+		console.log(xhr.responseText);		
+		console.log(typeof xhr.responseText);
+		console.log(xhr.responseText.split(','));
+		}
+	}
+	
+	//准备
+	xhr.open('GET',URL,true);
+	
+	//发送
+	xhr.send(null);
+	
+	/* 发送GET请求
+	1.携带数据
+	GET请求不能通过请求体携带数据，但可以通过请求头携带
+	（URL地址携带,?连接，名值对 words=js，&连接多个）
+	
+	const URL = 'https://www.imooc.com/api/http/search/suggest?words=js&sex=male'; //通信地址（接口）
+	
+	使用汉字，要编码
+	const URL2 = `https://www.imooc.com/api/http/search/suggest?words=${encodeURIComponent('前端')}`; 
+		
+	2.数据编码
+	如果携带的数据是非英文字母的话，比如汉字，就需要编码之后再发送给后端，不然会造成乱码问题
+	可以使用 encodeURIComponent()编码
+	
+	
+	发送POST请求
+	1.携带数据
+	POST请求主要通过请求体携带数据，同时也可以通过请求头携带
+	
+	//准备
+	xhr.open('POST',URL,true);
+	
+	//发送
+	xhr.send(`username=${encodeURIComponent('张三')}&age=18`);
+	
+	使用POST，如果想发送数据，直接写在 send()的参数位置，一般是字符串
+	发送的数据，一般都有固定要求的 格式传递
+	//Form Data 表单数据
+	//Request Payload 请求负载
+	
+	// xhr.send({
+	// 	username:'alex',
+	// 	age:18
+	// }); // 不能直接传递对象，会隐式将对象转换成字符串形式
+	
+	2.数据编码:传递数据有中文,使用encodeURIComponent()编码
+	 */
+	
+	
+</script>
+	</body>
+</html>
