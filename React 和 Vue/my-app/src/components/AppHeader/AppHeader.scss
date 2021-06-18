@@ -7,4 +7,9 @@
 
 .app-header-menu{
     float: right;
+    .ant-menu-item{
+        span{
+            a{display: inline-block;}
+        }
+    }
 }
