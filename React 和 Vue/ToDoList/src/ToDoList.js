@@ -5,6 +5,7 @@ import './ToDoList.css';
 
 //引入子组件
 import CreateItemLi from './CreateItemLi';
+import axios from 'axios';
 
 class ToDoList extends Component{
     //constructor 在组件创建的第一个时刻被自动执行
@@ -92,6 +93,20 @@ class ToDoList extends Component{
         this.setState(obj); //修改数据
     }
     
+    //发起Ajax请求，获取数据放在componentDidMount生命周期函数中执行
+    //因为生命周期函数componentDidMount 只会被执行1次，
+    //在组件被挂载到页面上时执行一次，之后就不会重新执行了
+    //componentWillMount也会被执行1次，网页应用没问题，但当我们用 RN时，
+    //这里写ajax请求，容易发生冲突，所以用在componentDidMount()最好
+    componentDidMount(){
+        axios.get('/api/todolist').then(res=>{
+            console.log(res.data.dat);
+        }).catch(err=>{
+            console.log(err);
+           
+        })
+    }
+
 }
 
 export default ToDoList;

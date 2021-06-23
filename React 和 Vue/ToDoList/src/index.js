@@ -7,6 +7,8 @@ import Counter from './Counter';
 
 import  LifeCycle from './LifeCycle';
 
+import TransComponent from './transComponent';
+
 //引入 Ant Design 样式
 import 'antd/dist/antd.css';
 
@@ -64,7 +66,10 @@ ReactDom.render(
     ,document.getElementById('entrys')
 );
 
-
+ReactDom.render(
+    <TransComponent />
+    ,document.getElementById('transition')
+);
 
 
 
