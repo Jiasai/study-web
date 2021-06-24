@@ -2,34 +2,25 @@
 import React, { Component, Fragment } from 'react';
 import { Input, Button, List } from 'antd';
 
-//引入子组件
-import CreateItemLi from './CreateItemLi';
-
 import './ToDoList.css';
 
-const data = [
-    'Racing car sprays burning fuel into crowd.',
-    'Japanese princess to wed commoner.',
-    'Australian walks 100km after outback crash.',
-    'Man charged over missing wedding girl.',
-    'Los Angeles battles huge wildfires.',
-];
+//引入store数据仓库
+import store from './store/index';
 
 class ToDoList extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            inputValue: '',
-            list: ['learn React', 'learn Component', 'learn Vue']
-        }
+
+        //修改 storeChangeState 方法的this指向
+        this.storeChangeState = this.storeChangeState.bind(this)
+
+        //调用store的getState()方法拿到数据，赋值给组件自己的state
+        this.state = store.getState();
 
         this.InputChange = this.InputChange.bind(this);
         this.KeyUp = this.KeyUp.bind(this);
-
-        this.getData = this.getData.bind(this);
-        this.setData = this.setData.bind(this);
-
     }
+
     render() {
         return (
             <Fragment>
@@ -48,7 +39,7 @@ class ToDoList extends Component {
                         onClick={this.KeyUp}
                     >提交</Button>
                 </div>
-                <ul className='ulList'>                
+                <ul className='ulList'>
                     <List
                         bordered
                         dataSource={this.state.list}
@@ -62,49 +53,40 @@ class ToDoList extends Component {
             </Fragment>
         )
     }
-    getListItem() {
-        return this.state.list.map((value, index) => {
-            return (
-                <CreateItemLi
-                    key={index}
-                    Value={value}
-                    Index={index}
-                    getdata={this.getData}
-                    setdata={this.setData}
-                />
-            )
-        })
-    }
+
     InputChange(e) {
-        this.setState({
+
+        //创建action,描述什么事和传值
+        const action = {
+            type: 'chang_input_value',
             inputValue: e.target.value
-        });
+        }
+        //告诉store
+        store.dispatch(action);
 
     }
+
     KeyUp(e) {
         if ((e.keyCode === 13 && e.target.value !== '') || (e._reactName === 'onClick' && this.state.inputValue !== '')) {
-            const value = this.state.inputValue;
-            const list = [...this.state.list];
-            const inputValue = '';
-            list.push(value);
-            this.setState({ list, inputValue });
+            //创建action,描述什么事
+            const action = {
+                type: 'chang_List_data'
+            }
+            //告诉store,修改
+            store.dispatch(action);
         }
     }
 
-
-    getData() {
-        return this.state;  //返回数据
+    storeChangeState() {
+        //调用setState，用store取来的数据修改state
+        this.setState(store.getState());
     }
-
-    setData(obj) {
-        this.setState(obj); //修改数据
-    }
-
     componentDidMount() {
-        let {list} = this.state;
-        list = [...data,...list];
-        this.setState({list});
+        //store.subscribe订阅监督store改变，执行storeChangeState函数
+        //（每次store改变都会被感知，执行函数）
+        store.subscribe(this.storeChangeState);
     }
+
 
 }
 
