@@ -1,24 +1,69 @@
+#transition{
+  height: 220px;
+  width: 100%;
+  overflow: hidden;
+}
 .transiBg{
     min-height: 100px;
     background: #f4f4f4;
     margin:15px 0px;
     text-align: center;
     line-height: 100px;
+    font-size: 24px;
+    font-weight: bold;
 }
 
+
+
+/*入场动画 & 初始动画*/
+/* .fade是个前缀，需要在CSSTransition中设置 */
+.fade-enter,.fade-appear{  /* 当执行入场动画开始 */
+  opacity:0;
+}
+.fade-enter-active,.fade-appear-active{/* 入场动画执行时 */
+  opacity: 1;
+  transition: all 0.3s ease-in;
+}
+.fade-enter-done{/* 入场动画执行完成 */
+  opacity: 1;
+}
+
+/*出场动画*/
+.fade-exit{ /* 当执行出场动画第1个时刻 */
+  transform: translateY(0px);
+}
+.fade-exit-active{  /* 出场动画执行时 */
+  transform: translateY(500px);
+  transition: all .6s linear;
+}
+.fade-exit-done{  /* 出场动画执行完毕 */
+  transform: translateY(500px);
+}
+
+
+
+
+
+
+
+
+
+
+
+/* 
 .show{
-    /* animation: opacityEnter 0.5s; */
+    /* animation: opacityEnter 0.5s; 
     animation: flyEnter 0.3s ease-out;
     
 }
 .hide{
     animation: opacityLevae 0.5s forwards;
-    /* animation: flyLevae 0.3s linear forwards; */
-    /*forwards 可以实现在动画最后一帧结束时，保留css样式*/
+    /* animation: flyLevae 0.3s linear forwards; 
+    /*forwards 可以实现在动画最后一帧结束时，保留css样式
 }
 
 
-/* 飞入飞出动画 */
+/* 飞入飞出动画 
 @keyframes flyEnter {
   0% {
     transform: translateY(1200px);
@@ -36,7 +81,7 @@
   }
 }
 
-/* 淡隐淡现动画 */
+/* 淡隐淡现动画 
 @keyframes opacityEnter {
   0% {
     opacity: 0;
@@ -67,7 +112,7 @@
     animation: flyLevae 0.3s linear;
 }
 
-
+ */
 
 
 

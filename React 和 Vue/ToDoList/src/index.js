@@ -9,6 +9,10 @@ import  LifeCycle from './LifeCycle';
 
 import TransComponent from './transComponent';
 
+import TransGroup from './transiGroup';
+
+import SwitchTrans from './SwitchTrans';
+
 //引入 Ant Design 样式
 import 'antd/dist/antd.css';
 
@@ -70,7 +74,15 @@ ReactDom.render(
     <TransComponent />
     ,document.getElementById('transition')
 );
+ReactDom.render(
+    <TransGroup />
+    ,document.getElementById('transition2')
+);
 
+ReactDom.render(
+    <SwitchTrans />
+    ,document.getElementById('transition3')
+);
 
 
 

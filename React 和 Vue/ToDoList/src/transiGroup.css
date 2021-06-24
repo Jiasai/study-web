@@ -1,0 +1,70 @@
+#transition2 {
+  height: 220px;
+  width: 100%;
+  overflow: hidden;
+}
+#transition2 .transiBg{
+  font-size: 16px;
+  font-weight: normal;
+  line-height: inherit;
+}
+#transition2 .transiBg .Group{
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+#transition2 .transiBg .Group div{
+  padding:6px 20px;
+  background: #fff;
+  margin:0px 5px;
+  border:1px solid #ddd;
+  border-radius: 4px;
+
+}
+.transiBg{
+    min-height: 100px;
+    background: #f4f4f4;
+    margin:15px 0px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/*初始动画*/
+.Group-appear{
+  opacity:0;
+}
+.Group-appear-active{
+  opacity: 1;
+  transition: all 0.3s ease-in;
+}
+/*入场动画*/
+.Group-enter{  /* 当执行入场动画开始 */
+  transform: translateY(400px);
+}
+.Group-enter-active{/* 入场动画执行时 */
+  transform: translateY(0px);
+  transition: all 0.3s linear;
+}
+.Group-enter-done{/* 入场动画执行完成 */
+  transform: translateY(0px);
+}
+/*出场动画*/
+.Group-exit{ /* 当执行出场动画第1个时刻 */
+  transform: translateY(0px);
+}
+.Group-exit-active{  /* 出场动画执行时 */
+  transform: translateY(-500px);
+  transition: all .6s linear;
+}
+.Group-exit-done{  /* 出场动画执行完毕 */
+  transform: translateY(-500px);
+}
+
+
+
+
+

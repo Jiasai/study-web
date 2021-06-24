@@ -1,0 +1,71 @@
+#transition3 {
+  height: 220px;
+  width: 100%;
+  overflow: hidden;
+}
+#transition3 .transiBg{
+  font-size: 16px;
+  font-weight: normal;
+  line-height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#transition3 .transiBg div{
+  padding:6px 20px;
+  background: #fff;
+  margin:0px 5px;
+  border:1px solid #ddd;
+  border-radius: 4px;
+
+}
+.transiBg{
+    min-height: 100px;
+    background: #f4f4f4;
+    margin:15px 0px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/*初始动画*/
+.switch-appear{
+  opacity:0;
+}
+.switch-appear-active{
+  opacity: 1;
+  transition: all 0.3s ease-in;
+}
+
+
+/*入场动画*/
+.switch-enter{  /* 当执行入场动画开始 */
+  transform: translateX(-600px);
+  opacity: 0;
+}
+.switch-enter-active{/* 入场动画执行时 */
+  transform: translateX(0px);
+  opacity: 1;
+  transition: all 0.4s ease-out;
+}
+.switch-enter-done{/* 入场动画执行完成 */
+  opacity: 1;
+  transform: translateX(0px);
+}
+/*出场动画*/
+.switch-exit{ /* 当执行出场动画第1个时刻 */
+  transform: translateX(0px);
+  opacity: 1;
+}
+.switch-exit-active{  /* 出场动画执行时 */
+  transform: translateX(600px);
+  opacity: 0;
+  transition: all .3s ease-in;
+}
+.switch-exit-done{  /* 出场动画执行完毕 */
+  transform: translateX(600px);
+  opacity: 0;
+}
+
+

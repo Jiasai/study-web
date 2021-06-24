@@ -10,6 +10,7 @@ import AppHeader from "./components/AppHeader/index";
 import PageList from "./container/List/index";
 import Detail from "./container/Detail/index";
 import Login from './container/login/';
+import Vip from './container/vip/';
 
 //引入使用React 路由
 import { BrowserRouter, Route, Switch }
@@ -41,10 +42,10 @@ class App extends Component {
           {/*通过switch配置路由项,:id后加个？的意思是，id可以传也可以不传，我也能匹配*/}
           <Login />
             <Switch>           
+             <Route path="/vip" component={Vip} />
               <Route path="/detail/:id" component={Detail} />
               <Route path="/:id?" component={PageList} />
              
-
             </Switch>
 
           </Content>
@@ -56,3 +57,22 @@ class App extends Component {
 }
 
 ReactDOM.render(<App />, document.getElementById("root"));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
