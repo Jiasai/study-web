@@ -1,8 +1,6 @@
-
-import React, { Component, Fragment } from 'react';
-import { Input, Button, List } from 'antd';
-
-import './ToDoList.css';
+//容器组件-'聪明组件'-负责组件的逻辑
+import React, { Component } from 'react';
+import TodoListUI from './ToDoListUI';
 
 //引入store数据仓库
 import store from './store/index';
@@ -22,55 +20,28 @@ class ToDoList extends Component {
 
         this.InputChange = this.InputChange.bind(this);
         this.KeyUp = this.KeyUp.bind(this);
+        this.handleDeleteItem = this.handleDeleteItem.bind(this);
     }
 
     render() {
-        return (
-            <Fragment>
-                <div className='inputLayout'>
-                    <label htmlFor='inputBox'>请输入:</label>
-                    <Input
-                        id='inputBox'
-                        className='input'
-                        value={this.state.inputValue}
-                        placeholder={this.state.inputValue ? this.state.inputValue : 'Please input'}
-                        onChange={this.InputChange}
-                        onKeyUp={this.KeyUp}
-                    />
-                    <Button
-                        type="primary"
-                        onClick={this.KeyUp}
-                    >提交</Button>
-                </div>
-                <ul className='ulList'>
-                    <List
-                        bordered
-                        dataSource={this.state.list}
-                        renderItem={(item, index) => (
-                            <List.Item
-                                onClick={this.handleDeleteItem.bind(this, index)}
-                            >
-                                {item}
-                            </List.Item>
-                        )}
-                    />
-                </ul>
-            </Fragment>
-        )
+        return <TodoListUI
+            inputValue={this.state.inputValue}
+            list={this.state.list}
+            InputChange={this.InputChange}
+            KeyUp={this.KeyUp}
+            handleDeleteItem={this.handleDeleteItem}
+        />
     }
 
     InputChange(e) {
-
         //创建action
         const action = getInputChangeAction(e.target.value);
         //告诉store
         store.dispatch(action);
-
     }
 
     KeyUp(e) {
         if ((e.keyCode === 13 && e.target.value !== '') || (e._reactName === 'onClick' && this.state.inputValue !== '')) {
-
             //创建action
             const action = getListChangeAction();
             //告诉store,修改
@@ -92,9 +63,6 @@ class ToDoList extends Component {
         //（每次store改变都会被感知，执行函数）
         store.subscribe(this.storeChangeState);
     }
-
-
-
 }
 
 export default ToDoList;

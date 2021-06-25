@@ -10,11 +10,12 @@
 }
 .inputLayout label {width: 60px;}
 .inputLayout input{
-    width:300px;
+    width:35%;
+    min-width: 220px;
     margin-right: 5px;
 }
 .ulList{
     width: 80%;
     margin: 20px auto;
-    padding-bottom: 40px;
+    padding: 0px 0px 40px 0px;
 }
