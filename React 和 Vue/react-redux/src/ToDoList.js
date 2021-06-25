@@ -7,6 +7,9 @@ import './ToDoList.css';
 //引入store数据仓库
 import store from './store/index';
 
+//引入actionCreators.js
+import { getInputChangeAction, getListChangeAction, getDeleteItemAction } from './store/actionCreators';
+
 class ToDoList extends Component {
     constructor(props) {
         super(props);
@@ -43,8 +46,10 @@ class ToDoList extends Component {
                     <List
                         bordered
                         dataSource={this.state.list}
-                        renderItem={item => (
-                            <List.Item>
+                        renderItem={(item, index) => (
+                            <List.Item
+                                onClick={this.handleDeleteItem.bind(this, index)}
+                            >
                                 {item}
                             </List.Item>
                         )}
@@ -56,11 +61,8 @@ class ToDoList extends Component {
 
     InputChange(e) {
 
-        //创建action,描述什么事和传值
-        const action = {
-            type: 'chang_input_value',
-            inputValue: e.target.value
-        }
+        //创建action
+        const action = getInputChangeAction(e.target.value);
         //告诉store
         store.dispatch(action);
 
@@ -68,13 +70,17 @@ class ToDoList extends Component {
 
     KeyUp(e) {
         if ((e.keyCode === 13 && e.target.value !== '') || (e._reactName === 'onClick' && this.state.inputValue !== '')) {
-            //创建action,描述什么事
-            const action = {
-                type: 'chang_List_data'
-            }
+
+            //创建action
+            const action = getListChangeAction();
             //告诉store,修改
             store.dispatch(action);
         }
+    }
+
+    handleDeleteItem(index) {
+        const action = getDeleteItemAction(index);
+        store.dispatch(action);
     }
 
     storeChangeState() {
@@ -86,6 +92,7 @@ class ToDoList extends Component {
         //（每次store改变都会被感知，执行函数）
         store.subscribe(this.storeChangeState);
     }
+
 
 
 }
