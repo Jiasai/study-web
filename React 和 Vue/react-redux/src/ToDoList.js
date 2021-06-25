@@ -1,12 +1,13 @@
 //容器组件-'聪明组件'-负责组件的逻辑
 import React, { Component } from 'react';
+
 import TodoListUI from './ToDoListUI';
 
 //引入store数据仓库
 import store from './store/index';
 
 //引入actionCreators.js
-import { getInputChangeAction, getListChangeAction, getDeleteItemAction } from './store/actionCreators';
+import { getInputChangeAction, getListChangeAction, getDeleteItemAction,getTodolistData } from './store/actionCreators';
 
 class ToDoList extends Component {
     constructor(props) {
@@ -62,6 +63,15 @@ class ToDoList extends Component {
         //store.subscribe订阅监督store改变，执行storeChangeState函数
         //（每次store改变都会被感知，执行函数）
         store.subscribe(this.storeChangeState);
+
+        //请求获取list数据
+        const action = getTodolistData();        
+        store.dispatch(action); 
+        
+        //不使用thunk中间件，这里的action就必须是 对象{},不能是函数
+        //store.dispatch参数只能是对象，
+        //发现是函数，就帮你自动执行一下这个函数，并把dispatch()方法传递进去
+
     }
 }
 

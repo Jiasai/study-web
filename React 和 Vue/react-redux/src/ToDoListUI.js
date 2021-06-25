@@ -29,13 +29,14 @@ const TodoListUI = (props) =>{
             <List
                 bordered
                 dataSource={props.list}
-                renderItem={(item, index) => (
+                renderItem={(item,index) => (
                     <List.Item
-                        onClick={
-                            (index) => props.handleDeleteItem(index)
+                        data-index={index}
+                        onClick={                          
+                            (e) => {props.handleDeleteItem(e.target.dataset.index)}
                         }
                     >
-                        {item}
+                        {item.title}
                     </List.Item>
                 )}
             />

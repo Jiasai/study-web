@@ -1,5 +1,7 @@
+import axios from 'axios';
+
 //引入actionTypes
-import { CHANGE_INPUT_VALUE, CHANGE_LIST_DATA, DELETE_LIST_ITEM } from './actionTypes';
+import { CHANGE_INPUT_VALUE, CHANGE_LIST_DATA, DELETE_LIST_ITEM, RES_LIST_DATA } from './actionTypes';
 
 //修改input值改变
 export const getInputChangeAction = (inputValue) => {
@@ -23,3 +25,35 @@ export const getDeleteItemAction = (index) => {
         index
     }
 }
+
+
+//使用thunk中间件实现Ajax异步请求获取list数据
+
+//使用了thunk中间件，可以return函数,
+//在这个函数中，可以发送请求，定义对象action , dispatch派发action通知store做事
+
+export const getTodolistData = () => {
+    return (dispatch) => {
+        axios.get('http://www.dell-lee.com/react/api/list.json?id=1').then(res => {
+            const action = {
+                type: RES_LIST_DATA,
+                data: res.data.data
+            }
+            dispatch(action); //在这里派发action,让store修改
+        });
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

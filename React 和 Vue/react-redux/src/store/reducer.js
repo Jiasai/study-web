@@ -1,5 +1,5 @@
 //引入actionTypes
-import { CHANGE_INPUT_VALUE, CHANGE_LIST_DATA, DELETE_LIST_ITEM } from './actionTypes';
+import { CHANGE_INPUT_VALUE, CHANGE_LIST_DATA, DELETE_LIST_ITEM,RES_LIST_DATA } from './actionTypes';
 
 //reducer目录
 //state是放数据
@@ -25,7 +25,6 @@ const reducer = (state = defaultState, action) => {
                 const newState = JSON.parse(JSON.stringify(state));
                 //用JSON方案，深拷贝state数据
                 newState.inputValue = action.inputValue;
-                console.log(newState.inputValue);
                 return newState;
             }
             break;
@@ -33,8 +32,8 @@ const reducer = (state = defaultState, action) => {
         case CHANGE_LIST_DATA:
             if (true) {
                 const newState = JSON.parse(JSON.stringify(state));
-
-                newState.list.push(newState.inputValue);
+                const id = newState.list.length+1;
+                newState.list.push({id,title:newState.inputValue});
                 newState.inputValue = '';
                 return newState;
             }
@@ -44,6 +43,14 @@ const reducer = (state = defaultState, action) => {
             if (true) {
                 const newState = JSON.parse(JSON.stringify(state));
                 newState.list.splice(action.index, 1);
+                return newState;
+            }
+            break;
+        //发送请求获取List数据
+        case RES_LIST_DATA:
+            if(true){
+                const newState = JSON.parse(JSON.stringify(state));
+                newState.list = action.data;
                 return newState;
             }
             break;
