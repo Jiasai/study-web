@@ -8,3 +8,4 @@ console.log(other);
  
 console.log(array);
 // => [1]
+
