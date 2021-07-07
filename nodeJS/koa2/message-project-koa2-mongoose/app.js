@@ -33,6 +33,17 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
+//模拟登陆验证 （为了使用中间件）
+/* app.use(async (ctx,next)=>{
+  const query = ctx.query;
+  if(query.user === 'zhangsan'){
+    await next()  //next 执行下一步中间件,直到它执行完成，再返回这里，执行下一句console
+    console.log('是登陆状态的')
+  }else{
+    ctx.body = '请登录' //模拟登陆失败
+  }
+}) */
+
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())

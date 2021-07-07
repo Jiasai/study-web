@@ -11,6 +11,7 @@ class Vip extends Component {
       login: true,
     };
   }
+
   render() {
     if (this.state.login) {
       //如果是登录状态，我就展示return()内容
@@ -21,14 +22,15 @@ class Vip extends Component {
       return <Redirect to="/" />;
     }
   }
-  UNSAFE_componentWillMount() {
+  //获取login状态
+  UNSAFE_componentWillMount() { //组件渲染前执行的生命周期函数
     if (localStorage.login !== undefined) {
       const login = JSON.parse(localStorage.getItem("login")); //一定要JSON转义
       this.setState({ login, fetchFinish: true });
     } else {
       axios
         .get("http://www.dell-lee.com/react/api/isLogin.json", {
-          withCredentials: true,
+          withCredentials: true, //要求在请求头里带上cookie
         })
         .then((res) => {
           const login = res.data.data.login;
