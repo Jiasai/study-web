@@ -40,7 +40,7 @@ class App extends Component {
           </Header>
           <Content className="content-layout">
           {/*通过switch配置路由项,:id后加个？的意思是，id可以传也可以不传，我也能匹配*/}
-          <Login />
+            <Login />
             <Switch>           
              <Route path="/vip" component={Vip} />
               <Route path="/detail/:id" component={Detail} />

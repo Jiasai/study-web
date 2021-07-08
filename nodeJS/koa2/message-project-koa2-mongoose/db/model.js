@@ -16,6 +16,10 @@ const UserSchema = mongoose.Schema({
     gender:{//性别是Number类型，默认值是0
         type:Number,
         default:0 //0-保密,1-男,2-女
+    },
+    login:{
+        type:Boolean,
+        default:false
     }
 },{
     timestamps:true  

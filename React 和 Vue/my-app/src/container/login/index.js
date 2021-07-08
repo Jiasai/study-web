@@ -35,38 +35,37 @@ class Login extends Component {
   handleLogin() {
     //登录逻辑
     const { username, password } = this.state;
-    const url = `http://www.dell-lee.com/react/api/login.json?user=${username}&password=${password}`;
-    axios
-      .get(url, { withCredentials: true })
-      .then((res) => {
-        const { login } = res.data.data;
-        //弹出提示：成功
-        if (login) {
-          message.success("登录成功！");
-          localStorage.setItem("login", login);
-          //修改state
-          setTimeout(
-            (self) => {
-              self.setState({ login, username, password, modalshow: false });
-            },
-            500,
-            this
-          );
-        } else {
-          message.error("登录失败！");
-        }
-      })
-      .catch((err) => {
+    //const url = `http://www.dell-lee.com/react/api/login.json?user=${username}&password=${password}`;
+    const url = `http://localhost:3000/users/login`;
+
+    axios.post(url,{username, password},{ withCredentials: true }).then((res) => { 
+		  console.log(res.data.data);
+			const { login } = res.data.data;
+			//弹出提示：成功
+			if (login) {
+			  message.success("登录成功！");
+			  localStorage.setItem("login", login);
+			  //修改state
+			  setTimeout(
+				(self) => {
+				  self.setState({ login, username, password, modalshow: false });
+				},
+				500,
+				this
+			  );
+			} else {
+			  message.error(res.data.message||"登录失败！");
+			}
+      }).catch((err) => {
         message.error("请求失败！");
       });
   }
   handleLogOut() {
+    const url= "http://www.dell-lee.com/react/api/logout.json";
     //登出逻辑
-    axios
-      .get("http://www.dell-lee.com/react/api/logout.json", {
+    axios.get(url, {
         withCredentials: true,
-      })
-      .then((res) => {
+      }).then((res) => {
         const logout = res.data.data.logout;
         if (logout) {
           this.setState({ login: false });
@@ -135,6 +134,8 @@ class Login extends Component {
         </div>
         <Modal
           title="登录"
+		  cancelText="取消"
+		  okText="确定"
           visible={this.state.modalshow}
           onOk={this.handleLogin}
           onCancel={this.handleModalhide}

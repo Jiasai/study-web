@@ -1,13 +1,16 @@
 const router = require('koa-router')();
 // 引入 Comment的 model
-const {Comment} = require("../db/model");
+const {Comment, User} = require("../db/model");
+
+//引入登录校验中间件
+const loginCheck = require("../middlewares/loginCheck")
 
 
 //path路径前缀
 router.prefix('/api')
 
 //定义list路由，获取留言板
-router.get('/list', async (ctx) => {
+router.get('/list',loginCheck,async (ctx) => {
     //获取querystring: ctx.query
     const query = ctx.query;
     let result = {};
@@ -24,6 +27,22 @@ router.get('/list', async (ctx) => {
         data:result
     };
 })
+
+/* router.get('/list/create',async(ctx,next)=>{
+    const query = ctx.query;
+    if(query?.username){
+        const newUser = await User.create({
+            username:query.username,
+            password:'sdef',
+            age:21,
+            city:"北京"
+        });
+        ctx.body = `创建的用户是：-->${newUser}`
+    }else{
+        ctx.body = '访问路径出错'
+    }
+}) */
+
 
 //定义create路由，创建留言
 router.post('/create', async (ctx) => {

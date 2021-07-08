@@ -5,6 +5,11 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
+const cors = require('koa2-cors');
+
+//引入session中间件
+const session = require('koa-generic-session')
+
 
 const index = require('./routes/index')
 const users = require('./routes/users')
@@ -25,6 +30,29 @@ app.use(views(__dirname + '/views', {
   extension: 'pug'
 }))
 
+
+app.keys = ['wEw^&&**UUI123'] //秘钥
+//使用session中间件（注册配置）
+app.use(session({
+  //配置cookie
+  cookie:{
+    path:'/', 
+    //path,配置cookie生效的路径，配置"/"表示cookie在根目录下有效（根目录下的子目录也都会有效，一般都配置根目录）
+    httpOnly:true,
+    //httpOnly为true规定cookie只允许服务端来操作
+    maxAge:24*60*60*1000
+    //maxAge是规定cookie过期时间，1天
+  }
+}))
+//这里配置好了，使用了session中间件，koa2会自动帮我们配置了cookie和session
+//(get()获取/set()设置/与session的对应关系等)
+
+//服务端支持跨域
+app.use(cors({
+  origin:"http://localhost:3001",
+  credentials:true
+}))
+
 // logger
 app.use(async (ctx, next) => {
   const start = new Date()
@@ -33,16 +61,6 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
-//模拟登陆验证 （为了使用中间件）
-/* app.use(async (ctx,next)=>{
-  const query = ctx.query;
-  if(query.user === 'zhangsan'){
-    await next()  //next 执行下一步中间件,直到它执行完成，再返回这里，执行下一句console
-    console.log('是登陆状态的')
-  }else{
-    ctx.body = '请登录' //模拟登陆失败
-  }
-}) */
 
 // routes
 app.use(index.routes(), index.allowedMethods())
