@@ -49,7 +49,8 @@ app.use(session({
 
 //服务端支持跨域
 app.use(cors({
-  origin:"http://localhost:3001",
+  //origin:"http://localhost:3001",
+  origin:"http://localhost:8080",
   credentials:true
 }))
 
