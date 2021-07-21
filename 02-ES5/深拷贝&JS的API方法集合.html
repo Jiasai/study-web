@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    
+    //类型检测
+    //新增、删除、遍历、查找、复制拷贝、截取、合并、排序、去重、数据结构转换、数组的解构赋值、Math对象
+
+    const arr = ["c","d","e"]
+
+    //类型检测：
+    typeof arr                            // "object"
+    Array.isArray(arr)                   // 是否是数组 -> true
+    arr instanceof Array                 // 是否是数组 -> true
+
+    //数组新增：
+    arr.push("f")                       // 末尾新增 ['c','d','e','f']
+    arr.unshift('b')                    //头部新增  ['b','c','d','e','f']
+    //splice第2个参数为0表示新增插入, 第1个参数是指定位置(往前插入), 后面的参数是插入项
+    arr.splice(0,0,'a')                 //['a','b','c','d','e','f']
+    arr.splice(arr.length,0,4,5,6,'g')      //['a','b','c','d','e','f',4,5,6,'g']
+
+    //数组的删除
+    arr.pop()                          //末尾删除 ['a','b','c','d','e','f',4,5,6]
+    arr.shift()                        //开头删除 ['b','c','d','e','f',4,5,6] 
+    arr.splice(arr.length-1,1)           //splice没有第三个参数，表示删除，第2个参数表示删除几项，
+                                       //splice表示删除或替换时，第一个参数是位置开始（包含这个索引）                
+    //arr.splice(0,arr.length)          //全部删除，清空
+
+
+    //数组遍历：
+    //for in 遍历 (可以遍历对象或数组，遍历对象 key 是 键，遍历数组 key 是 index , obj[key]是 值)
+    for(let key in arr){
+        console.log(arr[key])
+    }
+    //forEach遍历(可传入函数执行,不可以返回值)
+    arr.forEach((item,index)=>{
+        console.log(item,index)
+    })
+    //map遍历（可传入函数执行，对每一个遍历项进行操作，并返回新的数组）
+    const newArr = arr.map((item,index)=>{
+        return item+2
+    })
+    console.log(newArr)  // ["a2", "b2", "c2"]
+
+    //for of 遍历       //for of 可以遍历：数组/字符串/NodeList/arguments/Set/Map
+    for(let item of arr){
+        console.log(item)
+    }
+
+    //数组的reduce()方法，对a当前值和b(a的下个值)进行操作，返回一个新值
+    //reduce()方法可以轻松的进行数组值的累加操作
+    const value = arr.reduce((a,b)=>{return a+b})
+    console.log(value)
+
+    //数组查找
+    console.log(arr.indexOf('c'))    //indexof 搜索数组中的元素，返回所在位置，不存在返回 -1 ，可以用于字符串
+    console.log(arr.includes('c'))   //includes 判断数组中是否包含 指定值，返回布尔值 ，可以用于字符串
+    const itemValue=arr.find(item=>{return item>2})
+    console.log(itemValue)           //find()对数组的值查找，找到满足条件的值，立即返回值
+    const itemIndex=arr.findIndex(item=>{return item>3})
+    console.log(itemIndex)           //findIndex()对数组的值查找，找到满足条件的值，立即返回值所在的 下标索引
+    
+    //数组的复制拷贝
+    const newArr1 = [...arr]                             //潜拷贝，展开运算符
+    const newArr4 = arr.slice(0)                         //浅拷贝，从0开始，一直到最后，截取所有项，返回数组
+    const newArr2 = JSON.parse(JSON.stringify(arr))      //深拷贝，JSON格式转换方式
+
+    //深拷贝函数
+    const deepClone = (obj={}) =>{
+        let result;
+
+        //不是对象、数组，或者为 null,直接返回这个数据
+        if(typeof obj !== 'object' || obj === null){
+            return obj
+        }
+        
+        if(Array.isArray(obj)){ //如果是数组 (obj instanceof Array 判断数组)
+            result = [];
+        }else{ //否则是对象
+            result = {};
+        }
+
+        for(let key in obj){
+            if(obj.hasOwnProperty(key)){ //保证key不是原型的属性
+                //递归调用！！！
+                result[key] = deepClone(obj[key])
+            }
+        }
+        //返回结果
+        return result ;
+    } 
+    const newArr3 = deepClone(arr)                       //深拷贝 自定义deepClone函数
+    
+
+    //截取子数组
+    const newArr5 = arr.slice(1,3);        //从下标a 开始包括a，到 b 结束不包括b的子数组,不会更改原数组
+                                         //slice如果不提供第2个参数，表示截取后面所有的项
+                                         //slice 也同样可以用于 截取字符串
+
+    //合并数组
+    const concatArr1 = [...arr,...newArr5]          //展开运算符方式
+    const concatArr2 = arr.concat(newArr5,newArr1)  //把newArr5数组、newArr1数组合并到 arr数组，并返回新数组
+    console.log(concatArr2)
+
+    //数组排序
+    console.log(arr.reverse())                      //reverse()方法，数组置反
+
+    const NumberArr = [8,15,2,6,9,1,4,9,12]
+    NumberArr.sort((a,b)=>{ return b - a; })        //sort()快速排序, a-b（从小到大）, b-a (从大到小)
+    console.log(NumberArr)
+    //冒泡排序算法，关键是 i = -1 ,重启for循环
+    for(let i=0; i < NumberArr.length; i++){
+        let middle;
+        if(NumberArr[i] > NumberArr[i+1]){
+            middle = NumberArr[i];
+            NumberArr[i] = NumberArr[i+1];
+            NumberArr[i+1] = middle;
+            if(i-1 >= 0 && NumberArr[i-1] > NumberArr[i]){
+                i = -1; //重启循环
+            }
+        }
+    }
+    console.log(NumberArr)
+
+    //数组去重
+    const QuchongArr = [...new Set(concatArr2)] //将数组传Set，生成Set（Set自动去重）,展开运算符数组中展开Set，得到新数组
+    let QuChongStr = [...new Set(' abdbdcefeghgaekmnglqwzqtz '.trim())].join('')  //字符串去重,trim()去除首、尾的空格
+    console.log(QuchongArr,QuChongStr)
+    //去重算法
+    const resultArr = []
+    for (const item of concatArr2) {    
+        if(!resultArr.includes(item)){
+            resultArr.push(item)
+        }
+    }
+    console.log(resultArr);
+
+
+    //数组 数据结构转换
+    let arrStr = resultArr.join('-')  //join('-')数组转字符串,并且 以 "-" 连接起来，参数不传，默认以逗号分号
+    console.log(arrStr)     
+    console.log(arrStr.split('-'))  //split('')以什么拆分字符串为数组，参数不能留空
+    
+    //原生可遍历数据 Array.from() 转数组
+    console.log(Array.from('abcedfg'))
+    console.log(Array.from(new Set(['a','d',3,2,7])))
+
+    //数组的解构赋值
+    const [value1,value2] = ['abc','def']       //数组解构：模式（结构）匹配，下标索引相同的完全匹配
+    console.log(value1,value2)
+
+    //对象转二维数组
+    const ObjUser = {name:'zhangsan',age:18}    //Object.entries() 对象转 二维数组
+    console.log(Object.entries(ObjUser))        //[["name", "zhangsan"], ["age", 18]] 
+
+    //Math相关
+    console.log(parseInt('3.14定理'))           //parseInt()截取字符串或数字的 整数
+    console.log(parseFloat('3.14定理'))         //parseFloat()截取字符串或数字的 浮点数
+    console.log(Math.round('5.68'))             //把1个数字四舍五入为整数
+    console.log(Math.ceil('5.68'))              //向上取整数
+    console.log(Math.floor('5.68'))             //向下取整
+    console.log((5.64742).toFixed(2))           //保留2位小数（四舍五入）
+    console.log(Math.max(2,3,9))                //一组参数数据的最大值
+    console.log(Math.min(2,3,9))                //一组参数数据的最小值
+    console.log(Math.pow(3,5))                  //3的5次幂
+
+
+    //随机数公式  parseInt(Math.random()*(b-a+1))+a  示例：取10-50之间随机整数,10个
+    const randomArr = []
+    for(let i=0; i<10; i++){
+        const num = parseInt(Math.random()*(50 - 10 + 1))+10;
+        randomArr.push(num)
+    }
+    console.log(randomArr)
+
+
+    </script>
+</body>
+
+</html>
