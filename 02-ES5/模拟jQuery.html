@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟jQuery</title>
+</head>
+<body>
+    <p>一段文字</p>
+    <p>一段文字</p>
+    <p>一段文字</p>
+    <p>一段文字</p>
+    <div id="box"></div>
+
+<script>
+ 
+    //模拟jQuery
+class jQuery{
+    constructor(selector){
+        const result = document.querySelectorAll(selector);
+        const length = result.length;
+        for(let i = 0; i < length; i++){
+            this[i] = result[i]
+        }
+        this.length = length
+        this.selector = selector
+    }
+    get(index){
+        return this[index]
+    }
+    each(fn){
+        for(let i = 0; i <this.length; i++){
+            const elem = this[i]
+            fn(elem)
+        }
+    }
+    on(type,fn){
+        return this.each(elem=>{
+            elem.addEventListener(type,fn,false)
+        })
+    }
+    //扩张DOM操作 API
+}
+
+const $p = new jQuery('p'); 
+
+console.log($p.get(1))
+
+$p.each((el)=>{
+    console.log(el.nodeName,el.innerText)
+})
+
+$p.on("click",()=>{ alert('click点击了') })
+
+
+
+//插件 (在原型添加)
+jQuery.prototype.dialog = function(info){
+    alert(info)
+}
+// $p.dialog("扩展了dialog方法")
+
+$p[0].style.color="red"
+$p[0].className="title"
+$p[0].setAttribute("data-id",4)
+console.log($p[0].dataset.id)
+$p[0].dataset.name="dataset"
+
+
+
+
+// "造轮子" (继承，扩展更多属性、方法)
+/* class myJQuery extends jQuery{
+    constructor(selector){
+        super(selector)       
+    }
+    //扩展自己的方法
+    addClass(className){
+
+    }
+    style(data){
+
+    }
+} */
+
+
+//性能测试
+
+const box = document.getElementById("box");
+const oldTime = new Date();
+console.log(oldTime)
+
+let Frag = document.createDocumentFragment();
+
+for(let i = 0; i < 1000; i++) {
+    const li = document.createElement('li')
+    li.innerHTML=`${i}新增一个li`
+    box.appendChild(li)   
+}
+box.appendChild(Frag)
+
+const newTime = new Date()
+console.log(newTime-oldTime+"ms")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

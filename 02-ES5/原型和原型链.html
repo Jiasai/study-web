@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型和原型链</title>
+</head>
+<body>
+<script>
+/* const defaults = {name:'',number:"0"}
+class Student{
+    constructor(options){
+        options={...defaults,...options}
+        const {name,number} = options;
+        this.name = name;
+        this.number = number;
+    }
+    sayHi(){
+        console.log(`姓名：${this.name}，学号：${this.number}`)
+    }
+}
+//new 实例化
+const xialuo = new Student({name:'夏洛',number:"023"})
+
+console.log(xialuo.name,xialuo.number)
+xialuo.sayHi();
+
+const madongmei = new Student({name:'马冬梅',number:"024"})
+
+console.log(madongmei.name,madongmei.number)
+madongmei.sayHi() */
+
+//父类
+class People{
+    constructor(name){
+        this.name=name;
+    }
+    eat(){
+        console.log(`${this.name}eat something`)
+    }
+}
+//子类继承
+class Student extends People {
+    constructor(name,number){
+        super(name);//super方法传给父类处理
+        this.number = number
+    }
+    sayHi(){
+        console.log(`姓名：${this.name},学号：${this.number}`)
+    }
+}
+//new 一个实例
+const xialuo = new Student('夏洛',23)
+console.log(xialuo.name,xialuo.number)
+xialuo.sayHi();
+xialuo.eat();
+
+//子类：老师
+class Teacher extends People{
+    constructor(name,major){
+        super(name);
+        this.major = major;
+    }
+    teach(){
+        console.log(`${this.name}教授${this.major}`)
+    }
+}
+//new 一个实例
+const Wang = new Teacher("王老师","语文")
+console.log(Wang.name,Wang.major)
+Wang.teach()
+Wang.eat()
+
+
+
+
+
+</script>    
+</body>
+</html>
