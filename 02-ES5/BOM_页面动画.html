@@ -199,33 +199,42 @@
 			
 			//设置初始楼层号	
 			var nowFloor = -1;	
-		
+			var scrollTimer = false;
 			window.addEventListener('scroll',function () {	
 				
 				if (!lock2) return;	//判断锁lock2的状态，决定函数是否执行		
 				
-				var top = window.scrollY || document.documentElement.scrollTop;
-				// 遍历 floorArr数组，看看当前的 top值 在哪个楼层之间	
-				for (var i = 0 ; i < floorArr.length; i++) {
-					if(top >= floorArr[i]-150 && top < floorArr[i+1]){
-						break;
-					}
-				}
-				//退出循环时， i 是几，就表示当前楼层是 几
-				// 如果当前楼层不是 i, 就是表事 换楼了				
-				if(nowFloor != i){
-					// 让全局变量楼层号 nowFloor，改变为 i;
-					nowFloor =  i;
-				}
-
-				// 设置高亮				
-				var n = sectionlis[i].dataset.n;						
-				var li = ulLis.querySelector('[data-n = "'+n+'"]');	
+				if(scrollTimer) clearTimeout(scrollTimer);//“防抖”:防止事件频繁触发
 				
-				for (var z = 0 ; z < lis.length; z++) {			
-					lis[z].className = ''; // 消除所有li的高亮					
-				}
-				li.className = 'current'; // 当前楼层对应的 楼层电梯 高亮
+				scrollTimer=setTimeout(()=>{
+					var top = window.scrollY || document.documentElement.scrollTop;		
+					// 遍历 floorArr数组，看看当前的 top值 在哪个楼层之间	
+					for (var i = 0 ; i < floorArr.length; i++) {
+						if(top >= floorArr[i]-150 && top < floorArr[i+1]){
+							break;
+						}
+					}
+					//退出循环时， i 是几，就表示当前楼层是 几
+					// 如果当前楼层不是 i, 就是表事 换楼了				
+					if(nowFloor != i){
+						// 让全局变量楼层号 nowFloor，改变为 i;
+						nowFloor =  i;
+					}
+
+					// 设置高亮				
+					var n = sectionlis[nowFloor].dataset.n;						
+					var li = ulLis.querySelector('[data-n = "'+n+'"]');	
+					
+					for (var z = 0 ; z < lis.length; z++) {			
+						lis[z].className = ''; // 消除所有li的高亮					
+					}
+					li.className = 'current'; // 当前楼层对应的 楼层电梯 高亮
+					//console.log(top);
+					scrollTimer=false;
+				},20)
+
+				
+				
 				
 				
 			},true)
